@@ -3,7 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { removeAccount } from 'features/user/userAPI';
+import { removeAccount, updateAccountInformation } from 'features/user/userAPI';
 
 export const Settings = () => {
     const { user } = useOutletContext();
@@ -41,7 +41,9 @@ export const Settings = () => {
             <form
                 action=''
                 className='settings__form'
-                onSubmit={handleSubmit((data) => console.log(data))}
+                onSubmit={handleSubmit((data) =>
+                    dispatch(updateAccountInformation(data))
+                )}
                 noValidate
             >
                 <div className='form-control'>
@@ -63,12 +65,6 @@ export const Settings = () => {
                                 }}
                             />
                         )}
-                        rules={{
-                            required: {
-                                value: true,
-                                message: 'This is required field.',
-                            },
-                        }}
                     />
 
                     <ErrorMessage
@@ -89,12 +85,7 @@ export const Settings = () => {
                         type='text'
                         id='displayName'
                         className='form-control__field'
-                        {...register('displayName', {
-                            required: {
-                                value: true,
-                                message: 'This is required field.',
-                            },
-                        })}
+                        {...register('displayName')}
                     />
                     <ErrorMessage
                         errors={errors}

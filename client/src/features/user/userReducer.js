@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signIn, signOut, signUp } from './userAPI';
+import { signIn, signOut, signUp, updateAccountInformation } from './userAPI';
 import { toast } from 'react-toastify';
 
 const checkActionType = (action, type) => action.type.endsWith('/' + type);
@@ -21,6 +21,10 @@ const userReducer = createSlice({
                 state.pending = false;
             })
             .addCase(signUp.fulfilled, (state, action) => {
+                state.currentUser = action.payload;
+                state.pending = false;
+            })
+            .addCase(updateAccountInformation.fulfilled, (state, action) => {
                 state.currentUser = action.payload;
                 state.pending = false;
             })

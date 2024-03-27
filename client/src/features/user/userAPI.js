@@ -100,3 +100,25 @@ export const removeAccount = createAsyncThunk('user/sign-out', async () => {
         }
     }
 });
+
+export const updateAccountInformation = createAsyncThunk(
+    'user/update',
+    async (newAccountInformation) => {
+        try {
+            const res = await axios.put(
+                process.env.REACT_APP_SERVER_ENDPOINT + '/user',
+                newAccountInformation,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
+
+            return res.data;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+);
