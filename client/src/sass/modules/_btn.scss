@@ -1,0 +1,32 @@
+@use '../vars';
+
+.btn {
+    background: vars.$clr-black-100;
+    color: vars.$clr-white-100;
+    box-shadow: 8px 8px 15px rgba(vars.$clr-gray-100, 0.25);
+
+    &:hover,
+    &:focus {
+        background: transparentize(vars.$clr-black-100, 0.2);
+    }
+}
+
+.btn--success {
+    background: vars.$clr-green-100;
+    box-shadow: 8px 8px 15px rgba(vars.$clr-green-100, 0.25);
+
+    &:hover,
+    &:focus {
+        background: transparentize(vars.$clr-green-100, 0.2);
+    }
+}
+
+.btn--danger {
+    background: vars.$clr-red-100;
+    box-shadow: 8px 8px 15px rgba(vars.$clr-red-100, 0.25);
+
+    &:hover,
+    &:focus {
+        background: transparentize(vars.$clr-red-100, 0.2);
+    }
+}

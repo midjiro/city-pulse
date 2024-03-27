@@ -1,0 +1,19 @@
+$clr-black-100: #161616;
+$clr-gray-100: #888888;
+$clr-gray-200: #cccccc;
+$clr-red-100: #ff5050;
+$clr-green-100: #52cf3e;
+$clr-white-100: #ffffff;
+
+/*  29.8598px → 42.7246px */
+$fs-100: clamp(1.8662rem, 1.5982rem + 1.3401vi, 2.6703rem);
+/*  24.8832px → 34.1797px */
+$fs-200: clamp(1.5552rem, 1.3615rem + 0.9684vi, 2.1362rem);
+/*  20.736px → 27.3438px */
+$fs-300: clamp(1.296rem, 1.1583rem + 0.6883vi, 1.709rem);
+/*  17.28px → 21.875px */
+$fs-400: clamp(1.08rem, 0.9843rem + 0.4786vi, 1.3672rem);
+/*  14.4px → 17.5px */
+$fs-500: clamp(0.9rem, 0.8354rem + 0.3229vi, 1.0938rem);
+/*  12px → 14px */
+$fs-600: clamp(0.75rem, 0.7083rem + 0.2083vi, 0.875rem);

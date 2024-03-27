@@ -1,0 +1,78 @@
+@use 'vars';
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Roboto:wght@300;400;500&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Cormorant Garamond', Charter, 'Bitstream Charter',
+        'Sitka Text', Cambria, serif;
+}
+
+h2 {
+    font-size: vars.$fs-200;
+}
+
+h3 {
+    font-size: vars.$fs-300;
+}
+
+h4 {
+    font-size: vars.$fs-400;
+}
+
+h5,
+h6 {
+    font-size: vars.$fs-500;
+}
+
+label {
+    font-size: vars.$fs-500;
+    font-weight: 500;
+}
+
+p {
+    font-size: vars.$fs-500;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    font-size: vars.$fs-500;
+}
+
+button,
+input,
+a {
+    transition: all 250ms;
+}
+
+input,
+button {
+    padding: 0.5rem 1rem;
+}
+
+button {
+    border-radius: 5px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+input::-webkit-file-upload-button {
+    display: none;
+}

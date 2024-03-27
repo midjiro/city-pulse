@@ -1,0 +1,31 @@
+@use '../vars';
+
+.form-control {
+    inline-size: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-control__field {
+    border: none;
+    outline: none;
+    border-block-end: 1px solid vars.$clr-gray-200;
+    color: vars.$clr-gray-100;
+
+    &:focus {
+        border-color: vars.$clr-black-100;
+    }
+
+    &[aria-invalid='true'] {
+        border-color: vars.$clr-red-100;
+        color: vars.$clr-red-100;
+    }
+}
+
+.form-control__error {
+    color: vars.$clr-red-100;
+    font-size: vars.$fs-600;
+    padding: 0;
+    margin: 0;
+}

@@ -1,0 +1,11 @@
+@use '../vars';
+
+.link {
+    text-decoration: underline;
+    color: vars.$clr-gray-100;
+
+    &:hover,
+    &:focus {
+        color: vars.$clr-black-100;
+    }
+}
