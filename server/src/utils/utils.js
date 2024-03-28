@@ -1,7 +1,11 @@
 const { User } = require('../models/user');
 
 const isLoggedIn = (req, res, next) => {
-    req.user ? next() : res.sendStatus(401);
+    req.user
+        ? next()
+        : res.status(401).json({
+              message: 'You are unauthorized.',
+          });
 };
 
 const isCredentialsProvided = (req, res, next) => {
@@ -9,7 +13,9 @@ const isCredentialsProvided = (req, res, next) => {
 
     Object.keys(credentials).length !== 0
         ? next()
-        : res.status(401).json({ message: 'No credentials provided.' });
+        : res.status(401).json({
+              message: "You haven't provided credentials to authorize.",
+          });
 };
 
 const updateUser = async (userID, updateFields) => {

@@ -24,15 +24,16 @@ router.get(
 );
 
 router.post('/sign-in', isCredentialsProvided, (req, res, next) => {
-    passport.authenticate('local', (_, user, info) => {
+    passport.authenticate('local', (error, user, info) => {
+        if (error) next(error);
+
         if (!user) {
             return res.status(401).json({ message: info });
         }
 
         req.login(user, (error) => {
             if (error) {
-                console.error(error);
-                return res.sendStatus(500);
+                next(error);
             }
 
             return res.json(user);
@@ -40,7 +41,7 @@ router.post('/sign-in', isCredentialsProvided, (req, res, next) => {
     })(req, res, next);
 });
 
-router.post('/sign-up', isCredentialsProvided, async (req, res) => {
+router.post('/sign-up', isCredentialsProvided, async (req, res, next) => {
     const { email, password } = req.body;
     const encryptedPassword = await hash(password, 10);
 
@@ -54,19 +55,17 @@ router.post('/sign-up', isCredentialsProvided, async (req, res) => {
 
     req.login(user, (error) => {
         if (error) {
-            console.error(error);
-            return res.sendStatus(500);
+            next(error);
         }
 
         return res.json(user);
     });
 });
 
-router.delete('/sign-out', isLoggedIn, (req, res) => {
+router.delete('/sign-out', isLoggedIn, (req, res, next) => {
     req.logout((error) => {
         if (error) {
-            console.error(error);
-            return res.sendStatus(500);
+            next(error);
         }
 
         return res.clearCookie('connect.sid').sendStatus(200);

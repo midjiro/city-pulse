@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf, nanoid } from '@reduxjs/toolkit';
 import { signIn, signOut, signUp, updateAccountInformation } from './userAPI';
 import { toast } from 'react-toastify';
 
@@ -12,22 +12,22 @@ const userReducer = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(signIn.fulfilled, (state, action) => {
-                state.currentUser = action.payload;
-                state.pending = false;
-            })
             .addCase(signOut.fulfilled, (state) => {
                 state.currentUser = null;
                 state.pending = false;
             })
-            .addCase(signUp.fulfilled, (state, action) => {
-                state.currentUser = action.payload;
-                state.pending = false;
-            })
-            .addCase(updateAccountInformation.fulfilled, (state, action) => {
-                state.currentUser = action.payload;
-                state.pending = false;
-            })
+            .addMatcher(
+                isAnyOf(
+                    signIn.fulfilled,
+                    signUp.fulfilled,
+                    updateAccountInformation.fulfilled
+                ),
+                (state, action) => {
+                    state.currentUser = action.payload;
+                    state.pending = false;
+                }
+            )
+
             .addMatcher(
                 (action) => checkActionType(action, 'pending'),
                 (state) => {
@@ -37,7 +37,7 @@ const userReducer = createSlice({
             .addMatcher(
                 (action) => checkActionType(action, 'rejected'),
                 (state, action) => {
-                    toast(action.error.message);
+                    toast(action.error.message, { toastId: nanoid() });
                     state.pending = false;
                 }
             );

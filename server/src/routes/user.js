@@ -24,52 +24,56 @@ router.get('/', isLoggedIn, (req, res) => {
     return res.json(req.user);
 });
 
-router.delete('/', isLoggedIn, async (req, res) => {
+router.delete('/', isLoggedIn, async (req, res, next) => {
     try {
         await User.findByIdAndDelete(req.user._id);
 
         req.logout((error) => {
             if (error) {
-                console.error(error);
-                return res.sendStatus(500);
+                next(error);
             }
 
             return res.clearCookie('connect.sid').sendStatus(200);
         });
     } catch (error) {
-        console.error(error);
-        return res.sendStatus(500);
+        next(error);
     }
 });
 
-router.put('/', isLoggedIn, upload.single('picture'), async (req, res) => {
-    const { displayName } = req.body;
+router.put(
+    '/',
+    isLoggedIn,
+    upload.single('picture'),
+    async (req, res, next) => {
+        const { displayName } = req.body;
 
-    if (!req.file && !displayName) return res.sendStatus(400);
+        if (!req.file && !displayName) return res.sendStatus(400);
 
-    try {
-        let user = null;
+        try {
+            let user = null;
 
-        if (!req.file) {
-            user = await updateUser(req.user._id, { displayName });
-        } else {
-            const prevPictureName = req.user.picture.split('/').pop();
-            // Remove previous avatar if exists
-            await deletePicture(prevPictureName, bucket);
+            if (!req.file) {
+                user = await updateUser(req.user._id, { displayName });
+            } else {
+                if (req.user.picture) {
+                    const prevPictureName = req.user.picture.split('/').pop();
+                    // Remove previous avatar if exists
+                    await deletePicture(prevPictureName, bucket);
+                }
 
-            const pictureUrl = await uploadPicture(req.file, bucket);
+                const pictureUrl = await uploadPicture(req.file, bucket);
 
-            user = await updateUser(req.user._id, {
-                picture: pictureUrl,
-                displayName,
-            });
+                user = await updateUser(req.user._id, {
+                    picture: pictureUrl,
+                    displayName,
+                });
+            }
+
+            return res.json(user);
+        } catch (error) {
+            next(error);
         }
-
-        return res.json(user);
-    } catch (error) {
-        console.error(error);
-        res.sendStatus(500);
     }
-});
+);
 
 module.exports = { userRouter: router };

@@ -1,38 +1,25 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { Auth } from 'requests/auth';
+import { User } from 'requests/user';
 
-export const signIn = createAsyncThunk('user/sign-in', async (credentials) => {
-    try {
-        const res = await axios.post(
-            process.env.REACT_APP_SERVER_ENDPOINT + '/auth/sign-in',
-            credentials,
-            { withCredentials: true }
-        );
-
-        return res.data;
-    } catch (error) {
-        const { response } = error;
-        if (response.status !== 500) {
-            throw new Error(response.data.message);
+export const signIn = createAsyncThunk(
+    'user/sign-in',
+    async (credentials, { rejectWithValue }) => {
+        try {
+            return await Auth.postAuthSignIn(credentials);
+        } catch (error) {
+            return rejectWithValue(await error);
         }
     }
-});
+);
 
 export const signUp = createAsyncThunk(
     'user/sign-up',
-
-    async (credentials) => {
+    async (credentials, { rejectWithValue }) => {
         try {
-            const res = await axios.post(
-                process.env.REACT_APP_SERVER_ENDPOINT + '/auth/sign-up',
-                credentials,
-                { withCredentials: true }
-            );
-
-            return res.data;
+            return await Auth.postAuthSignUp(credentials);
         } catch (error) {
-            const { response } = error;
-            if (response.status !== 500) throw new Error(response.data.message);
+            return rejectWithValue(await error);
         }
     }
 );
@@ -44,81 +31,50 @@ export const initializeGoogleAuth = () => {
     );
 };
 
-export const handleGoogleAuth = createAsyncThunk('user/sign-in', async () => {
-    try {
-        const res = await axios.get(
-            process.env.REACT_APP_SERVER_ENDPOINT + '/user',
-            {
-                withCredentials: true,
-            }
-        );
-
-        return res.data;
-    } catch (error) {
-        const { response } = error;
-        if (response && response?.status !== 401) {
-            console.error(error);
-            throw new Error(error);
+export const autoLogin = createAsyncThunk(
+    'user/sign-in',
+    async (_, { rejectWithValue }) => {
+        try {
+            return await User.getUser();
+        } catch (error) {
+            return rejectWithValue(await error);
         }
     }
-});
+);
 
-export const signOut = createAsyncThunk('user/sign-out', async () => {
-    try {
-        const res = await axios.delete(
-            process.env.REACT_APP_SERVER_ENDPOINT + '/auth/sign-out',
-            {
-                withCredentials: true,
-            }
-        );
-
-        return res.json();
-    } catch (error) {
-        const { response } = error;
-        if (response && response.status !== 401) {
-            console.error(error);
-            throw new Error(error);
+export const signOut = createAsyncThunk(
+    'user/sign-out',
+    async (_, { rejectWithValue }) => {
+        try {
+            return await Auth.deleteAuthSignOut();
+        } catch (error) {
+            return rejectWithValue(await error);
         }
     }
-});
+);
 
-export const removeAccount = createAsyncThunk('user/sign-out', async () => {
-    try {
-        const res = await axios.delete(
-            process.env.REACT_APP_SERVER_ENDPOINT + '/user',
-            {
-                withCredentials: true,
-            }
-        );
-
-        return res.json();
-    } catch (error) {
-        const { response } = error;
-        if (response && response.status !== 401) {
-            console.error(error);
-            throw new Error(error);
+export const removeAccount = createAsyncThunk(
+    'user/sign-out',
+    async (_, { rejectWithValue }) => {
+        try {
+            return await User.deleteUser();
+        } catch (error) {
+            return rejectWithValue(await error);
         }
     }
-});
+);
 
 export const updateAccountInformation = createAsyncThunk(
     'user/update',
-    async (newAccountInformation) => {
+    async (newAccountInformation, { rejectWithValue }) => {
         try {
-            const res = await axios.put(
-                process.env.REACT_APP_SERVER_ENDPOINT + '/user',
-                newAccountInformation,
-                {
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            );
-
-            return res.data;
+            return await User.putUser(newAccountInformation, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
         } catch (error) {
-            console.error(error);
+            return rejectWithValue(await error);
         }
     }
 );
