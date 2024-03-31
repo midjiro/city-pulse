@@ -1,7 +1,9 @@
 const dotenv = require('dotenv');
+const { initPassport } = require('./passport');
 dotenv.config();
 
 module.exports = {
+    initPassport,
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     sessionSecret: process.env.SESSION_SECRET,

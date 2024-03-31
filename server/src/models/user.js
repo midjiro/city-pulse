@@ -17,19 +17,12 @@ const UserSchema = new Schema({
     following: { type: Array },
 });
 
-UserSchema.statics.findOrCreate = async function (id, doc) {
-    let user = await User.findById(id);
+UserSchema.statics.findOrCreate = async function (query, doc) {
+    let user = await User.findOne(query);
 
     if (user) return user;
 
-    user = await User.create({
-        _id: doc.id,
-        provider: doc.provider,
-        displayName: doc.displayName,
-        email: doc.email,
-        picture: doc.picture,
-        password: doc?.password,
-    });
+    user = await User.create(doc);
 
     return user;
 };
@@ -51,6 +44,19 @@ UserSchema.statics.createIfNotFound = async function (doc) {
     });
 
     return user;
+};
+
+UserSchema.statics.isDisplayNameUsed = async function (
+    currentUser,
+    displayName
+) {
+    const duplicates = await User.find({ displayName });
+    if (duplicates.length > 1) return true;
+    else if (duplicates.length === 1) {
+        return currentUser._id !== duplicates[0]._id;
+    }
+
+    return false;
 };
 
 UserSchema.statics.verifyPassword = async function (

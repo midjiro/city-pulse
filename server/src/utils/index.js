@@ -1,5 +1,3 @@
-const { User } = require('../models/user');
-
 const isLoggedIn = (req, res, next) => {
     req.user
         ? next()
@@ -16,14 +14,6 @@ const isCredentialsProvided = (req, res, next) => {
         : res.status(401).json({
               message: "You haven't provided credentials to authorize.",
           });
-};
-
-const updateUser = async (userID, updateFields) => {
-    const user = await User.findByIdAndUpdate(userID, updateFields, {
-        returnOriginal: false,
-    });
-
-    return user;
 };
 
 const uploadPicture = async (picture, bucket) => {
@@ -58,6 +48,5 @@ module.exports = {
     isLoggedIn,
     isCredentialsProvided,
     deletePicture,
-    updateUser,
     uploadPicture,
 };

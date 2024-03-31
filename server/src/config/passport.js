@@ -1,6 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
-const { clientID, clientSecret } = require('../../config');
 const { User } = require('../models/user');
 
 const authenticateWithEmailAndPassword = async (email, password, done) => {
@@ -37,7 +36,10 @@ const authenticateWithGoogle = async (
     done
 ) => {
     try {
-        const currentUser = await User.findOrCreate(profile.id, profile);
+        const currentUser = await User.findOrCreate(
+            { _id: profile.id },
+            profile
+        );
 
         return done(null, currentUser);
     } catch (error) {
@@ -45,7 +47,7 @@ const authenticateWithGoogle = async (
     }
 };
 
-const initPassport = (passport) => {
+const initPassport = (passport, clientID, clientSecret) => {
     passport.use(
         new LocalStrategy(
             {

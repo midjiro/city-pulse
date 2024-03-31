@@ -4,10 +4,17 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { sessionSecret, port, mongoPassword } = require('../config');
+const {
+    sessionSecret,
+    mongoPassword,
+    initPassport,
+    clientID,
+    clientSecret,
+    port,
+} = require('./config/index');
 const { authRouter } = require('./routes/auth');
 const { userRouter } = require('./routes/user');
-const { initPassport } = require('./controllers/auth');
+const { postRouter } = require('./routes/post');
 
 const app = express();
 
@@ -26,11 +33,12 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-initPassport(passport);
+initPassport(passport, clientID, clientSecret);
 
 // * Routing
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
+app.use('/post', postRouter);
 
 const start = () => {
     try {
