@@ -54,8 +54,6 @@ class PostRequests {
                 });
             }
 
-            post = await Post.create({ title, content, author: req.user._id });
-
             return res.json(post);
         } catch (error) {
             next(error);
@@ -67,12 +65,6 @@ class PostRequests {
 
         try {
             let post = await Post.findById(postID);
-
-            if (!post) {
-                return res.status(400).json({
-                    message: 'Unable to fetch post you are trying to update.',
-                });
-            }
 
             if (post.author.localeCompare(req.user._id) !== 0) {
                 return res.status(401).json({
@@ -95,12 +87,6 @@ class PostRequests {
 
         try {
             const post = await Post.findById(postID);
-
-            if (!post) {
-                return res.status(400).json({
-                    message: 'Unable to fetch post you are trying to delete.',
-                });
-            }
 
             if (post.author.localeCompare(req.user._id) !== 0) {
                 return res.status(401).json({

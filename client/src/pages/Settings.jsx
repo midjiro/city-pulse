@@ -1,20 +1,15 @@
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
+import { useForm } from 'react-hook-form';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { removeAccount, updateAccountInformation } from 'features/user/userAPI';
+import { FormField } from 'components/FormField';
 
 export const Settings = () => {
     const { user } = useOutletContext();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {
-        control,
-        formState: { errors },
-        register,
-        handleSubmit,
-    } = useForm({
+    const { control, handleSubmit } = useForm({
         defaultValues: {
             picture: user?.picture,
             displayName: user?.displayName,
@@ -46,54 +41,19 @@ export const Settings = () => {
                 )}
                 noValidate
             >
-                <div className='form-control'>
-                    <label htmlFor='picture' className='form-control__caption'>
-                        Your Picture
-                    </label>
-                    <Controller
-                        name='picture'
-                        control={control}
-                        render={({ field: { name, onChange } }) => (
-                            <input
-                                type='file'
-                                name={name}
-                                accept='image/*'
-                                id='picture'
-                                className='form-control__field'
-                                onChange={({ target }) => {
-                                    onChange(target.files.item(0));
-                                }}
-                            />
-                        )}
-                    />
-
-                    <ErrorMessage
-                        errors={errors}
-                        name='picture'
-                        as='p'
-                        className='form-control__error'
-                    />
-                </div>
-                <div className='form-control'>
-                    <label
-                        htmlFor='displayName'
-                        className='form-control__caption'
-                    >
-                        Your Name
-                    </label>
-                    <input
-                        type='text'
-                        id='displayName'
-                        className='form-control__field'
-                        {...register('displayName')}
-                    />
-                    <ErrorMessage
-                        errors={errors}
-                        name='displayName'
-                        as='p'
-                        className='form-control__error'
-                    />
-                </div>
+                <FormField
+                    type='file'
+                    name='picture'
+                    accept='image/*'
+                    label='Your avatar'
+                    control={control}
+                />
+                <FormField
+                    type='text'
+                    name='displayName'
+                    label='Your username'
+                    control={control}
+                />
                 <button className='btn btn--success'>Update profile</button>
             </form>
             <h3>Additional actions</h3>

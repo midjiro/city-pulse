@@ -3,19 +3,15 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { ErrorMessage } from '@hookform/error-message';
 import { initializeGoogleAuth, signUp } from 'features/user/userAPI';
+import { FormField } from 'components/FormField';
 
 export const SignUp = () => {
     const [currentUser, pending] = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-    } = useForm();
+    const { handleSubmit, control } = useForm();
 
     useEffect(() => {
         if (currentUser) navigate('/');
@@ -35,54 +31,32 @@ export const SignUp = () => {
                 })}
                 noValidate
             >
-                <div className='form-control'>
-                    <label htmlFor='email' className='form-control__caption'>
-                        Your email
-                    </label>
-                    <input
-                        type='email'
-                        autoComplete='email'
-                        className='form-control__field'
-                        id='email'
-                        aria-invalid={errors.email ? true : false}
-                        {...register('email', {
-                            required: {
-                                value: true,
-                                message: 'This is required field',
-                            },
-                        })}
-                    />
-                    <ErrorMessage
-                        errors={errors}
-                        name='email'
-                        as='p'
-                        className='form-control__error'
-                    />
-                </div>
-                <div className='form-control'>
-                    <label htmlFor='password' className='form-control__caption'>
-                        Your password
-                    </label>
-                    <input
-                        type='password'
-                        autoComplete='current-password'
-                        className='form-control__field'
-                        id='password'
-                        aria-invalid={errors.password ? true : false}
-                        {...register('password', {
-                            required: {
-                                value: true,
-                                message: 'This is required field',
-                            },
-                        })}
-                    />
-                    <ErrorMessage
-                        errors={errors}
-                        name='password'
-                        as='p'
-                        className='form-control__error'
-                    />
-                </div>
+                <FormField
+                    control={control}
+                    type='email'
+                    name='email'
+                    autocomplete='email'
+                    rules={{
+                        required: {
+                            value: true,
+                            message: 'This is required field.',
+                        },
+                    }}
+                    label='Your email'
+                />
+                <FormField
+                    control={control}
+                    type='password'
+                    name='password'
+                    autocomplete='current-password'
+                    rules={{
+                        required: {
+                            value: true,
+                            message: 'This is required field.',
+                        },
+                    }}
+                    label='Your password'
+                />
                 <div className='auth__additional-links'>
                     <Link to='/sign-in/' className='link'>
                         Already have an account? Sign In!
