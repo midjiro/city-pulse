@@ -1,22 +1,19 @@
-import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
+import { nanoid } from '@reduxjs/toolkit';
 import { Controller } from 'react-hook-form';
 
-export const FormField = ({
+export const MultilineFormField = ({
     control,
-    type,
     label,
-    autocomplete,
     name,
     rules,
+    rows,
+    cols,
+    maxLength,
 }) => {
     const id = nanoid();
-
     return (
         <div className='form-control'>
-            <label htmlFor={id} className='form-control__caption'>
-                {label}
-            </label>
             <Controller
                 control={control}
                 name={name}
@@ -26,15 +23,26 @@ export const FormField = ({
                     fieldState: { invalid, error },
                 }) => (
                     <>
-                        <input
-                            type={type}
-                            autoComplete={autocomplete}
-                            value={value ? value : ''}
+                        <div className='form-control__container'>
+                            <label
+                                htmlFor={id}
+                                className='form-control__caption'
+                            >
+                                {label}
+                            </label>
+                            <p className='form-control__length-counter'>
+                                {value?.length ? value.length : 0} / {maxLength}
+                            </p>
+                        </div>
+                        <textarea
+                            value={value}
                             onChange={onChange}
                             onBlur={onBlur}
                             aria-invalid={invalid}
                             className='form-control__field'
                             id={id}
+                            rows={rows}
+                            cols={cols}
                         />
                         {error && (
                             <p className='form-control__error'>

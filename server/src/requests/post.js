@@ -3,13 +3,17 @@ const { Post } = require('../models/post');
 class PostRequests {
     static async getPostList(req, res, next) {
         try {
-            const posts = await Post.find();
+            let posts = await Post.find();
 
             if (posts.length === 0) {
                 return res
                     .status(400)
                     .json({ message: 'There are nothing yet published.' });
             }
+
+            posts = await Promise.all(
+                posts.map((post) => post.populate('author'))
+            );
 
             return res.json(posts);
         } catch (error) {
@@ -53,6 +57,8 @@ class PostRequests {
                     message: 'You have previously published similar post.',
                 });
             }
+
+            post = await post.populate('author');
 
             return res.json(post);
         } catch (error) {

@@ -1,0 +1,33 @@
+@use '../vars';
+
+.post {
+    border-radius: 5px;
+    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+}
+
+.post__header {
+    display: flex;
+    align-items: center;
+}
+
+.post__user-picture {
+    inline-size: vars.$fs-300;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post__user-link {
+    color: vars.$clr-black-100;
+    font-weight: 500;
+}
+
+.post__title {
+    font-size: vars.$fs-300;
+    margin-block: 1rem 0.5rem;
+}
+
+.post__text {
+    color: vars.$clr-gray-100;
+    margin: 0;
+}

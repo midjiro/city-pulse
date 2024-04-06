@@ -22,13 +22,6 @@ export const Profile = () => {
                 <h2>Loading...</h2>
             </main>
         );
-    else if (!user)
-        return (
-            <main className='container'>
-                <Navbar />
-                <h2>Unable to fetch profile information.</h2>
-            </main>
-        );
 
     return (
         <main className='container'>

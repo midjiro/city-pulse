@@ -4,8 +4,9 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { removeAccount, updateAccountInformation } from 'features/user/userAPI';
 import { FormField } from 'components/FormField';
+import { FileFormField } from 'components/FileFormField';
 
-export const Settings = () => {
+export const ProfileSettings = () => {
     const { user } = useOutletContext();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ export const Settings = () => {
                 )}
                 noValidate
             >
-                <FormField
+                <FileFormField
                     type='file'
                     name='picture'
                     accept='image/*'

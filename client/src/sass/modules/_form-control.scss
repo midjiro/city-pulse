@@ -7,11 +7,24 @@
     gap: 0.5rem;
 }
 
+.form-control__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form-control__length-counter {
+    color: vars.$clr-gray-100;
+    font-size: vars.$fs-600;
+}
+
 .form-control__field {
     border: none;
     outline: none;
     border-block-end: 1px solid vars.$clr-gray-200;
     color: vars.$clr-gray-100;
+    resize: none;
 
     &:focus {
         border-color: vars.$clr-black-100;

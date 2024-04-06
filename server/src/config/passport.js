@@ -43,7 +43,7 @@ const authenticateWithGoogle = async (
 
         return done(null, currentUser);
     } catch (error) {
-        return done(e);
+        return done(error);
     }
 };
 

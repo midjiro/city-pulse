@@ -1,17 +1,9 @@
-import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
+import { nanoid } from '@reduxjs/toolkit';
 import { Controller } from 'react-hook-form';
 
-export const FormField = ({
-    control,
-    type,
-    label,
-    autocomplete,
-    name,
-    rules,
-}) => {
+export const FileFormField = ({ control, label, name, rules, accept }) => {
     const id = nanoid();
-
     return (
         <div className='form-control'>
             <label htmlFor={id} className='form-control__caption'>
@@ -22,15 +14,16 @@ export const FormField = ({
                 name={name}
                 rules={rules}
                 render={({
-                    field: { onChange, onBlur, value },
+                    field: { onChange, onBlur },
                     fieldState: { invalid, error },
                 }) => (
                     <>
                         <input
-                            type={type}
-                            autoComplete={autocomplete}
-                            value={value ? value : ''}
-                            onChange={onChange}
+                            type='file'
+                            onChange={({ target }) => {
+                                onChange(target.files.item(0));
+                            }}
+                            accept={accept}
                             onBlur={onBlur}
                             aria-invalid={invalid}
                             className='form-control__field'

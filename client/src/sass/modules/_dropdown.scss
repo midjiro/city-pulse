@@ -1,0 +1,48 @@
+@use '../vars';
+
+.dropdown {
+    position: relative;
+    inline-size: max-content;
+}
+
+.dropdown__menu {
+    padding: 1rem 0.5rem;
+    transform-origin: top center;
+
+    @media screen and (width >=720px) {
+        position: absolute;
+        inline-size: max-content;
+        background: vars.$clr-white-100;
+        box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.05);
+        border-radius: 5px;
+    }
+}
+
+.dropdown__toggle[aria-expanded='false'] ~ .dropdown__menu {
+    animation: 250ms slide-up ease forwards;
+}
+
+.dropdown__toggle[aria-expanded='true'] ~ .dropdown__menu {
+    animation: 250ms slide-down ease forwards;
+}
+
+@keyframes slide-up {
+    from {
+        scale: 1 1;
+    }
+    to {
+        scale: 1 0;
+        display: none;
+    }
+}
+
+@keyframes slide-down {
+    from {
+        scale: 1 0;
+        display: none;
+    }
+    to {
+        scale: 1 1;
+        display: block;
+    }
+}

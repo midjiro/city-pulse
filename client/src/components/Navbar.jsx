@@ -2,6 +2,7 @@ import { selectCurrentUser } from 'features/user/userReducer';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { Dropdown } from './Dropdown';
 
 export const Navbar = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -99,17 +100,28 @@ export const Navbar = () => {
                     </NavLink>
 
                     {user ? (
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive
-                                    ? 'navbar__link navbar__link--active'
-                                    : 'navbar__link'
-                            }
-                            role='menuitem'
-                            to='/create/'
-                        >
-                            Create
-                        </NavLink>
+                        <Dropdown>
+                            <NavLink
+                                to='/post/create'
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? 'navbar__link navbar__link--active'
+                                        : 'navbar__link'
+                                }
+                            >
+                                New post
+                            </NavLink>
+                            <NavLink
+                                to='/event/create'
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? 'navbar__link navbar__link--active'
+                                        : 'navbar__link'
+                                }
+                            >
+                                New event
+                            </NavLink>
+                        </Dropdown>
                     ) : (
                         <NavLink
                             className={({ isActive }) =>
