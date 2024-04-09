@@ -10,7 +10,9 @@ export const ProfilePosts = () => {
         selectUserPostList(state, user)
     );
 
-    if (pending) return <h1>Loading...</h1>;
+    if (pending) return <h2>Loading...</h2>;
+
+    if (posts.length === 0) return <p>There are nothing posted by you.</p>;
 
     return (
         <>

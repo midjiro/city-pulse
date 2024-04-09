@@ -76,3 +76,18 @@ button {
 input::-webkit-file-upload-button {
     display: none;
 }
+
+img:not(.avatar) {
+    max-inline-size: 100%;
+    border-radius: 5px;
+    opacity: 0;
+    animation: fade-in linear forwards;
+    animation-timeline: view(y);
+    animation-range: entry;
+}
+
+@keyframes fade-in {
+    to {
+        opacity: 1;
+    }
+}

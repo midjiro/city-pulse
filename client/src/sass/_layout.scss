@@ -21,6 +21,7 @@
     animation: lighten linear forwards;
     animation-timeline: view(y);
     animation-range: exit;
+    z-index: 2;
 }
 
 .navbar,
@@ -234,5 +235,50 @@
 
     @media screen and (width >= 720px) {
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+}
+
+.search-modal {
+    inline-size: min(90%, 640px);
+    overflow-y: hidden;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.search-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-end: 1.5rem;
+}
+
+.search-modal__title {
+    margin-block: 0;
+}
+
+.search-modal__close-btn {
+    background: transparent;
+    border: none;
+    color: vars.$clr-red-100;
+}
+
+.search-modal__results-title {
+    margin-block: 1.5rem 1rem;
+}
+.search-modal__results {
+    max-block-size: 150px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+}
+
+.search-modal__results-link {
+    color: vars.$clr-gray-100;
+
+    &:hover,
+    &:focus {
+        color: vars.$clr-black-100;
     }
 }

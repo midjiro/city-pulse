@@ -12,9 +12,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { autoLogin } from 'features/user/userAPI';
 import { CreatePost } from 'pages/CreatePost';
 import { Protected } from 'components/Protected';
-import { getPostList } from 'features/post/postAPI';
 import { ProfileSettings } from 'pages/ProfileSettings';
 import { ProfilePosts } from 'pages/ProfilePosts';
+import { PostDetails } from 'pages/PostDetails';
 
 export const Router = () => {
     const [user] = useSelector(selectCurrentUser);
@@ -22,7 +22,6 @@ export const Router = () => {
 
     useEffect(() => {
         if (!user) dispatch(autoLogin());
-        dispatch(getPostList());
     }, [user]);
     return (
         <BrowserRouter>
@@ -41,6 +40,7 @@ export const Router = () => {
                             </Protected>
                         }
                     />
+                    <Route path='post/:postID' element={<PostDetails />} />
                 </Route>
                 <Route
                     path='profile'

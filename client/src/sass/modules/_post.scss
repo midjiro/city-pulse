@@ -6,25 +6,14 @@
     padding: 1.5rem;
 }
 
-.post__header {
-    display: flex;
-    align-items: center;
-}
-
-.post__user-picture {
-    inline-size: vars.$fs-300;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.post__user-link {
-    color: vars.$clr-black-100;
-    font-weight: 500;
-}
-
 .post__title {
     font-size: vars.$fs-300;
     margin-block: 1rem 0.5rem;
+
+    > a {
+        color: vars.$clr-black-100;
+        font-size: inherit;
+    }
 }
 
 .post__text {

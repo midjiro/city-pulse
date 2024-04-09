@@ -2,6 +2,7 @@ const { Storage } = require('@google-cloud/storage');
 const { User } = require('../models/user');
 const { gcsKeyPath, gcsProjectId, gcsBucketName } = require('../config/index');
 const { uploadPicture, updateUser, deletePicture } = require('../utils/index');
+const { Post } = require('../models/post');
 
 const storage = new Storage({
     projectId: gcsProjectId,
@@ -17,6 +18,11 @@ class UserRequests {
     static async deleteUser(req, res, next) {
         try {
             await User.findByIdAndDelete(req.user._id);
+            const posts = await Post.find({ author: req.user._id });
+
+            for (let post of posts) {
+                await post.deleteOne().exec();
+            }
 
             req.logout((error) => {
                 if (error) {

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from './Dropdown';
 
-export const Navbar = () => {
+export const Navbar = ({ searchModalRef }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const navbarRef = useRef();
 
@@ -138,7 +138,10 @@ export const Navbar = () => {
                 </div>
                 {user && (
                     <div className='navbar__actions'>
-                        <button className='navbar__btn'>
+                        <button
+                            className='navbar__btn'
+                            onClick={() => searchModalRef.current.showModal()}
+                        >
                             <i className='fa-solid fa-magnifying-glass fa-xm'></i>
                             <span className='sr-only'>Search</span>
                         </button>

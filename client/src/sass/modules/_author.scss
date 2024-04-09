@@ -1,0 +1,17 @@
+@use '../vars';
+
+.author {
+    display: flex;
+    align-items: center;
+}
+
+.author__avatar {
+    inline-size: vars.$fs-300;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.author__profile-link {
+    color: vars.$clr-black-100;
+    font-weight: 500;
+}

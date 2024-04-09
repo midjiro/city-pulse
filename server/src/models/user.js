@@ -22,7 +22,14 @@ UserSchema.statics.findOrCreate = async function (query, doc) {
 
     if (user) return user;
 
-    user = await User.create(doc);
+    user = await User.create({
+        _id: doc.id,
+        provider: doc.provider,
+        displayName: doc.displayName ? doc.displayName : `User${Date.now()}`,
+        email: doc.email,
+        picture: doc.picture,
+        password: doc?.password,
+    });
 
     return user;
 };

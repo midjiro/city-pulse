@@ -2,13 +2,17 @@ import { Navbar } from 'components/Navbar';
 import { Outlet } from 'react-router-dom';
 
 import '../sass/main.scss';
+import { SearchModal } from 'components/Search';
+import { useRef } from 'react';
 
 function App() {
+    const searchModalRef = useRef();
     return (
         <>
-            <Navbar />
+            <Navbar searchModalRef={searchModalRef} />
             <main className='container'>
                 <Outlet />
+                <SearchModal ref={searchModalRef} />
             </main>
         </>
     );
