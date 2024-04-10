@@ -1,7 +1,7 @@
 const { Storage } = require('@google-cloud/storage');
 const { User } = require('../models/user');
 const { gcsKeyPath, gcsProjectId, gcsBucketName } = require('../config/index');
-const { uploadPicture, updateUser, deletePicture } = require('../utils/index');
+const { uploadPicture, deletePicture } = require('../utils/index');
 const { Post } = require('../models/post');
 
 const storage = new Storage({
