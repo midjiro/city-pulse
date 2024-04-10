@@ -11,6 +11,7 @@ const {
     clientID,
     clientSecret,
     port,
+    clientAppEndpoint,
 } = require('./config/index');
 const { authRouter } = require('./routes/auth');
 const { userRouter } = require('./routes/user');
@@ -22,7 +23,7 @@ const app = express();
 // * Middleware
 app.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: clientAppEndpoint,
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         credentials: true,
     })
