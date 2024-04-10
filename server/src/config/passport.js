@@ -61,7 +61,7 @@ const initPassport = (passport, clientID, clientSecret) => {
             {
                 clientID,
                 clientSecret,
-                callbackURL: 'http://localhost:3001/auth/callback',
+                callbackURL: 'auth/callback',
             },
             authenticateWithGoogle
         )

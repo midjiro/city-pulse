@@ -14,14 +14,14 @@ export const Home = () => {
     return (
         <section>
             <h2>All posts</h2>
-            {posts.length === 0 || postError ? (
+            {posts.length === 0 ? (
                 <p>There are nothing posted yet.</p>
             ) : (
                 <PublicationList publications={posts} wrapper={PostExcerpt} />
             )}
 
             <h2>All events</h2>
-            {events.length === 0 || eventError ? (
+            {events.length === 0 ? (
                 <p>There are nothing posted yet.</p>
             ) : (
                 <PublicationList publications={events} wrapper={EventExcerpt} />
