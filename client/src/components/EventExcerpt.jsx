@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const PostExcerpt = ({ _id, author, title, content }) => {
+export const EventExcerpt = ({ _id, author, title, content }) => {
     return (
         <article className='publication'>
             <header className='author'>
@@ -19,7 +19,7 @@ export const PostExcerpt = ({ _id, author, title, content }) => {
             </header>
             <div className='publication__content'>
                 <h2 className='publication__title'>
-                    <Link to={`/post/${_id}`}>{title}</Link>
+                    <Link to={`/event/${_id}`}>{title}</Link>
                 </h2>
                 <p className='publication__text'>
                     {content.length > 100

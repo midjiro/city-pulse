@@ -1,38 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createPost, getPostList } from './postAPI';
+import { createEvent, getEventList } from './eventAPI';
 import { checkActionType } from 'features/utils';
 import { toastId } from 'features/constants/toasts';
 import { toast } from 'react-toastify';
 
-const postReducer = createSlice({
-    name: 'post',
+const eventReducer = createSlice({
+    name: 'event',
     initialState: {
-        posts: [],
+        events: [],
         error: null,
         pending: false,
     },
     extraReducers: (build) => {
         build
-            .addCase(getPostList.fulfilled, (state, action) => {
-                state.posts = action.payload;
+            .addCase(getEventList.fulfilled, (state, action) => {
+                state.events = action.payload;
                 state.pending = false;
             })
-            .addCase(createPost.fulfilled, (state, action) => {
+            .addCase(createEvent.fulfilled, (state, action) => {
                 const actionType = action.type.split('/')[1];
-                toast('Post successfully published', {
+                toast('Event successfully published', {
                     toastId: toastId[actionType],
                 });
-                state.posts.push(action.payload);
+                state.events.push(action.payload);
                 state.pending = false;
             })
             .addMatcher(
-                (action) => checkActionType(action, 'post', 'pending'),
+                (action) => checkActionType(action, 'event', 'pending'),
                 (state) => {
                     state.pending = true;
                 }
             )
             .addMatcher(
-                (action) => checkActionType(action, 'post', 'rejected'),
+                (action) => checkActionType(action, 'event', 'rejected'),
                 (state, action) => {
                     const actionType = action.type.split('/')[1];
                     toast(action.error.message, {
@@ -45,22 +45,25 @@ const postReducer = createSlice({
     },
 });
 
-export default postReducer.reducer;
-export const selectPostList = (state) => [
-    state.postReducer.posts,
-    state.postReducer.error,
-    state.postReducer.pending,
+export default eventReducer.reducer;
+
+export const selectEventList = (state) => [
+    state.eventReducer.events,
+    state.eventReducer.error,
+    state.eventReducer.pending,
 ];
-export const selectUserPostList = (state, user) => [
-    state.postReducer.posts.filter(({ author }) => author._id === user._id),
-    state.postReducer.error,
-    state.postReducer.pending,
+
+export const selectUserEventList = (state, user) => [
+    state.eventReducer.events.filter(({ author }) => author._id === user._id),
+    state.eventReducer.error,
+    state.eventReducer.pending,
 ];
-export const selectFoundPostList = ({ postReducer }, searchQuery) => {
+
+export const selectFoundEventList = ({ eventReducer }, searchQuery) => {
     if (!searchQuery) return [];
 
-    return postReducer.posts.filter((post) => {
-        const lowerCaseTitle = post.title.toLowerCase();
+    return eventReducer.events.filter((event) => {
+        const lowerCaseTitle = event.title.toLowerCase();
 
         return lowerCaseTitle.includes(searchQuery);
     });

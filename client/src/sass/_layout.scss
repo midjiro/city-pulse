@@ -187,21 +187,25 @@
 }
 
 .post-form__form,
+.event-form__form,
 .post-form__preview {
     padding: 1.5rem;
     box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
 }
 
-.post-form__title {
+.post-form__title,
+.event-form__title {
     margin-block-start: 0;
 }
 
-.post-form__note-caption {
+.post-form__note-caption,
+.event-form__note-caption {
     font-weight: 500;
 }
 
-.post-form__note-item {
+.post-form__note-item,
+.event-form__note-item {
     color: vars.$clr-gray-100;
 
     &:not(:last-of-type) {
@@ -209,7 +213,8 @@
     }
 }
 
-.post-form__form > .form-control {
+.post-form__form > .form-control,
+.event-form__form > .form-control {
     &:not(:last-of-type) {
         margin-block: 1.5rem;
     }
@@ -219,7 +224,8 @@
     }
 }
 
-.post-form__btn {
+.post-form__btn,
+.event-form__btn {
     inline-size: 100%;
 }
 
@@ -266,6 +272,7 @@
 .search-modal__results-title {
     margin-block: 1.5rem 1rem;
 }
+
 .search-modal__results {
     max-block-size: 150px;
     overflow-y: auto;
@@ -281,4 +288,9 @@
     &:focus {
         color: vars.$clr-black-100;
     }
+}
+
+.event-form__form {
+    inline-size: max(288px, 43.671%);
+    margin-inline: auto;
 }

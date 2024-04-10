@@ -15,6 +15,7 @@ const {
 const { authRouter } = require('./routes/auth');
 const { userRouter } = require('./routes/user');
 const { postRouter } = require('./routes/post');
+const { eventRouter } = require('./routes/event');
 
 const app = express();
 
@@ -39,6 +40,7 @@ initPassport(passport, clientID, clientSecret);
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/post', postRouter);
+app.use('/event', eventRouter);
 
 const start = () => {
     try {

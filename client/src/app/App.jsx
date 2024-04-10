@@ -12,8 +12,8 @@ function App() {
             <Navbar searchModalRef={searchModalRef} />
             <main className='container'>
                 <Outlet />
-                <SearchModal ref={searchModalRef} />
             </main>
+            <SearchModal ref={searchModalRef} />
         </>
     );
 }

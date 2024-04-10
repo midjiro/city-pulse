@@ -1,3 +1,5 @@
+import { selectFoundPostList } from 'features/post/postReducer';
+import { selectFoundEventList } from 'features/event/eventReducer';
 import React, { forwardRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -5,15 +7,12 @@ import { Link } from 'react-router-dom';
 export const SearchModal = forwardRef((props, ref) => {
     const [searchQuery, setSearchQuery] = useState('');
 
-    const posts = useSelector(({ postReducer }) => {
-        if (!searchQuery) return [];
-
-        return postReducer.posts.filter((post) => {
-            const lowerCaseTitle = post.title.toLowerCase();
-
-            return lowerCaseTitle.includes(searchQuery);
-        });
-    });
+    const posts = useSelector((state) =>
+        selectFoundPostList(state, searchQuery)
+    );
+    const events = useSelector((state) =>
+        selectFoundEventList(state, searchQuery)
+    );
 
     const handleSearch = ({ target: field }) => {
         setSearchQuery(field.value.toLowerCase());
@@ -43,7 +42,7 @@ export const SearchModal = forwardRef((props, ref) => {
                     />
                 </div>
                 <section>
-                    <h3 className='search-modal__results-title'>All Results</h3>
+                    <h3 className='search-modal__results-title'>Posts</h3>
                     {posts.length === 0 ? (
                         <p>No publications found</p>
                     ) : (
@@ -58,6 +57,25 @@ export const SearchModal = forwardRef((props, ref) => {
                                     }}
                                 >
                                     {post.title}
+                                </Link>
+                            ))}
+                        </div>
+                    )}
+                    <h3 className='search-modal__results-title'>Events</h3>
+                    {events.length === 0 ? (
+                        <p>No publications found</p>
+                    ) : (
+                        <div className='search-modal__results'>
+                            {events.map((event) => (
+                                <Link
+                                    to={`/post/${event._id}`}
+                                    className='search-modal__results-link'
+                                    key={event._id}
+                                    onClick={() => {
+                                        handleClose();
+                                    }}
+                                >
+                                    {event.title}
                                 </Link>
                             ))}
                         </div>

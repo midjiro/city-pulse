@@ -1,12 +1,12 @@
 @use '../vars';
 
-.post {
+.publication {
     border-radius: 5px;
     box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.05);
     padding: 1.5rem;
 }
 
-.post__title {
+.publication__title {
     font-size: vars.$fs-300;
     margin-block: 1rem 0.5rem;
 
@@ -16,7 +16,7 @@
     }
 }
 
-.post__text {
+.publication__text {
     color: vars.$clr-gray-100;
     margin: 0;
 }

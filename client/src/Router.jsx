@@ -11,10 +11,12 @@ import { selectCurrentUser } from 'features/user/userReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { autoLogin } from 'features/user/userAPI';
 import { CreatePost } from 'pages/CreatePost';
+import { CreateEvent } from 'pages/CreateEvent';
 import { Protected } from 'components/Protected';
 import { ProfileSettings } from 'pages/ProfileSettings';
-import { ProfilePosts } from 'pages/ProfilePosts';
+import { ProfilePublications } from 'pages/ProfilePublications';
 import { PostDetails } from 'pages/PostDetails';
+import { EventDetails } from 'pages/EventDetails';
 
 export const Router = () => {
     const [user] = useSelector(selectCurrentUser);
@@ -40,7 +42,16 @@ export const Router = () => {
                             </Protected>
                         }
                     />
+                    <Route
+                        path='event/create'
+                        element={
+                            <Protected>
+                                <CreateEvent />
+                            </Protected>
+                        }
+                    />
                     <Route path='post/:postID' element={<PostDetails />} />
+                    <Route path='event/:eventID' element={<EventDetails />} />
                 </Route>
                 <Route
                     path='profile'
@@ -54,7 +65,7 @@ export const Router = () => {
                         index
                         element={
                             <Protected>
-                                <ProfilePosts />
+                                <ProfilePublications />
                             </Protected>
                         }
                     />

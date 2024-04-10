@@ -5,11 +5,7 @@ class PostRequests {
         try {
             let posts = await Post.find();
 
-            if (posts.length === 0) {
-                return res
-                    .status(400)
-                    .json({ message: 'There are nothing yet published.' });
-            }
+            if (posts.length === 0) return res.json(posts);
 
             posts = await Promise.all(
                 posts.map((post) => post.populate('author'))
