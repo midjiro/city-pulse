@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { initializeGoogleAuth, signIn } from 'features/user/userAPI';
 import { FormField } from 'components/FormField';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export const SignIn = () => {
     const [currentUser, pending] = useSelector(selectCurrentUser);
@@ -27,7 +29,11 @@ export const SignIn = () => {
                 action=''
                 className='auth__form'
                 onSubmit={handleSubmit((data) => {
-                    dispatch(signIn(data));
+                    dispatch(signIn(data))
+                        .then(unwrapResult)
+                        .catch((error) => {
+                            toast(error.message);
+                        });
                 })}
                 noValidate
             >

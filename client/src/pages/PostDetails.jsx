@@ -5,13 +5,20 @@ import Markdown from 'react-markdown';
 
 export const PostDetails = () => {
     const { postID } = useParams();
-    const [post, _, pending] = useSelector((state) => [
+    const [post, error, pending] = useSelector((state) => [
         state.postReducer.posts.find((post) => post._id === postID),
         state.postReducer.error,
         state.postReducer.pending,
     ]);
 
     if (pending) return <h2>Loading...</h2>;
+    else if (!post)
+        return (
+            <>
+                <h2>Oops! We are unable to find post you are looking for</h2>
+                <p>It might be removed or updated.</p>
+            </>
+        );
 
     return (
         <>

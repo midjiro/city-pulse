@@ -1,7 +1,8 @@
+import React from 'react';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { Navbar } from 'components/Navbar';
 import { signOut } from 'features/user/userAPI';
 import { selectCurrentUser } from 'features/user/userReducer';
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 
@@ -11,8 +12,14 @@ export const Profile = () => {
     const navigate = useNavigate();
 
     const handleSignOut = () => {
-        dispatch(signOut(user));
-        navigate('/');
+        dispatch(signOut(user))
+            .then(unwrapResult)
+            .then(() => {
+                navigate('/');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
     if (pending)

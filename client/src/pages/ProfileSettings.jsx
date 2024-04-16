@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { removeAccount, updateAccountInformation } from 'features/user/userAPI';
 import { FormField } from 'components/FormField';
 import { FileFormField } from 'components/FileFormField';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export const ProfileSettings = () => {
     const { user } = useOutletContext();
@@ -24,9 +26,14 @@ export const ProfileSettings = () => {
 
         if (!isConfirmed) return;
 
-        dispatch(removeAccount(user));
-
-        navigate('/');
+        dispatch(removeAccount(user))
+            .then(unwrapResult)
+            .then(() => {
+                navigate('/');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
     return (
@@ -39,6 +46,13 @@ export const ProfileSettings = () => {
                 className='settings__form'
                 onSubmit={handleSubmit((data) =>
                     dispatch(updateAccountInformation(data))
+                        .then(unwrapResult)
+                        .then(() => {
+                            toast('Profile information updated successfully!');
+                        })
+                        .catch((error) => {
+                            toast(error.message);
+                        })
                 )}
                 noValidate
             >

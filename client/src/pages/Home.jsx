@@ -9,6 +9,7 @@ import { EventExcerpt } from 'components/EventExcerpt';
 export const Home = () => {
     const [posts, postError, postPending] = useSelector(selectPostList);
     const [events, eventError, eventPending] = useSelector(selectEventList);
+
     if (postPending || eventPending) return <h2>Loading...</h2>;
 
     return (

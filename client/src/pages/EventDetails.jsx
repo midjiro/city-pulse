@@ -12,6 +12,13 @@ export const EventDetails = () => {
     ]);
 
     if (pending) return <h2>Loading...</h2>;
+    else if (!event)
+        return (
+            <>
+                <h2>Oops! We are unable to find event you are looking for</h2>
+                <p>It might be removed or updated.</p>
+            </>
+        );
 
     return (
         <>

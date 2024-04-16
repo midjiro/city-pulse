@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createPost, getPostList } from './postAPI';
 import { checkActionType } from 'features/utils';
-import { toastId } from 'features/constants/toasts';
-import { toast } from 'react-toastify';
 
 const postReducer = createSlice({
     name: 'post',
@@ -18,11 +16,8 @@ const postReducer = createSlice({
                 state.pending = false;
             })
             .addCase(createPost.fulfilled, (state, action) => {
-                const actionType = action.type.split('/')[1];
-                toast('Post successfully published', {
-                    toastId: toastId[actionType],
-                });
                 state.posts.push(action.payload);
+                state.error = null;
                 state.pending = false;
             })
             .addMatcher(
@@ -34,10 +29,6 @@ const postReducer = createSlice({
             .addMatcher(
                 (action) => checkActionType(action, 'post', 'rejected'),
                 (state, action) => {
-                    const actionType = action.type.split('/')[1];
-                    toast(action.error.message, {
-                        toastId: toastId[actionType],
-                    });
                     state.error = action.error.message;
                     state.pending = false;
                 }

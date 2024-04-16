@@ -5,6 +5,8 @@ import { FormField } from 'components/FormField';
 import { MultilineFormField } from 'components/MultilineFormField';
 import Markdown from 'react-markdown';
 import { createPost } from 'features/post/postAPI';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export const CreatePost = () => {
     const { control, handleSubmit, watch, reset } = useForm();
@@ -19,8 +21,15 @@ export const CreatePost = () => {
                 <form
                     className='post-form__form'
                     onSubmit={handleSubmit((data) => {
-                        dispatch(createPost(data));
-                        reset({ title: '', content: '' });
+                        dispatch(createPost(data))
+                            .then(unwrapResult)
+                            .then(() => {
+                                toast('Post successfully published');
+                                reset({ title: '', content: '' });
+                            })
+                            .catch((error) => {
+                                toast(error.message);
+                            });
                     })}
                     noValidate
                 >

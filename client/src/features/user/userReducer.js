@@ -1,8 +1,6 @@
-import { toast } from 'react-toastify';
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { signIn, signOut, signUp, updateAccountInformation } from './userAPI';
 import { checkActionType } from 'features/utils';
-import { toastId } from 'features/constants/toasts';
 
 const userReducer = createSlice({
     name: 'user',
@@ -36,13 +34,7 @@ const userReducer = createSlice({
             )
             .addMatcher(
                 (action) => checkActionType(action, 'user', 'rejected'),
-                (state, action) => {
-                    const actionType = action.type.split('/')[1];
-
-                    toast(action.error.message, {
-                        toastId: toastId[actionType],
-                    });
-
+                (state) => {
                     state.pending = false;
                 }
             );

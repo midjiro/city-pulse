@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const { differenceInDays } = require('date-fns');
 
 const EventSchema = new Schema({
     title: {
@@ -25,7 +26,7 @@ const EventSchema = new Schema({
 EventSchema.statics.findOrCreate = async function (query, doc) {
     let event = await Event.findOne(query);
 
-    if (event) return;
+    if (event && differenceInDays(doc.date, event.date) <= 1) return;
 
     event = await Event.create(doc);
 

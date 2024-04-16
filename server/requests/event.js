@@ -40,7 +40,7 @@ class EventRequests {
             const eventAuthor = req.user._id;
 
             let event = await Event.findOrCreate(
-                { title, date, location, author: eventAuthor },
+                { title, location, author: eventAuthor },
                 {
                     title,
                     content,

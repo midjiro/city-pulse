@@ -4,6 +4,8 @@ import { FormField } from 'components/FormField';
 import { MultilineFormField } from 'components/MultilineFormField';
 import { useDispatch } from 'react-redux';
 import { createEvent } from 'features/event/eventAPI';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export const CreateEvent = () => {
     const { control, handleSubmit, reset } = useForm();
@@ -15,8 +17,13 @@ export const CreateEvent = () => {
             <form
                 className='event-form__form'
                 onSubmit={handleSubmit((data) => {
-                    dispatch(createEvent(data));
-                    reset({ title: '', content: '' });
+                    dispatch(createEvent(data))
+                        .then(unwrapResult)
+                        .then(() => {
+                            toast('Event successfully published');
+                            reset({ title: '', content: '' });
+                        })
+                        .catch((error) => toast(error.message));
                 })}
                 noValidate
             >
