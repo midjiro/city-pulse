@@ -8,4 +8,8 @@ export class Event {
     static createEvent(event) {
         return api.post('/event', event);
     }
+
+    static deleteEvent(eventID) {
+        return api.delete(`/event/${eventID}`);
+    }
 }

@@ -8,4 +8,8 @@ export class Post {
     static createPost(post) {
         return api.post('/post', post);
     }
+
+    static deletePost(postID) {
+        return api.delete(`/post/${postID}`);
+    }
 }

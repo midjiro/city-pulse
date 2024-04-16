@@ -100,7 +100,7 @@ class EventRequests {
 
             await Event.findByIdAndDelete(eventID);
 
-            return res.sendStatus(200);
+            return res.json({ eventID });
         } catch (error) {
             next(error);
         }

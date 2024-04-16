@@ -22,3 +22,14 @@ export const createEvent = createAsyncThunk(
         }
     }
 );
+
+export const deleteEvent = createAsyncThunk(
+    'post/delete',
+    async (eventID, { rejectWithValue }) => {
+        try {
+            return await Event.deleteEvent(eventID);
+        } catch (error) {
+            return rejectWithValue(await error);
+        }
+    }
+);

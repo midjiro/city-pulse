@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createPost, getPostList } from './postAPI';
+import { createPost, deletePost, getPostList } from './postAPI';
 import { checkActionType } from 'features/utils';
 
 const postReducer = createSlice({
@@ -18,6 +18,12 @@ const postReducer = createSlice({
             .addCase(createPost.fulfilled, (state, action) => {
                 state.posts.push(action.payload);
                 state.error = null;
+                state.pending = false;
+            })
+            .addCase(deletePost.fulfilled, (state, action) => {
+                const { postID } = action.payload;
+
+                state.posts = state.posts.filter((post) => post._id !== postID);
                 state.pending = false;
             })
             .addMatcher(

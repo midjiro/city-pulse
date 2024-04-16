@@ -1,17 +1,25 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Markdown from 'react-markdown';
+import { format } from 'date-fns';
+import { toast } from 'react-toastify';
+import { selectCurrentUser } from 'features/user/userReducer';
+import { deletePost } from 'features/post/postAPI';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export const PostDetails = () => {
     const { postID } = useParams();
-    const [post, error, pending] = useSelector((state) => [
+    const [post, _, postPending] = useSelector((state) => [
         state.postReducer.posts.find((post) => post._id === postID),
         state.postReducer.error,
         state.postReducer.pending,
     ]);
+    const [user, userPending] = useSelector(selectCurrentUser);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    if (pending) return <h2>Loading...</h2>;
+    if (postPending || userPending) return <h2>Loading...</h2>;
     else if (!post)
         return (
             <>
@@ -23,6 +31,7 @@ export const PostDetails = () => {
     return (
         <>
             <h2>{post.title}</h2>
+            <p> {format(post.publishedAt.toString(), 'PPPPp')}</p>
             <p>Written by:</p>
             <section className='author'>
                 <img
@@ -38,6 +47,23 @@ export const PostDetails = () => {
                 </a>
             </section>
             <Markdown>{post.content}</Markdown>
+            {user?._id === post.author._id && (
+                <button
+                    className='btn btn--danger'
+                    onClick={() => {
+                        dispatch(deletePost(post._id))
+                            .then(unwrapResult)
+                            .then(() => {
+                                navigate('/');
+                            })
+                            .catch((error) => {
+                                toast(error.message);
+                            });
+                    }}
+                >
+                    Delete
+                </button>
+            )}
         </>
     );
 };

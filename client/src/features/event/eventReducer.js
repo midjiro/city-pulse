@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createEvent, getEventList } from './eventAPI';
+import { createEvent, deleteEvent, getEventList } from './eventAPI';
 import { checkActionType } from 'features/utils';
 
 const eventReducer = createSlice({
@@ -18,6 +18,14 @@ const eventReducer = createSlice({
             .addCase(createEvent.fulfilled, (state, action) => {
                 state.events.push(action.payload);
                 state.error = null;
+                state.pending = false;
+            })
+            .addCase(deleteEvent.fulfilled, (state, action) => {
+                const { eventID } = action.payload;
+
+                state.events = state.events.filter(
+                    (event) => event._id !== eventID
+                );
                 state.pending = false;
             })
             .addMatcher(

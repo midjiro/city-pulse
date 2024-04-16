@@ -1,17 +1,24 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
+import { selectCurrentUser } from 'features/user/userReducer';
+import { deleteEvent } from 'features/event/eventAPI';
+import { toast } from 'react-toastify';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export const EventDetails = () => {
     const { eventID } = useParams();
-    const [event, _, pending] = useSelector((state) => [
+    const [event, _, eventPending] = useSelector((state) => [
         state.eventReducer.events.find((event) => event._id === eventID),
         state.eventReducer.error,
         state.eventReducer.pending,
     ]);
+    const [user, userPending] = useSelector(selectCurrentUser);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    if (pending) return <h2>Loading...</h2>;
+    if (eventPending || userPending) return <h2>Loading...</h2>;
     else if (!event)
         return (
             <>
@@ -43,6 +50,24 @@ export const EventDetails = () => {
             <p>
                 Will be held in: <a href={event.location}>{event.location}</a>
             </p>
+
+            {user?._id === event.author._id && (
+                <button
+                    className='btn btn--danger'
+                    onClick={() => {
+                        dispatch(deleteEvent(event._id))
+                            .then(unwrapResult)
+                            .then(() => {
+                                navigate('/');
+                            })
+                            .catch((error) => {
+                                toast(error.message);
+                            });
+                    }}
+                >
+                    Delete
+                </button>
+            )}
         </>
     );
 };

@@ -98,7 +98,7 @@ class PostRequests {
 
             await Post.findByIdAndDelete(postID);
 
-            return res.sendStatus(200);
+            return res.json({ postID });
         } catch (error) {
             next(error);
         }
