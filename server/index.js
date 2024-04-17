@@ -37,7 +37,6 @@ app.use(
         resave: false,
         cookie: {
             sameSite: 'none',
-            httpOnly: false,
             secure: true,
         },
     })
