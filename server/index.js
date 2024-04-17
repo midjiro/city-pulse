@@ -38,6 +38,7 @@ app.use(
         cookie: {
             sameSite: 'none',
             httpOnly: false,
+            secure: true,
         },
     })
 );
