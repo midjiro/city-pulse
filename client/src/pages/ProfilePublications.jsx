@@ -2,35 +2,53 @@ import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PublicationList from 'components/PublicationList';
-import { selectUserPostList } from 'features/post/postReducer';
-import { selectUserEventList } from 'features/event/eventReducer';
-import { PostExcerpt } from 'components/PostExcerpt';
-import { EventExcerpt } from 'components/EventExcerpt';
+import { usePagination } from 'hooks/pagination';
+import { Pagination } from 'components/Pagination';
 
 export const ProfilePublications = () => {
     const { user } = useOutletContext();
-    const [posts, postError, postsPending] = useSelector((state) =>
-        selectUserPostList(state, user)
-    );
-    const [events, eventError, eventsPending] = useSelector((state) =>
-        selectUserEventList(state, user)
-    );
+    const [allPublications, pending] = useSelector((state) => [
+        [
+            ...state.postReducer.posts.filter(
+                (item) => item.author._id === user._id
+            ),
+            ...state.eventReducer.events.filter(
+                (item) => item.author._id === user._id
+            ),
+        ],
+        state.postReducer.pending || state.eventReducer.pending,
+    ]);
 
-    if (postsPending || eventsPending) return <h2>Loading...</h2>;
+    const {
+        currentPage,
+        totalPages,
+        nextPage,
+        prevPage,
+        goToPage,
+        startIndex,
+        endIndex,
+    } = usePagination(allPublications.length, 3);
+
+    const currentPublications = allPublications.slice(startIndex, endIndex + 1);
+
+    if (pending) return <h2>Loading...</h2>;
 
     return (
         <>
-            <h2>All Posts</h2>
-            {posts.length === 0 || postError ? (
+            <h2>All publications</h2>
+            {allPublications.length === 0 ? (
                 <p>There are nothing published by you</p>
             ) : (
-                <PublicationList publications={posts} wrapper={PostExcerpt} />
-            )}
-            <h2>All Events</h2>
-            {events.length === 0 || eventError ? (
-                <p>There are nothing published by you</p>
-            ) : (
-                <PublicationList publications={events} wrapper={EventExcerpt} />
+                <>
+                    <PublicationList publications={currentPublications} />
+                    <Pagination
+                        onChange={goToPage}
+                        onNext={nextPage}
+                        onPrev={prevPage}
+                        pages={totalPages}
+                        currentPage={currentPage}
+                    />
+                </>
             )}
         </>
     );

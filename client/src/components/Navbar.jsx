@@ -100,7 +100,7 @@ export const Navbar = ({ searchModalRef }) => {
                     </NavLink>
 
                     {user ? (
-                        <Dropdown>
+                        <Dropdown title='Create'>
                             <NavLink
                                 to='/post/create'
                                 className={({ isActive }) =>

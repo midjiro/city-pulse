@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 
-export const Dropdown = ({ children }) => {
+export const Dropdown = ({ title, children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef();
 
@@ -31,7 +31,7 @@ export const Dropdown = ({ children }) => {
                 onClick={toggleDropdown}
                 aria-expanded={isOpen}
             >
-                Create
+                {title}
             </button>
 
             <div className='dropdown__menu'>{children}</div>

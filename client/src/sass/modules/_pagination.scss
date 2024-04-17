@@ -1,0 +1,17 @@
+@use '../vars';
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pagination__pages {
+    display: flex;
+    gap: 1rem;
+}
+
+.pagination__btn:not(.pagination__btn--active) {
+    background: transparent !important;
+    color: vars.$clr-black-100;
+}
