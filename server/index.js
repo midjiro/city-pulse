@@ -31,7 +31,15 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
-    session({ secret: sessionSecret, saveUninitialized: false, resave: false })
+    session({
+        secret: sessionSecret,
+        saveUninitialized: false,
+        resave: false,
+        cookie: {
+            sameSite: 'none',
+            secure: true,
+        },
+    })
 );
 app.use(passport.initialize());
 app.use(passport.session());
