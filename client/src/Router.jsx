@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home } from 'pages/Home';
 import App from 'app/App';
@@ -25,6 +25,7 @@ export const Router = () => {
     useEffect(() => {
         if (!user) dispatch(autoLogin());
     }, [user]);
+
     return (
         <BrowserRouter>
             <ToastContainer position='top-center' limit={1} />
