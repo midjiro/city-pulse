@@ -7,14 +7,13 @@ import { toast } from 'react-toastify';
 import { selectCurrentUser } from 'features/user/userReducer';
 import { deletePost } from 'features/post/postAPI';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { selectSinglePost } from 'features/post/postReducer';
 
 export const PostDetails = () => {
     const { postID } = useParams();
-    const [post, _, postPending] = useSelector((state) => [
-        state.postReducer.posts.find((post) => post._id === postID),
-        state.postReducer.error,
-        state.postReducer.pending,
-    ]);
+    const [post, _, postPending] = useSelector((state) =>
+        selectSinglePost(state, postID)
+    );
     const [user, userPending] = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();

@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PublicationList from 'components/PublicationList';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown } from 'components/Dropdown';
 import { Pagination } from 'components/Pagination';
 import { usePagination } from 'hooks/pagination';
+import { filterActions, selectFilter } from 'features/filter/filterSlice';
 
 export const Home = () => {
     const [
         { posts, pending: postsPending },
         { events, pending: eventsPending },
     ] = useSelector((state) => [state.postReducer, state.eventReducer]);
-    const [filter, setFilter] = useState('all');
+    const filter = useSelector(selectFilter);
     const filterOptions = {
         all: 'All',
         posts: 'Posts',
@@ -39,6 +40,7 @@ export const Home = () => {
         startIndex,
         endIndex + 1
     );
+    const dispatch = useDispatch();
 
     if (postsPending || eventsPending) return <h2>Loading...</h2>;
 
@@ -58,7 +60,7 @@ export const Home = () => {
                                     : 'filter-option'
                             }
                             onClick={() => {
-                                setFilter(key);
+                                dispatch(filterActions.set(key));
                                 goToPage(1);
                             }}
                         >
@@ -70,15 +72,19 @@ export const Home = () => {
             {filteredPublications.length === 0 ? (
                 <p>There is nothing posted yet.</p>
             ) : (
-                <PublicationList publications={currentPublications} />
+                <>
+                    <PublicationList publications={currentPublications} />
+                    {filteredPublications.length > publicationsPerPage && (
+                        <Pagination
+                            onChange={goToPage}
+                            onNext={nextPage}
+                            onPrev={prevPage}
+                            pages={totalPages}
+                            currentPage={currentPage}
+                        />
+                    )}
+                </>
             )}
-            <Pagination
-                onChange={goToPage}
-                onNext={nextPage}
-                onPrev={prevPage}
-                pages={totalPages}
-                currentPage={currentPage}
-            />
         </section>
     );
 };

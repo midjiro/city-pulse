@@ -18,7 +18,7 @@ export const ProfilePublications = () => {
         ],
         state.postReducer.pending || state.eventReducer.pending,
     ]);
-
+    const publicationsPerPage = 3;
     const {
         currentPage,
         totalPages,
@@ -27,7 +27,7 @@ export const ProfilePublications = () => {
         goToPage,
         startIndex,
         endIndex,
-    } = usePagination(allPublications.length, 3);
+    } = usePagination(allPublications.length, publicationsPerPage);
 
     const currentPublications = allPublications.slice(startIndex, endIndex + 1);
 
@@ -41,13 +41,15 @@ export const ProfilePublications = () => {
             ) : (
                 <>
                     <PublicationList publications={currentPublications} />
-                    <Pagination
-                        onChange={goToPage}
-                        onNext={nextPage}
-                        onPrev={prevPage}
-                        pages={totalPages}
-                        currentPage={currentPage}
-                    />
+                    {allPublications.length > publicationsPerPage && (
+                        <Pagination
+                            onChange={goToPage}
+                            onNext={nextPage}
+                            onPrev={prevPage}
+                            pages={totalPages}
+                            currentPage={currentPage}
+                        />
+                    )}
                 </>
             )}
         </>

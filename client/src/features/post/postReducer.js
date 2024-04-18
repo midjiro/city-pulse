@@ -62,3 +62,8 @@ export const selectFoundPostList = ({ postReducer }, searchQuery) => {
         return lowerCaseTitle.includes(searchQuery);
     });
 };
+export const selectSinglePost = (state, postID) => [
+    state.postReducer.posts.find((post) => post._id === postID),
+    state.postReducer.error,
+    state.postReducer.pending,
+];
