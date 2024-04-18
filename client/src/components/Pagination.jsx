@@ -23,6 +23,7 @@ export const Pagination = ({
                                 : 'btn pagination__btn'
                         }
                         onClick={() => onChange(index)}
+                        key={index}
                     >
                         {index}
                     </button>
