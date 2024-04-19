@@ -28,7 +28,7 @@ export const CreatePost = () => {
                                 reset({ title: '', content: '' });
                             })
                             .catch((error) => {
-                                toast(error.message);
+                                toast(error);
                             });
                     })}
                     noValidate

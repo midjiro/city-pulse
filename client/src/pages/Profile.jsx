@@ -45,21 +45,37 @@ export const Profile = () => {
     return (
         <section className='profile'>
             <section className='user'>
-                <div>
+                <div className='user__info'>
                     <img
                         src={user?.picture}
                         alt=''
                         className='avatar user__avatar'
                     />
-                    <h2 className='user__name'>{user.displayName}</h2>
-                    <div className='user__popularity'>
-                        <p className='user__statistic'>Posts 0</p>
-                        <p className='user__statistic'>
-                            Followers {user.followers.length}
-                        </p>
-                        <p className='user__statistic'>
-                            Following {user.following.length}
-                        </p>
+                    <div className='user__details'>
+                        <h2 className='user__name'>{user.displayName}</h2>
+                        {user.bio && <p className='user__bio'>{user.bio}</p>}
+                        <div>
+                            <h3>Contact</h3>
+                            <div className='user__contact-info'>
+                                {user.phoneNumber && (
+                                    <a
+                                        href={`tel:${user.phoneNumber}`}
+                                        className='btn user__contact-link'
+                                    >
+                                        Call
+                                    </a>
+                                )}
+                                {user.email && (
+                                    <a
+                                        href={`mailto:${user.email}`}
+                                        className='btn user__contact-link'
+                                    >
+                                        Send an email
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                        <div className='user__contact-info'></div>
                     </div>
                 </div>
                 {isCurrentUser && (

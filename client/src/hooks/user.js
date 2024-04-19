@@ -21,7 +21,7 @@ export const useUserInfo = (userId) => {
         };
 
         if (userId) {
-            fetchUserInfo();
+            fetchUserInfo().catch((error) => console.error(error));
         }
     }, [userId]);
 

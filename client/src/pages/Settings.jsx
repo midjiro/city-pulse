@@ -8,6 +8,7 @@ import { FormField } from 'components/FormField';
 import { FileFormField } from 'components/FileFormField';
 import { selectCurrentUser } from 'features/user/userReducer';
 import { removeAccount, updateAccountInformation } from 'features/user/userAPI';
+import { MultilineFormField } from 'components/MultilineFormField';
 
 export const Settings = () => {
     const [user, pending] = useSelector(selectCurrentUser);
@@ -17,6 +18,8 @@ export const Settings = () => {
         defaultValues: {
             picture: user?.picture,
             displayName: user?.displayName,
+            bio: user?.bio,
+            phoneNumber: user?.phoneNumber,
         },
     });
 
@@ -54,7 +57,7 @@ export const Settings = () => {
                             toast('Profile information updated successfully!');
                         })
                         .catch((error) => {
-                            toast(error.message);
+                            toast(error);
                         })
                 )}
                 noValidate
@@ -69,7 +72,41 @@ export const Settings = () => {
                 <FormField
                     type='text'
                     name='displayName'
+                    autocomplete='username'
                     label='Your username'
+                    control={control}
+                />
+                <FormField
+                    type='tel'
+                    name='phoneNumber'
+                    label='Your phone number'
+                    autocomplete='tel'
+                    rules={{
+                        maxLength: {
+                            value: 20,
+                            message:
+                                'Phone number must be at most 20 characters long.',
+                        },
+                        pattern: {
+                            value: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+                            message: 'Invalid phone number.',
+                        },
+                    }}
+                    control={control}
+                />
+                <MultilineFormField
+                    name='bio'
+                    rows={5}
+                    cols={10}
+                    maxLength={150}
+                    label='Your biography'
+                    rules={{
+                        maxLength: {
+                            value: 150,
+                            message:
+                                'Biography must be at most 150 characters long.',
+                        },
+                    }}
                     control={control}
                 />
                 <button className='btn btn--success'>Update profile</button>

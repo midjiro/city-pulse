@@ -32,7 +32,7 @@ export const SignUp = () => {
                     dispatch(signUp(data))
                         .then(unwrapResult)
                         .catch((error) => {
-                            toast(error.message);
+                            toast(error);
                         });
                 })}
                 noValidate

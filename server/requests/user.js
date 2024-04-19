@@ -1,7 +1,10 @@
 const { Storage } = require('@google-cloud/storage');
 const { User } = require('../models/user');
 const { gcsKeyPath, gcsProjectId, gcsBucketName } = require('../config/index');
-const { uploadPicture, deletePicture } = require('../utils/index');
+const {
+    addFieldIfTruthy,
+    handleProfilePictureUpdate,
+} = require('../utils/index');
 const { Post } = require('../models/post');
 
 const storage = new Storage({
@@ -20,12 +23,10 @@ class UserRequests {
         const user = await User.findById(userID);
 
         if (!user)
-            return res
-                .status(400)
-                .json({
-                    message:
-                        'Unable to find information about user you are looking for',
-                });
+            return res.status(400).json({
+                message:
+                    'Unable to find information about user you are looking for',
+            });
 
         return res.json(user);
     }
@@ -52,9 +53,21 @@ class UserRequests {
     }
 
     static async putUser(req, res, next) {
-        const { displayName } = req.body;
+        const { displayName, bio, phoneNumber } = req.body;
+        const updateFields = {};
 
-        if (!req.file && !displayName) return res.sendStatus(400);
+        addFieldIfTruthy(updateFields, 'displayName', displayName);
+        addFieldIfTruthy(updateFields, 'bio', bio);
+        addFieldIfTruthy(updateFields, 'phoneNumber', phoneNumber);
+
+        if (req.file) {
+            updateFields.picture = await handleProfilePictureUpdate(
+                req.user.picture,
+                req.file,
+                bucket
+            );
+        }
+
         try {
             const isDisplayNameUsed = await User.isDisplayNameUsed(
                 req.user,
@@ -67,34 +80,11 @@ class UserRequests {
                     .json({ message: 'Username is already taken.' });
             }
 
-            let user = null;
-
-            if (!req.file) {
-                user = await User.findByIdAndUpdate(
-                    req.user._id,
-                    { displayName },
-                    { returnOriginal: false }
-                );
-            } else {
-                if (req.user.picture) {
-                    const prevPictureName = req.user.picture.split('/').pop();
-                    // Remove previous avatar if exists
-                    await deletePicture(prevPictureName, bucket);
-                }
-
-                const pictureUrl = await uploadPicture(req.file, bucket);
-
-                user = await User.findByIdAndUpdate(
-                    req.user._id,
-                    {
-                        picture: pictureUrl,
-                        displayName,
-                    },
-                    {
-                        returnOriginal: false,
-                    }
-                );
-            }
+            const user = await User.findOneAndUpdate(
+                { _id: req.user._id },
+                updateFields,
+                { new: true }
+            );
 
             return res.json(user);
         } catch (error) {

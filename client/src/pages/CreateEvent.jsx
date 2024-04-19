@@ -23,7 +23,7 @@ export const CreateEvent = () => {
                             toast('Event successfully published');
                             reset({ title: '', content: '' });
                         })
-                        .catch((error) => toast(error.message));
+                        .catch((error) => toast(error));
                 })}
                 noValidate
             >

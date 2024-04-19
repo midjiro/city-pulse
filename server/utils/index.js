@@ -44,9 +44,25 @@ const deletePicture = async (picture, bucket) => {
     }
 };
 
+function addFieldIfTruthy(updateFields, fieldName, value) {
+    if (value) {
+        updateFields[fieldName] = value;
+    }
+}
+
+async function handleProfilePictureUpdate(existingPicture, newFile, bucket) {
+    if (existingPicture) {
+        const prevPictureName = existingPicture.split('/').pop();
+        await deletePicture(prevPictureName, bucket);
+    }
+    return await uploadPicture(newFile, bucket);
+}
+
 module.exports = {
     isLoggedIn,
     isCredentialsProvided,
     deletePicture,
     uploadPicture,
+    addFieldIfTruthy,
+    handleProfilePictureUpdate,
 };

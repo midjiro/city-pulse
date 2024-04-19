@@ -13,8 +13,8 @@ const UserSchema = new Schema({
     email: { type: String, required: true },
     picture: { type: String },
     password: { type: String, required: false },
-    followers: { type: Array },
-    following: { type: Array },
+    bio: { type: String, maxLength: 150 },
+    phoneNumber: { type: String, maxLength: 20 },
 });
 
 UserSchema.statics.findOrCreate = async function (query, doc) {

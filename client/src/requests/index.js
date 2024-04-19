@@ -12,7 +12,7 @@ api.interceptors.response.use(
     (error) => {
         const { response } = error;
         if (response.status !== 500) {
-            throw Promise.reject(response.data.message);
+            return Promise.reject(response.data.message);
         }
 
         return Promise.reject(error);
