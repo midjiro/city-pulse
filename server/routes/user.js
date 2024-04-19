@@ -7,6 +7,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const router = Router();
 
 router.get('/', isLoggedIn, UserRequests.getUser);
+router.get('/:userID', UserRequests.getUserById);
 
 router.delete('/', isLoggedIn, UserRequests.deleteUser);
 

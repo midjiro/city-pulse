@@ -15,6 +15,21 @@ class UserRequests {
         return res.json(req.user);
     }
 
+    static async getUserById(req, res) {
+        const { userID } = req.params;
+        const user = await User.findById(userID);
+
+        if (!user)
+            return res
+                .status(400)
+                .json({
+                    message:
+                        'Unable to find information about user you are looking for',
+                });
+
+        return res.json(user);
+    }
+
     static async deleteUser(req, res, next) {
         try {
             await User.findByIdAndDelete(req.user._id);

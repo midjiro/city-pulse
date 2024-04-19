@@ -5,6 +5,10 @@ export class User {
         return api.get('/user');
     }
 
+    static getUserById(userID) {
+        return api.get('/user/' + userID);
+    }
+
     static putUser(update, config) {
         return api.put('/user', update, config);
     }

@@ -1,15 +1,16 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useOutletContext } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { removeAccount, updateAccountInformation } from 'features/user/userAPI';
-import { FormField } from 'components/FormField';
-import { FileFormField } from 'components/FileFormField';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { FormField } from 'components/FormField';
+import { FileFormField } from 'components/FileFormField';
+import { selectCurrentUser } from 'features/user/userReducer';
+import { removeAccount, updateAccountInformation } from 'features/user/userAPI';
 
-export const ProfileSettings = () => {
-    const { user } = useOutletContext();
+export const Settings = () => {
+    const [user, pending] = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { control, handleSubmit } = useForm({
@@ -35,6 +36,8 @@ export const ProfileSettings = () => {
                 console.error(error);
             });
     };
+
+    if (pending) return <h2>Loading</h2>;
 
     return (
         <div className='settings'>

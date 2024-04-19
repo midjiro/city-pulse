@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home } from 'pages/Home';
 import App from 'app/App';
@@ -13,8 +13,7 @@ import { autoLogin } from 'features/user/userAPI';
 import { CreatePost } from 'pages/CreatePost';
 import { CreateEvent } from 'pages/CreateEvent';
 import { Protected } from 'components/Protected';
-import { ProfileSettings } from 'pages/ProfileSettings';
-import { ProfilePublications } from 'pages/ProfilePublications';
+import { Settings } from 'pages/Settings';
 import { PostDetails } from 'pages/PostDetails';
 import { EventDetails } from 'pages/EventDetails';
 
@@ -24,7 +23,7 @@ export const Router = () => {
 
     useEffect(() => {
         if (!user) dispatch(autoLogin());
-    }, [user]);
+    }, [user, dispatch]);
 
     return (
         <BrowserRouter>
@@ -35,6 +34,8 @@ export const Router = () => {
                     <Route index element={<Home />} />
                     <Route path='sign-in' element={<SignIn />} />
                     <Route path='sign-up' element={<SignUp />} />
+                    <Route path='post/:postID' element={<PostDetails />} />
+                    <Route path='event/:eventID' element={<EventDetails />} />
                     <Route
                         path='post/create'
                         element={
@@ -51,30 +52,13 @@ export const Router = () => {
                             </Protected>
                         }
                     />
-                    <Route path='post/:postID' element={<PostDetails />} />
-                    <Route path='event/:eventID' element={<EventDetails />} />
-                </Route>
-                <Route
-                    path='profile'
-                    element={
-                        <Protected>
-                            <Profile />
-                        </Protected>
-                    }
-                >
-                    <Route
-                        index
-                        element={
-                            <Protected>
-                                <ProfilePublications />
-                            </Protected>
-                        }
-                    />
+
+                    <Route path='user/:userID' element={<Profile />} />
                     <Route
                         path='settings'
                         element={
                             <Protected>
-                                <ProfileSettings />
+                                <Settings />
                             </Protected>
                         }
                     />

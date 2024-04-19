@@ -160,7 +160,7 @@ export const Navbar = () => {
                                         ? 'navbar__link navbar__link--active'
                                         : 'navbar__link'
                                 }
-                                to='/profile/'
+                                to={`/user/${user._id}/`}
                             >
                                 Profile
                             </NavLink>
@@ -170,7 +170,7 @@ export const Navbar = () => {
                                         ? 'navbar__link navbar__link--active'
                                         : 'navbar__link'
                                 }
-                                to='/profile/settings/'
+                                to='/settings/'
                             >
                                 Settings
                             </NavLink>

@@ -11,7 +11,11 @@ export const Pagination = ({
 
     return (
         <section className='pagination publications-preview__pagination'>
-            <button className='btn' onClick={onPrev}>
+            <button
+                className='btn'
+                onClick={onPrev}
+                disabled={currentPage === 1}
+            >
                 Prev
             </button>
             <div className='pagination__pages'>
@@ -29,7 +33,11 @@ export const Pagination = ({
                     </button>
                 ))}
             </div>
-            <button className='btn' onClick={onNext}>
+            <button
+                className='btn'
+                onClick={onNext}
+                disabled={currentPage === pages}
+            >
                 Next
             </button>
         </section>

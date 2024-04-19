@@ -1,18 +1,22 @@
 import React from 'react';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { Navbar } from 'components/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { ProfilePublications } from './ProfilePublications';
 import { signOut } from 'features/user/userAPI';
 import { selectCurrentUser } from 'features/user/userReducer';
-import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useUserInfo } from 'hooks/user';
 
 export const Profile = () => {
-    const [user, pending] = useSelector(selectCurrentUser);
+    const { userID } = useParams();
+    const [currentUser, currentUserPending] = useSelector(selectCurrentUser);
+    const { user, error, pending: userPending } = useUserInfo(userID);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSignOut = () => {
-        dispatch(signOut(user))
+        dispatch(signOut(currentUser._id))
             .then(unwrapResult)
             .then(() => {
                 navigate('/');
@@ -22,36 +26,43 @@ export const Profile = () => {
             });
     };
 
-    if (pending)
+    if (currentUserPending || userPending) return <h2>Loading...</h2>;
+    else if (!user || error) {
         return (
-            <main className='container'>
-                <Navbar />
-                <h2>Loading...</h2>
-            </main>
+            <>
+                <h2>Unable to load profile information.</h2>
+                <p>
+                    {error
+                        ? error
+                        : 'We are unable to load profile information. Try to reload page.'}
+                </p>
+            </>
         );
+    }
+
+    const isCurrentUser = currentUser?._id === user?._id;
 
     return (
-        <main className='container'>
-            <Navbar />
-            <section className='profile'>
-                <section className='user'>
-                    <div>
-                        <img
-                            src={user?.picture}
-                            alt=''
-                            className='avatar user__avatar'
-                        />
-                        <h2 className='user__name'>{user.displayName}</h2>
-                        <div className='user__popularity'>
-                            <p className='user__statistic'>Posts 0</p>
-                            <p className='user__statistic'>
-                                Followers {user.followers.length}
-                            </p>
-                            <p className='user__statistic'>
-                                Following {user.following.length}
-                            </p>
-                        </div>
+        <section className='profile'>
+            <section className='user'>
+                <div>
+                    <img
+                        src={user?.picture}
+                        alt=''
+                        className='avatar user__avatar'
+                    />
+                    <h2 className='user__name'>{user.displayName}</h2>
+                    <div className='user__popularity'>
+                        <p className='user__statistic'>Posts 0</p>
+                        <p className='user__statistic'>
+                            Followers {user.followers.length}
+                        </p>
+                        <p className='user__statistic'>
+                            Following {user.following.length}
+                        </p>
                     </div>
+                </div>
+                {isCurrentUser && (
                     <div className='user__actions'>
                         <button
                             className='btn btn--danger'
@@ -60,9 +71,9 @@ export const Profile = () => {
                             Sign Out
                         </button>
                     </div>
-                </section>
-                <Outlet context={{ user }} />
+                )}
             </section>
-        </main>
+            <ProfilePublications user={isCurrentUser ? currentUser : user} />
+        </section>
     );
 };

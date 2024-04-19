@@ -1,12 +1,10 @@
 import React from 'react';
-import { useOutletContext } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PublicationList from 'components/PublicationList';
-import { usePagination } from 'hooks/pagination';
 import { Pagination } from 'components/Pagination';
+import { usePagination } from 'hooks/pagination';
 
-export const ProfilePublications = () => {
-    const { user } = useOutletContext();
+export const ProfilePublications = ({ user }) => {
     const [allPublications, pending] = useSelector((state) => [
         [
             ...state.postReducer.posts.filter(
