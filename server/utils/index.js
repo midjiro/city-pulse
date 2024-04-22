@@ -1,3 +1,5 @@
+const { mapAPIKey } = require('../config');
+
 const isLoggedIn = (req, res, next) => {
     req.user
         ? next()
@@ -44,20 +46,37 @@ const deletePicture = async (picture, bucket) => {
     }
 };
 
-function addFieldIfTruthy(updateFields, fieldName, value) {
+const addFieldIfTruthy = (updateFields, fieldName, value) => {
     if (value) {
         updateFields[fieldName] = value;
     }
-}
+};
 
-async function handleProfilePictureUpdate(existingPicture, newFile, bucket) {
+const handleProfilePictureUpdate = async (existingPicture, newFile, bucket) => {
     if (existingPicture) {
         const prevPictureName = existingPicture.split('/').pop();
         await deletePicture(prevPictureName, bucket);
     }
     return await uploadPicture(newFile, bucket);
-}
+};
 
+const getLocationCoordinates = async (location) => {
+    try {
+        const res = await fetch(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${mapAPIKey}`
+        );
+        const { results: suggestions } = await res.json();
+
+        if (suggestions.length > 0) {
+            const coords = suggestions[0].geometry.location;
+            return coords;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw new Error('Error fetching location coordinates.');
+    }
+};
 module.exports = {
     isLoggedIn,
     isCredentialsProvided,
@@ -65,4 +84,5 @@ module.exports = {
     uploadPicture,
     addFieldIfTruthy,
     handleProfilePictureUpdate,
+    getLocationCoordinates,
 };

@@ -10,6 +10,7 @@ module.exports = {
     gcsProjectId: process.env.GCS_PROJECT_ID,
     gcsKeyPath: process.env.GCS_KEY_PATH,
     gcsBucketName: process.env.GCS_BUCKET_NAME,
+    mapAPIKey: process.env.MAP_API_KEY,
 
     port: process.env.PORT,
     mongoPassword: process.env.MONGO_PASSWORD,

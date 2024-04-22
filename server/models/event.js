@@ -18,8 +18,9 @@ const EventSchema = new Schema({
     },
     author: { type: String, ref: 'User', required: true },
     location: {
-        type: String,
-        required: true,
+        name: { type: String, required: true },
+        lat: { type: Number, required: true },
+        lng: { type: Number, required: true },
     },
 });
 

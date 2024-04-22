@@ -1,4 +1,5 @@
 const { Event } = require('../models/event');
+const { getLocationCoordinates } = require('../utils');
 
 class EventRequests {
     static async getEventList(req, res, next) {
@@ -39,16 +40,30 @@ class EventRequests {
             const { title, content, location, date } = req.body;
             const eventAuthor = req.user._id;
 
-            let event = await Event.findOrCreate(
-                { title, location, author: eventAuthor },
-                {
-                    title,
-                    content,
-                    location,
-                    date,
-                    author: eventAuthor,
-                }
-            );
+            const coords = await getLocationCoordinates(location);
+
+            if (!coords) {
+                return res.status(400).json({
+                    message: "Unable to find the event's location coordinates.",
+                });
+            }
+
+            const eventQuery = {
+                title,
+                'location.lat': coords.lat,
+                'location.lng': coords.lng,
+                author: eventAuthor,
+            };
+
+            const eventData = {
+                title,
+                content,
+                location: { name: location, ...coords },
+                date,
+                author: eventAuthor,
+            };
+
+            let event = await Event.findOrCreate(eventQuery, eventData);
 
             if (!event) {
                 return res.status(400).json({
