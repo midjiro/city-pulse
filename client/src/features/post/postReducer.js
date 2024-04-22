@@ -28,10 +28,10 @@ const postReducer = createSlice({
                 state.pending = false;
             })
             .addCase(removeAccount.fulfilled, (state, action) => {
-                const { author } = action.payload;
+                const { _id: authorID } = action.payload;
 
                 state.posts = state.posts.filter(
-                    (post) => post.author._id !== author._id
+                    (post) => post.author._id !== authorID
                 );
             })
             .addMatcher(

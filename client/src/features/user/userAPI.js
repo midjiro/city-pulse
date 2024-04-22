@@ -54,7 +54,7 @@ export const signOut = createAsyncThunk(
 );
 
 export const removeAccount = createAsyncThunk(
-    'user/sign-out',
+    'user/remove',
     async (_, { rejectWithValue }) => {
         try {
             return await User.deleteUser();

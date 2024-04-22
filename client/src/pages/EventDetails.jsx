@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { selectCurrentUser } from 'features/selectors';
@@ -47,7 +47,10 @@ export const EventDetails = () => {
             <p>{event.content}</p>
             <p>Scheduled for: {format(event.date.toString(), 'PPPPp')}</p>
             <p>
-                Will be held in: <a href={event.location}>{event.location}</a>
+                Will be held in:{' '}
+                <Link to={`/event/map-view/${event._id}`}>
+                    {event.location.name}
+                </Link>
             </p>
 
             {user?._id === event.author._id && (

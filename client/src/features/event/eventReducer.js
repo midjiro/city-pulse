@@ -30,10 +30,10 @@ const eventReducer = createSlice({
                 state.pending = false;
             })
             .addCase(removeAccount.fulfilled, (state, action) => {
-                const { author } = action.payload;
+                const { _id: authorID } = action.payload;
 
                 state.events = state.events.filter(
-                    (event) => event.author._id !== author._id
+                    (event) => event.author._id !== authorID
                 );
             })
             .addMatcher(

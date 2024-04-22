@@ -1,5 +1,11 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { signIn, signOut, signUp, updateAccountInformation } from './userAPI';
+import {
+    removeAccount,
+    signIn,
+    signOut,
+    signUp,
+    updateAccountInformation,
+} from './userAPI';
 import { checkActionType } from 'features/utils';
 
 const userReducer = createSlice({
@@ -10,10 +16,13 @@ const userReducer = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(signOut.fulfilled, (state) => {
-                state.currentUser = null;
-                state.pending = false;
-            })
+            .addMatcher(
+                isAnyOf(signOut.fulfilled, removeAccount.fulfilled),
+                (state) => {
+                    state.currentUser = null;
+                    state.pending = false;
+                }
+            )
             .addMatcher(
                 isAnyOf(
                     signIn.fulfilled,

@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux';
 import { createEvent } from 'features/event/eventAPI';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { GeolocationFormField } from 'components/GeolocationFormField';
 
 export const CreateEvent = () => {
     const { control, handleSubmit, reset } = useForm();
-
     const dispatch = useDispatch();
 
     return (
@@ -39,7 +39,6 @@ export const CreateEvent = () => {
                         </li>
                     </ul>
                 </div>
-
                 <FormField
                     type='text'
                     name='title'
@@ -64,7 +63,7 @@ export const CreateEvent = () => {
                     }}
                     control={control}
                 />
-                <FormField
+                <GeolocationFormField
                     type='text'
                     name='location'
                     label='Event location'

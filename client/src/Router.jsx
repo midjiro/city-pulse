@@ -17,6 +17,7 @@ import { Settings } from 'pages/Settings';
 import { PostDetails } from 'pages/PostDetails';
 import { EventDetails } from 'pages/EventDetails';
 import { Navbar } from 'components/Navbar';
+import { MapView } from 'pages/MapView';
 
 export const Router = () => {
     const [user] = useSelector(selectCurrentUser);
@@ -38,6 +39,10 @@ export const Router = () => {
                     <Route path='sign-up' element={<SignUp user={user} />} />
                     <Route path='post/:postID' element={<PostDetails />} />
                     <Route path='event/:eventID' element={<EventDetails />} />
+                    <Route
+                        path='event/map-view/:eventID'
+                        element={<MapView />}
+                    />
                     <Route
                         path='post/create'
                         element={
