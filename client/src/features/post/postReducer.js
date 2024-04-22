@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createPost, deletePost, getPostList } from './postAPI';
 import { checkActionType } from 'features/utils';
+import { removeAccount } from 'features/user/userAPI';
 
 const postReducer = createSlice({
     name: 'post',
@@ -26,6 +27,13 @@ const postReducer = createSlice({
                 state.posts = state.posts.filter((post) => post._id !== postID);
                 state.pending = false;
             })
+            .addCase(removeAccount.fulfilled, (state, action) => {
+                const { author } = action.payload;
+
+                state.posts = state.posts.filter(
+                    (post) => post.author._id !== author._id
+                );
+            })
             .addMatcher(
                 (action) => checkActionType(action, 'post', 'pending'),
                 (state) => {
@@ -43,27 +51,3 @@ const postReducer = createSlice({
 });
 
 export default postReducer.reducer;
-export const selectPostList = (state) => [
-    state.postReducer.posts,
-    state.postReducer.error,
-    state.postReducer.pending,
-];
-export const selectUserPostList = (state, user) => [
-    state.postReducer.posts.filter(({ author }) => author._id === user._id),
-    state.postReducer.error,
-    state.postReducer.pending,
-];
-export const selectFoundPostList = ({ postReducer }, searchQuery) => {
-    if (!searchQuery) return [];
-
-    return postReducer.posts.filter((post) => {
-        const lowerCaseTitle = post.title.toLowerCase();
-
-        return lowerCaseTitle.includes(searchQuery);
-    });
-};
-export const selectSinglePost = (state, postID) => [
-    state.postReducer.posts.find((post) => post._id === postID),
-    state.postReducer.error,
-    state.postReducer.pending,
-];

@@ -42,7 +42,3 @@ const userReducer = createSlice({
 });
 
 export default userReducer.reducer;
-export const selectCurrentUser = (state) => [
-    state.userReducer.currentUser,
-    state.userReducer.pending,
-];

@@ -5,7 +5,7 @@ import '../sass/main.scss';
 function App() {
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <main className='container'>
                 <Outlet />
             </main>

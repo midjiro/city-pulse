@@ -6,6 +6,7 @@ const {
     handleProfilePictureUpdate,
 } = require('../utils/index');
 const { Post } = require('../models/post');
+const { Event } = require('../models/event');
 
 const storage = new Storage({
     projectId: gcsProjectId,
@@ -33,11 +34,12 @@ class UserRequests {
 
     static async deleteUser(req, res, next) {
         try {
-            await User.findByIdAndDelete(req.user._id);
+            const deletedUser = await User.findByIdAndDelete(req.user._id);
             const posts = await Post.find({ author: req.user._id });
+            const events = await Event.find({ author: req.user._id });
 
-            for (let post of posts) {
-                await post.deleteOne().exec();
+            for (let publication of [...posts, ...events]) {
+                await publication.deleteOne().exec();
             }
 
             req.logout((error) => {
@@ -45,7 +47,7 @@ class UserRequests {
                     next(error);
                 }
 
-                return res.clearCookie('connect.sid').sendStatus(200);
+                return res.clearCookie('connect.sid').json(deletedUser);
             });
         } catch (error) {
             next(error);

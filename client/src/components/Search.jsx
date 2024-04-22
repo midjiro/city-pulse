@@ -1,17 +1,12 @@
-import { selectFoundPostList } from 'features/post/postReducer';
-import { selectFoundEventList } from 'features/event/eventReducer';
 import React, { forwardRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectPublicationsByTitle } from 'features/selectors';
 
 export const SearchModal = forwardRef((props, ref) => {
     const [searchQuery, setSearchQuery] = useState('');
-
-    const posts = useSelector((state) =>
-        selectFoundPostList(state, searchQuery)
-    );
-    const events = useSelector((state) =>
-        selectFoundEventList(state, searchQuery)
+    const [publications, pending] = useSelector((state) =>
+        selectPublicationsByTitle(state, searchQuery)
     );
 
     const handleSearch = ({ target: field }) => {
@@ -20,6 +15,8 @@ export const SearchModal = forwardRef((props, ref) => {
     const handleClose = () => {
         ref.current.close();
     };
+
+    if (pending) return <h2>Loading...</h2>;
 
     return (
         <dialog className='search-modal' ref={ref}>
@@ -42,42 +39,41 @@ export const SearchModal = forwardRef((props, ref) => {
                     />
                 </div>
                 <section>
-                    <h3 className='search-modal__results-title'>Posts</h3>
-                    {posts.length === 0 ? (
+                    <h3 className='search-modal__results-title'>
+                        Publications found
+                    </h3>
+                    {publications.length === 0 ? (
                         <p>No publications found</p>
                     ) : (
                         <div className='search-modal__results'>
-                            {posts.map((post) => (
-                                <Link
-                                    to={`/post/${post._id}`}
-                                    className='search-modal__results-link'
-                                    key={post._id}
-                                    onClick={() => {
-                                        handleClose();
-                                    }}
-                                >
-                                    {post.title}
-                                </Link>
-                            ))}
-                        </div>
-                    )}
-                    <h3 className='search-modal__results-title'>Events</h3>
-                    {events.length === 0 ? (
-                        <p>No publications found</p>
-                    ) : (
-                        <div className='search-modal__results'>
-                            {events.map((event) => (
-                                <Link
-                                    to={`/post/${event._id}`}
-                                    className='search-modal__results-link'
-                                    key={event._id}
-                                    onClick={() => {
-                                        handleClose();
-                                    }}
-                                >
-                                    {event.title}
-                                </Link>
-                            ))}
+                            {publications.map((publication) => {
+                                if (publication.hasOwnProperty('location'))
+                                    return (
+                                        <Link
+                                            to={`/event/${publication._id}`}
+                                            className='search-modal__results-link'
+                                            key={publication._id}
+                                            onClick={() => {
+                                                handleClose();
+                                            }}
+                                        >
+                                            {publication.title}
+                                        </Link>
+                                    );
+
+                                return (
+                                    <Link
+                                        to={`/post/${publication._id}`}
+                                        className='search-modal__results-link'
+                                        key={publication._id}
+                                        onClick={() => {
+                                            handleClose();
+                                        }}
+                                    >
+                                        {publication.title}
+                                    </Link>
+                                );
+                            })}
                         </div>
                     )}
                 </section>

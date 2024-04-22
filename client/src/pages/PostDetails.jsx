@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Markdown from 'react-markdown';
 import { format } from 'date-fns';
 import { toast } from 'react-toastify';
-import { selectCurrentUser } from 'features/user/userReducer';
+import { selectCurrentUser } from 'features/selectors';
 import { deletePost } from 'features/post/postAPI';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { selectSinglePost } from 'features/post/postReducer';
+import { selectSinglePost } from 'features/selectors';
 
 export const PostDetails = () => {
     const { postID } = useParams();
-    const [post, _, postPending] = useSelector((state) =>
+    const [post, postPending] = useSelector((state) =>
         selectSinglePost(state, postID)
     );
     const [user, userPending] = useSelector(selectCurrentUser);

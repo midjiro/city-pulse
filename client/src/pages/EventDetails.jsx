@@ -2,18 +2,17 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
-import { selectCurrentUser } from 'features/user/userReducer';
+import { selectCurrentUser } from 'features/selectors';
 import { deleteEvent } from 'features/event/eventAPI';
 import { toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { selectSingleEvent } from 'features/selectors';
 
 export const EventDetails = () => {
     const { eventID } = useParams();
-    const [event, _, eventPending] = useSelector((state) => [
-        state.eventReducer.events.find((event) => event._id === eventID),
-        state.eventReducer.error,
-        state.eventReducer.pending,
-    ]);
+    const [event, eventPending] = useSelector((state) =>
+        selectSingleEvent(state, eventID)
+    );
     const [user, userPending] = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();

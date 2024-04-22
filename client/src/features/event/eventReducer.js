@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createEvent, deleteEvent, getEventList } from './eventAPI';
 import { checkActionType } from 'features/utils';
+import { removeAccount } from 'features/user/userAPI';
 
 const eventReducer = createSlice({
     name: 'event',
@@ -28,6 +29,13 @@ const eventReducer = createSlice({
                 );
                 state.pending = false;
             })
+            .addCase(removeAccount.fulfilled, (state, action) => {
+                const { author } = action.payload;
+
+                state.events = state.events.filter(
+                    (event) => event.author._id !== author._id
+                );
+            })
             .addMatcher(
                 (action) => checkActionType(action, 'event', 'pending'),
                 (state) => {
@@ -45,25 +53,3 @@ const eventReducer = createSlice({
 });
 
 export default eventReducer.reducer;
-
-export const selectEventList = (state) => [
-    state.eventReducer.events,
-    state.eventReducer.error,
-    state.eventReducer.pending,
-];
-
-export const selectUserEventList = (state, user) => [
-    state.eventReducer.events.filter(({ author }) => author._id === user._id),
-    state.eventReducer.error,
-    state.eventReducer.pending,
-];
-
-export const selectFoundEventList = ({ eventReducer }, searchQuery) => {
-    if (!searchQuery) return [];
-
-    return eventReducer.events.filter((event) => {
-        const lowerCaseTitle = event.title.toLowerCase();
-
-        return lowerCaseTitle.includes(searchQuery);
-    });
-};

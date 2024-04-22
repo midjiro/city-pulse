@@ -1,16 +1,12 @@
-import { selectCurrentUser } from 'features/user/userReducer';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from './Dropdown';
 import { SearchModal } from 'components/Search';
 
-export const Navbar = () => {
+export const Navbar = ({ user }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const navbarRef = useRef();
     const searchModalRef = useRef();
-
-    const [user, ,] = useSelector(selectCurrentUser);
 
     const handleResize = () => {
         if (window.innerWidth >= 837) setIsExpanded(true);

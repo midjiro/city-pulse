@@ -6,7 +6,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { FormField } from 'components/FormField';
 import { FileFormField } from 'components/FileFormField';
-import { selectCurrentUser } from 'features/user/userReducer';
+import { selectCurrentUser } from 'features/selectors';
 import { removeAccount, updateAccountInformation } from 'features/user/userAPI';
 import { MultilineFormField } from 'components/MultilineFormField';
 

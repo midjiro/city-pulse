@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { ProfilePublications } from './ProfilePublications';
 import { signOut } from 'features/user/userAPI';
-import { selectCurrentUser } from 'features/user/userReducer';
+import { selectCurrentUser } from 'features/selectors';
 import { useUserInfo } from 'hooks/user';
 
 export const Profile = () => {

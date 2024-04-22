@@ -1,25 +1,21 @@
-import { selectCurrentUser } from 'features/user/userReducer';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { initializeGoogleAuth, signUp } from 'features/user/userAPI';
 import { FormField } from 'components/FormField';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-export const SignUp = () => {
-    const [currentUser, pending] = useSelector(selectCurrentUser);
+export const SignUp = ({ user }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const { handleSubmit, control } = useForm();
 
     useEffect(() => {
-        if (currentUser) navigate('/');
-    }, [currentUser]);
-
-    if (pending) return <h2>Loading...</h2>;
+        if (user) navigate('/');
+    }, [user]);
 
     return (
         <section className='auth'>

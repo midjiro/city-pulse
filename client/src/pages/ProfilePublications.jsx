@@ -3,19 +3,10 @@ import { useSelector } from 'react-redux';
 import PublicationList from 'components/PublicationList';
 import { Pagination } from 'components/Pagination';
 import { usePagination } from 'hooks/pagination';
+import { selectPublicationsByUser } from 'features/selectors';
 
-export const ProfilePublications = ({ user }) => {
-    const [allPublications, pending] = useSelector((state) => [
-        [
-            ...state.postReducer.posts.filter(
-                (item) => item.author._id === user._id
-            ),
-            ...state.eventReducer.events.filter(
-                (item) => item.author._id === user._id
-            ),
-        ],
-        state.postReducer.pending || state.eventReducer.pending,
-    ]);
+export const ProfilePublications = () => {
+    const [publications, pending] = useSelector(selectPublicationsByUser);
     const publicationsPerPage = 3;
     const {
         currentPage,
@@ -25,21 +16,21 @@ export const ProfilePublications = ({ user }) => {
         goToPage,
         startIndex,
         endIndex,
-    } = usePagination(allPublications.length, publicationsPerPage);
+    } = usePagination(publications.length, publicationsPerPage);
 
-    const currentPublications = allPublications.slice(startIndex, endIndex + 1);
+    const currentPublications = publications.slice(startIndex, endIndex + 1);
 
     if (pending) return <h2>Loading...</h2>;
 
     return (
         <>
             <h2>All publications</h2>
-            {allPublications.length === 0 ? (
+            {publications.length === 0 ? (
                 <p>There are nothing published by you</p>
             ) : (
                 <>
                     <PublicationList publications={currentPublications} />
-                    {allPublications.length > publicationsPerPage && (
+                    {publications.length > publicationsPerPage && (
                         <Pagination
                             onChange={goToPage}
                             onNext={nextPage}
