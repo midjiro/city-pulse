@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
-export const EventExcerpt = ({ _id, author, title, content }) => {
+export const EventExcerpt = ({ _id, author, date, title, content }) => {
     return (
         <article className='publication'>
             <header className='author'>
@@ -21,6 +22,9 @@ export const EventExcerpt = ({ _id, author, title, content }) => {
                 <h2 className='publication__title'>
                     <Link to={`/event/${_id}`}>{title}</Link>
                 </h2>
+                <p className='date'>
+                    Scheduled for: {format(date.toString(), 'PPPPp')}
+                </p>
                 <p className='publication__text'>
                     {content.length > 100
                         ? content.substr(0, 100) + '...'

@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Map,
-    AdvancedMarker,
-    Pin,
-    InfoWindow,
-} from '@vis.gl/react-google-maps';
+import { Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 import { useSelector } from 'react-redux';
 import { selectEventList } from 'features/selectors';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { MapExcerpt } from 'components/MapExcerpt';
 
 export const MapView = () => {
     const { eventID } = useParams();
@@ -71,27 +67,10 @@ export const MapView = () => {
             )}
 
             {selectedEvent && (
-                <InfoWindow
-                    position={{
-                        lat: selectedEvent.location.lat,
-                        lng: selectedEvent.location.lng,
-                    }}
-                    onCloseClick={() => setSelectedEvent(null)}
-                >
-                    <h2 className='map-view__title'>
-                        <Link
-                            to={`/event/${selectedEvent._id}`}
-                            className='map-view__link'
-                        >
-                            {selectedEvent.title}
-                        </Link>
-                    </h2>
-                    <p className='map-view__body'>
-                        {selectedEvent.content.length < 100
-                            ? selectedEvent.content.substr(0, 100) + '...'
-                            : selectedEvent.content}
-                    </p>
-                </InfoWindow>
+                <MapExcerpt
+                    event={selectedEvent}
+                    onClose={() => setSelectedEvent(null)}
+                />
             )}
         </Map>
     );

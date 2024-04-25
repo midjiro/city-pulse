@@ -1,0 +1,7 @@
+@use '../vars';
+
+.date {
+    margin-block-start: 0;
+    font-size: vars.$fs-600;
+    color: vars.$clr-gray-100;
+}
