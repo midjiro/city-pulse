@@ -26,7 +26,7 @@ export const Profile = () => {
             });
     };
 
-    if (userPending) return <h2>Loading...</h2>;
+    if (userPending || currentUserPending) return <h2>Loading...</h2>;
     else if (!user || error) {
         return (
             <>

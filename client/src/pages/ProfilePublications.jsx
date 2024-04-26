@@ -5,8 +5,10 @@ import { Pagination } from 'components/Pagination';
 import { usePagination } from 'hooks/pagination';
 import { selectPublicationsByUser } from 'features/selectors';
 
-export const ProfilePublications = () => {
-    const [publications, pending] = useSelector(selectPublicationsByUser);
+export const ProfilePublications = ({ user }) => {
+    const [publications, pending] = useSelector((state) =>
+        selectPublicationsByUser(state, user)
+    );
     const publicationsPerPage = 3;
     const {
         currentPage,
@@ -26,7 +28,7 @@ export const ProfilePublications = () => {
         <>
             <h2>All publications</h2>
             {publications.length === 0 ? (
-                <p>There are nothing published by you</p>
+                <p>There are nothing published yet.</p>
             ) : (
                 <>
                     <PublicationList publications={currentPublications} />

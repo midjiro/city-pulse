@@ -45,12 +45,12 @@ export const selectSingleEvent = createSelector(
 );
 
 export const selectPublicationsByUser = createSelector(
-    [selectPostList, selectEventList, selectCurrentUser],
-    ([posts, postsPending], [events, eventsPending], [user, userPending]) => {
+    [selectPostList, selectEventList, (state, user) => user],
+    ([posts, postsPending], [events, eventsPending], user) => {
         const publications = [...posts, ...events];
         return [
             publications?.filter(({ author }) => author?._id === user?._id),
-            postsPending || eventsPending || userPending,
+            postsPending || eventsPending,
         ];
     }
 );
