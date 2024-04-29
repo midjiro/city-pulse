@@ -2,7 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
-export const PostExcerpt = ({ _id, author, publishedAt, title, content }) => {
+export const PublicationExcerpt = ({
+    _id,
+    author,
+    publishedAt,
+    location,
+    title,
+    content,
+}) => {
     return (
         <article className='publication'>
             <header className='author'>
@@ -20,7 +27,9 @@ export const PostExcerpt = ({ _id, author, publishedAt, title, content }) => {
             </header>
             <div className='publication__content'>
                 <h2 className='publication__title'>
-                    <Link to={`/post/${_id}`}>{title}</Link>
+                    <Link to={location ? `/event/${_id}` : `/post/${_id}`}>
+                        {title}
+                    </Link>
                 </h2>
                 <p className='date'>
                     Published at: {format(publishedAt.toString(), 'PPPPp')}

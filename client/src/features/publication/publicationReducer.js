@@ -1,47 +1,53 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createPost, deletePost, getPostList } from './postAPI';
+import {
+    createPost,
+    deletePublication,
+    getPublicationList,
+} from './publicationAPI';
 import { checkActionType } from 'features/utils';
 import { removeAccount } from 'features/user/userAPI';
 
-const postReducer = createSlice({
-    name: 'post',
+const publicationReducer = createSlice({
+    name: 'publication',
     initialState: {
-        posts: [],
+        publications: [],
         error: null,
         pending: false,
     },
     extraReducers: (build) => {
         build
-            .addCase(getPostList.fulfilled, (state, action) => {
-                state.posts = action.payload;
+            .addCase(getPublicationList.fulfilled, (state, action) => {
+                state.publications = action.payload;
                 state.pending = false;
             })
             .addCase(createPost.fulfilled, (state, action) => {
-                state.posts.push(action.payload);
+                state.publications.push(action.payload);
                 state.error = null;
                 state.pending = false;
             })
-            .addCase(deletePost.fulfilled, (state, action) => {
-                const { postID } = action.payload;
+            .addCase(deletePublication.fulfilled, (state, action) => {
+                const { publicationID } = action.payload;
 
-                state.posts = state.posts.filter((post) => post._id !== postID);
+                state.publications = state.publications.filter(
+                    (publication) => publication._id !== publicationID
+                );
                 state.pending = false;
             })
             .addCase(removeAccount.fulfilled, (state, action) => {
                 const { _id: authorID } = action.payload;
 
-                state.posts = state.posts.filter(
-                    (post) => post.author._id !== authorID
+                state.publications = state.publications.filter(
+                    (publication) => publication.author._id !== authorID
                 );
             })
             .addMatcher(
-                (action) => checkActionType(action, 'post', 'pending'),
+                (action) => checkActionType(action, 'publication', 'pending'),
                 (state) => {
                     state.pending = true;
                 }
             )
             .addMatcher(
-                (action) => checkActionType(action, 'post', 'rejected'),
+                (action) => checkActionType(action, 'publication', 'rejected'),
                 (state, action) => {
                     state.error = action.error.message;
                     state.pending = false;
@@ -50,4 +56,4 @@ const postReducer = createSlice({
     },
 });
 
-export default postReducer.reducer;
+export default publicationReducer.reducer;

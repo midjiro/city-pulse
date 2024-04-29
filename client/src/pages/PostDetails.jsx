@@ -5,14 +5,14 @@ import Markdown from 'react-markdown';
 import { format } from 'date-fns';
 import { toast } from 'react-toastify';
 import { selectCurrentUser } from 'features/selectors';
-import { deletePost } from 'features/post/postAPI';
+import { deletePublication } from 'features/publication/publicationAPI';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { selectSinglePost } from 'features/selectors';
+import { selectSinglePublication } from 'features/selectors';
 
 export const PostDetails = () => {
-    const { postID } = useParams();
+    const { publicationID } = useParams();
     const [post, postPending] = useSelector((state) =>
-        selectSinglePost(state, postID)
+        selectSinglePublication(state, publicationID)
     );
     const [user, userPending] = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
@@ -50,7 +50,7 @@ export const PostDetails = () => {
                 <button
                     className='btn btn--danger'
                     onClick={() => {
-                        dispatch(deletePost(post._id))
+                        dispatch(deletePublication(post._id))
                             .then(unwrapResult)
                             .then(() => {
                                 navigate('/');

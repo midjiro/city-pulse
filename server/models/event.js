@@ -1,22 +1,14 @@
-const { Schema, model } = require('mongoose');
+const { model } = require('mongoose');
 const { differenceInDays } = require('date-fns');
+const extend = require('mongoose-extend-schema');
+const { PublicationSchema } = require('./publication');
 
-const EventSchema = new Schema({
-    title: {
-        type: String,
-        required: true,
-    },
-    content: {
-        type: String,
-        maxLength: 1500,
-        required: true,
-    },
-    date: {
+const EventSchema = extend(PublicationSchema, {
+    scheduledFor: {
         type: Date,
         default: Date.now(),
         required: true,
     },
-    author: { type: String, ref: 'User', required: true },
     location: {
         name: { type: String, required: true },
         lat: { type: Number, required: true },
@@ -27,13 +19,14 @@ const EventSchema = new Schema({
 EventSchema.statics.findOrCreate = async function (query, doc) {
     let event = await Event.findOne(query);
 
-    if (event && differenceInDays(doc.date, event.date) <= 1) return;
+    if (event && differenceInDays(doc.scheduledFor, event.scheduledFor) <= 1)
+        return;
 
     event = await Event.create(doc);
 
     return event;
 };
 
-const Event = model('Event', EventSchema, 'events');
+const Event = model('Event', EventSchema, 'publications');
 
 module.exports = { Event };

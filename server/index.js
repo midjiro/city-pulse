@@ -15,8 +15,7 @@ const {
 } = require('./config/index');
 const { authRouter } = require('./routes/auth');
 const { userRouter } = require('./routes/user');
-const { postRouter } = require('./routes/post');
-const { eventRouter } = require('./routes/event');
+const { publicationRouter } = require('./routes/publication');
 
 const app = express();
 
@@ -47,8 +46,7 @@ initPassport(passport, clientID, clientSecret);
 // * Routing
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
-app.use('/post', postRouter);
-app.use('/event', eventRouter);
+app.use('/publication', publicationRouter);
 
 const start = () => {
     try {

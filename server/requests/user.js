@@ -5,7 +5,7 @@ const {
     addFieldIfTruthy,
     handleProfilePictureUpdate,
 } = require('../utils/index');
-const { Post } = require('../models/post');
+
 const { Event } = require('../models/event');
 
 const storage = new Storage({
@@ -35,8 +35,7 @@ class UserRequests {
     static async deleteUser(req, res, next) {
         try {
             const deletedUser = await User.findByIdAndDelete(req.user._id);
-            const posts = await Post.find({ author: req.user._id });
-            const events = await Event.find({ author: req.user._id });
+            const posts = await Publication.find({ author: req.user._id });
 
             for (let publication of [...posts, ...events]) {
                 await publication.deleteOne().exec();

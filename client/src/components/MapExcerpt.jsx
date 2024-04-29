@@ -17,7 +17,7 @@ export const MapExcerpt = ({ event, onClose }) => {
                 <Link to={`/event/${event._id}`}>{event.title}</Link>
             </h2>
             <p className='date'>
-                Scheduled for: {format(event.date.toString(), 'PPPPp')}
+                Scheduled for: {format(event.scheduledFor.toString(), 'PPPPp')}
             </p>
             <p className='publication__text map-view__text'>
                 {event.content.length < 100

@@ -2,16 +2,15 @@ import React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
-import { selectCurrentUser } from 'features/selectors';
-import { deleteEvent } from 'features/event/eventAPI';
+import { selectCurrentUser, selectSinglePublication } from 'features/selectors';
+import { deletePublication } from 'features/publication/publicationAPI';
 import { toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { selectSingleEvent } from 'features/selectors';
 
 export const EventDetails = () => {
-    const { eventID } = useParams();
+    const { publicationID } = useParams();
     const [event, eventPending] = useSelector((state) =>
-        selectSingleEvent(state, eventID)
+        selectSinglePublication(state, publicationID)
     );
     const [user, userPending] = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
@@ -45,7 +44,9 @@ export const EventDetails = () => {
             </section>
 
             <p>{event.content}</p>
-            <p>Scheduled for: {format(event.date.toString(), 'PPPPp')}</p>
+            <p>
+                Scheduled for: {format(event.scheduledFor.toString(), 'PPPPp')}
+            </p>
             <p>
                 Will be held in:{' '}
                 <Link to={`/event/map-view/${event._id}`}>
@@ -57,7 +58,7 @@ export const EventDetails = () => {
                 <button
                     className='btn btn--danger'
                     onClick={() => {
-                        dispatch(deleteEvent(event._id))
+                        dispatch(deletePublication(event._id))
                             .then(unwrapResult)
                             .then(() => {
                                 navigate('/');

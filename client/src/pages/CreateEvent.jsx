@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FormField } from 'components/FormField';
 import { MultilineFormField } from 'components/MultilineFormField';
 import { useDispatch } from 'react-redux';
-import { createEvent } from 'features/event/eventAPI';
+import { createEvent } from 'features/publication/publicationAPI';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { GeolocationFormField } from 'components/GeolocationFormField';
@@ -53,7 +53,7 @@ export const CreateEvent = () => {
                 />
                 <FormField
                     type='datetime-local'
-                    name='date'
+                    name='scheduledFor'
                     label='Event date & time'
                     rules={{
                         required: {

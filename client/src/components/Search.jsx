@@ -47,26 +47,13 @@ export const SearchModal = forwardRef((props, ref) => {
                             <p>No publications found</p>
                         ) : (
                             <div className='search-modal__results'>
-                                {publications.map((publication) => {
-                                    if (publication.hasOwnProperty('location'))
-                                        return (
-                                            <SearchExcerpt
-                                                publication={publication}
-                                                type='event'
-                                                onClick={handleClose}
-                                                key={publication._id}
-                                            />
-                                        );
-
-                                    return (
-                                        <SearchExcerpt
-                                            publication={publication}
-                                            type='post'
-                                            onClick={handleClose}
-                                            key={publication._id}
-                                        />
-                                    );
-                                })}
+                                {publications.map((publication) => (
+                                    <SearchExcerpt
+                                        publication={publication}
+                                        onClick={handleClose}
+                                        key={publication._id}
+                                    />
+                                ))}
                             </div>
                         )}
                     </section>

@@ -20,9 +20,11 @@
 }
 
 .form-control__field {
-    border: none;
+    border: 1px solid #f6f6f6;
     outline: none;
-    border-block-end: 1px solid vars.$clr-gray-200;
+    border-radius: 5px;
+    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.025);
+    padding: 1rem;
     color: vars.$clr-gray-100;
     resize: none;
 

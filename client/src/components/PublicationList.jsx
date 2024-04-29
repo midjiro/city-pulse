@@ -1,17 +1,12 @@
 import React from 'react';
-import { EventExcerpt } from './EventExcerpt';
-import { PostExcerpt } from './PostExcerpt';
+import { PublicationExcerpt } from './PublicationExcerpt';
 
 const PublicationList = ({ publications }) => {
     return (
         <section className='publication-list'>
-            {publications.map((publication) =>
-                publication.hasOwnProperty('location') ? (
-                    <EventExcerpt {...publication} key={publication._id} />
-                ) : (
-                    <PostExcerpt {...publication} key={publication._id} />
-                )
-            )}
+            {publications.map((publication) => (
+                <PublicationExcerpt {...publication} key={publication._id} />
+            ))}
         </section>
     );
 };

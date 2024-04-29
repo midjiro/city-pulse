@@ -18,9 +18,8 @@
     justify-content: space-between;
     gap: 1rem;
     padding: 1.5% 5%;
-    animation: lighten linear forwards;
-    animation-timeline: view(y);
-    animation-range: exit;
+    background: vars.$clr-white-100;
+    box-shadow: 0px 30px 30px rgba(0, 0, 0, 0.025);
     z-index: 2;
 }
 

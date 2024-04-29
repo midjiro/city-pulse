@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { MapExcerpt } from 'components/MapExcerpt';
 
 export const MapView = () => {
-    const { eventID } = useParams();
+    const { publicationID } = useParams();
     const [events, pending] = useSelector(selectEventList);
     const [defaultCenter, setDefaultCenter] = useState(null);
     const [selectedEvent, setSelectedEvent] = useState(null);
@@ -36,7 +36,7 @@ export const MapView = () => {
             className='map-view'
         >
             {events.map((event) =>
-                event._id === eventID ? (
+                event._id === publicationID ? (
                     <AdvancedMarker
                         position={{
                             lat: event.location.lat,

@@ -6,10 +6,10 @@ import { Pagination } from 'components/Pagination';
 import { usePagination } from 'hooks/pagination';
 import { filterActions } from 'features/filter/filterSlice';
 import { selectFilter } from 'features/selectors';
-import { selectPostsByFilter } from 'features/selectors';
+import { selectPublicationsByFilter } from 'features/selectors';
 
 export const Home = () => {
-    const [publications, pending] = useSelector(selectPostsByFilter);
+    const [publications, pending] = useSelector(selectPublicationsByFilter);
     const filter = useSelector(selectFilter);
     const filterOptions = {
         all: 'All',

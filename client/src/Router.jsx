@@ -37,10 +37,16 @@ export const Router = () => {
                     <Route index element={<Home />} />
                     <Route path='sign-in' element={<SignIn user={user} />} />
                     <Route path='sign-up' element={<SignUp user={user} />} />
-                    <Route path='post/:postID' element={<PostDetails />} />
-                    <Route path='event/:eventID' element={<EventDetails />} />
                     <Route
-                        path='event/map-view/:eventID'
+                        path='post/:publicationID'
+                        element={<PostDetails />}
+                    />
+                    <Route
+                        path='event/:publicationID'
+                        element={<EventDetails />}
+                    />
+                    <Route
+                        path='event/map-view/:publicationID'
                         element={<MapView />}
                     />
                     <Route
