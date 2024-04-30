@@ -6,6 +6,7 @@ import { selectCurrentUser, selectSinglePublication } from 'features/selectors';
 import { deletePublication } from 'features/publication/publicationAPI';
 import { toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { Dropdown } from 'components/ui/Dropdown';
 
 export const EventDetails = () => {
     const { publicationID } = useParams();
@@ -15,6 +16,16 @@ export const EventDetails = () => {
     const [user, userPending] = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const handleDelete = () => {
+        dispatch(deletePublication(event._id))
+            .then(unwrapResult)
+            .then(() => {
+                navigate('/');
+            })
+            .catch((error) => {
+                toast(error.message);
+            });
+    };
 
     if (eventPending || userPending) return <h2>Loading...</h2>;
     else if (!event)
@@ -26,8 +37,20 @@ export const EventDetails = () => {
         );
 
     return (
-        <>
-            <h2>{event.title}</h2>
+        <article className='publication'>
+            <div className='publication__header'>
+                <h2 className='publication__title'>{event.title}</h2>
+                {user?._id === event.author._id && (
+                    <Dropdown title={'Actions'}>
+                        <button
+                            className='btn btn--danger'
+                            onClick={handleDelete}
+                        >
+                            Delete
+                        </button>
+                    </Dropdown>
+                )}
+            </div>
             <p>Written by:</p>
             <section className='author'>
                 <img
@@ -42,8 +65,6 @@ export const EventDetails = () => {
                     {event.author.displayName}
                 </a>
             </section>
-
-            <p>{event.content}</p>
             <p>
                 Scheduled for: {format(event.scheduledFor.toString(), 'PPPPp')}
             </p>
@@ -54,23 +75,7 @@ export const EventDetails = () => {
                 </Link>
             </p>
 
-            {user?._id === event.author._id && (
-                <button
-                    className='btn btn--danger'
-                    onClick={() => {
-                        dispatch(deletePublication(event._id))
-                            .then(unwrapResult)
-                            .then(() => {
-                                navigate('/');
-                            })
-                            .catch((error) => {
-                                toast(error.message);
-                            });
-                    }}
-                >
-                    Delete
-                </button>
-            )}
-        </>
+            <p>{event.content}</p>
+        </article>
     );
 };

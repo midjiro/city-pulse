@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom';
 
 export const SearchExcerpt = ({ publication, onClick }) => {
     return (
-        <article className='publication search-modal__publication'>
-            <h3 className='publication__title search-modal__title'>
+        <article className='except search-modal__excerpt'>
+            <h3 className='excerpt__title search-modal__title'>
                 <Link
                     to={
                         publication.hasOwnProperty('location')
                             ? `/event/${publication._id}`
                             : `/post/${publication._id}`
                     }
-                    key={publication._id}
                     onClick={onClick}
+                    className='excerpt__link'
+                    key={publication._id}
                 >
                     {publication.title}
                 </Link>

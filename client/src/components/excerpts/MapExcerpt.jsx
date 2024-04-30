@@ -11,15 +11,17 @@ export const MapExcerpt = ({ event, onClose }) => {
                 lng: event.location.lng,
             }}
             onCloseClick={onClose}
-            className='publication map-view__publication'
+            className='excerpt map-view__excerpt'
         >
-            <h2 className='publication__title map-view__title'>
-                <Link to={`/event/${event._id}`}>{event.title}</Link>
+            <h2 className='excerpt__title map-view__title'>
+                <Link to={`/event/${event._id}`} className='excerpt__link'>
+                    {event.title}
+                </Link>
             </h2>
             <p className='date'>
                 Scheduled for: {format(event.scheduledFor.toString(), 'PPPPp')}
             </p>
-            <p className='publication__text map-view__text'>
+            <p className='excerpt__text map-view__text'>
                 {event.content.length < 100
                     ? event.content.substr(0, 100) + '...'
                     : event.content}

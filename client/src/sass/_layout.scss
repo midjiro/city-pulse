@@ -303,9 +303,9 @@
     }
 }
 
-.search-modal__publication {
+.search-modal__excerpt {
     padding: 1rem 1rem 0rem;
-    border: 1px solid #f6f6f6;
+    border: 1px solid vars.$clr-white-200;
     box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.025);
 }
 
@@ -367,7 +367,7 @@
     cursor: pointer;
 }
 
-.map-view__publication {
+.map-view__excerpt {
     padding: 1rem;
 }
 

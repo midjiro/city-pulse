@@ -1,0 +1,22 @@
+.publication {
+    inline-size: max(288px, 60%);
+    margin-inline: auto;
+}
+
+.publication__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-block: 1.5rem;
+
+    @media screen and (width >= 720px) {
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+}
+
+.publication__title {
+    margin: 0;
+}
