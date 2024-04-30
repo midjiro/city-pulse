@@ -1,16 +1,16 @@
 const { Router } = require('express');
 const multer = require('multer');
-const { UserRequests } = require('../requests/user');
+const { getUser, getUserById, deleteUser, updateUser } = require('../services');
 const { isLoggedIn } = require('../utils/index');
 
 const upload = multer({ storage: multer.memoryStorage() });
 const router = Router();
 
-router.get('/', isLoggedIn, UserRequests.getUser);
-router.get('/:userID', UserRequests.getUserById);
+router.get('/', isLoggedIn, getUser);
+router.get('/:userID', getUserById);
 
-router.delete('/', isLoggedIn, UserRequests.deleteUser);
+router.delete('/', isLoggedIn, deleteUser);
 
-router.put('/', isLoggedIn, upload.single('picture'), UserRequests.putUser);
+router.put('/', isLoggedIn, upload.single('picture'), updateUser);
 
 module.exports = { userRouter: router };

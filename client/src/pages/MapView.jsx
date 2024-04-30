@@ -3,7 +3,7 @@ import { Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 import { useSelector } from 'react-redux';
 import { selectEventList } from 'features/selectors';
 import { useParams } from 'react-router-dom';
-import { MapExcerpt } from 'components/MapExcerpt';
+import { MapExcerpt } from 'components/excerpts/MapExcerpt';
 
 export const MapView = () => {
     const { publicationID } = useParams();

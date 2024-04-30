@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { User } from 'requests/user';
+import * as services from 'services/user';
 
 export const useUserInfo = (userId) => {
     const [pending, setPending] = useState(true);
@@ -11,7 +11,7 @@ export const useUserInfo = (userId) => {
             setPending(true);
             setError(null);
             try {
-                const res = await User.getUserById(userId);
+                const res = await services.getUserById(userId);
                 setUser(res);
             } catch (error) {
                 setError(error);

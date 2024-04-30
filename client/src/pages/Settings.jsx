@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { FormField } from 'components/FormField';
-import { FileFormField } from 'components/FileFormField';
+import { FormField } from 'components/form/FormField';
+import { FileFormField } from 'components/form/FileFormField';
 import { selectCurrentUser } from 'features/selectors';
 import { removeAccount, updateAccountInformation } from 'features/user/userAPI';
-import { MultilineFormField } from 'components/MultilineFormField';
+import { MultilineFormField } from 'components/form/MultilineFormField';
 
 export const Settings = () => {
     const [user, pending] = useSelector(selectCurrentUser);

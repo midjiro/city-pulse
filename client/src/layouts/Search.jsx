@@ -1,7 +1,7 @@
 import React, { forwardRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectPublicationsByTitle } from 'features/selectors';
-import { SearchExcerpt } from './SearchExcerpt';
+import { SearchExcerpt } from '../components/excerpts/SearchExcerpt';
 
 export const SearchModal = forwardRef((props, ref) => {
     const [searchQuery, setSearchQuery] = useState('');

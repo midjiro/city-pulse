@@ -1,17 +1,23 @@
 const { Router } = require('express');
 const { isLoggedIn, isCredentialsProvided } = require('../utils');
-const { AuthRequests } = require('../requests/auth');
+const {
+    getAuthGoogle,
+    getAuthCallback,
+    signIn,
+    signUp,
+    signOut,
+} = require('../services');
 
 const router = Router();
 
-router.get('/google', AuthRequests.getAuthGoogle());
+router.get('/google', getAuthGoogle());
 
-router.get('/callback', AuthRequests.getAuthCallback());
+router.get('/callback', getAuthCallback());
 
-router.post('/sign-in', isCredentialsProvided, AuthRequests.postAuthSignIn);
+router.post('/sign-in', isCredentialsProvided, signIn);
 
-router.post('/sign-up', isCredentialsProvided, AuthRequests.postAuthSignUp);
+router.post('/sign-up', isCredentialsProvided, signUp);
 
-router.delete('/sign-out', isLoggedIn, AuthRequests.deleteAuthSignOut);
+router.delete('/sign-out', isLoggedIn, signOut);
 
 module.exports = { authRouter: router };

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { FormField } from 'components/FormField';
-import { MultilineFormField } from 'components/MultilineFormField';
+import { FormField } from 'components/form/FormField';
+import { MultilineFormField } from 'components/form/MultilineFormField';
 import Markdown from 'react-markdown';
 import { createPost } from 'features/publication/publicationAPI';
 import { unwrapResult } from '@reduxjs/toolkit';

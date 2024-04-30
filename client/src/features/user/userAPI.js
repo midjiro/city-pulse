@@ -1,12 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Auth } from 'requests/auth';
-import { User } from 'requests/user';
+import * as services from 'services';
 
 export const signIn = createAsyncThunk(
     'user/sign-in',
     async (credentials, { rejectWithValue }) => {
         try {
-            return await Auth.postAuthSignIn(credentials);
+            return await services.signIn(credentials);
         } catch (error) {
             return rejectWithValue(await error);
         }
@@ -17,7 +16,7 @@ export const signUp = createAsyncThunk(
     'user/sign-up',
     async (credentials, { rejectWithValue }) => {
         try {
-            return await Auth.postAuthSignUp(credentials);
+            return await services.signUp(credentials);
         } catch (error) {
             return rejectWithValue(await error);
         }
@@ -35,7 +34,7 @@ export const autoLogin = createAsyncThunk(
     'user/sign-in',
     async (_, { rejectWithValue }) => {
         try {
-            return await User.getUser();
+            return await services.getUser();
         } catch (error) {
             return rejectWithValue(await error);
         }
@@ -46,7 +45,7 @@ export const signOut = createAsyncThunk(
     'user/sign-out',
     async (_, { rejectWithValue }) => {
         try {
-            return await Auth.deleteAuthSignOut();
+            return await services.signOut();
         } catch (error) {
             return rejectWithValue(await error);
         }
@@ -57,7 +56,7 @@ export const removeAccount = createAsyncThunk(
     'user/remove',
     async (_, { rejectWithValue }) => {
         try {
-            return await User.deleteUser();
+            return await services.deleteUser();
         } catch (error) {
             return rejectWithValue(await error);
         }
@@ -68,7 +67,7 @@ export const updateAccountInformation = createAsyncThunk(
     'user/update',
     async (newAccountInformation, { rejectWithValue }) => {
         try {
-            return await User.putUser(newAccountInformation, {
+            return await services.updateUser(newAccountInformation, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

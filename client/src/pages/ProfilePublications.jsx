@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import PublicationList from 'components/PublicationList';
-import { Pagination } from 'components/Pagination';
+import PublicationList from 'layouts/PublicationList';
+import { Pagination } from 'components/ui/Pagination';
 import { usePagination } from 'hooks/pagination';
 import { selectPublicationsByUser } from 'features/selectors';
 

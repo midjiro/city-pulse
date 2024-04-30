@@ -1,4 +1,4 @@
-import { Navbar } from 'components/Navbar';
+import { Navbar } from 'layouts/Navbar';
 import { Outlet } from 'react-router-dom';
 import '../sass/main.scss';
 

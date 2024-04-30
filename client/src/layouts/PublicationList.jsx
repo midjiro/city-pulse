@@ -1,5 +1,5 @@
 import React from 'react';
-import { PublicationExcerpt } from './PublicationExcerpt';
+import { PublicationExcerpt } from '../components/excerpts/PublicationExcerpt';
 
 const PublicationList = ({ publications }) => {
     return (

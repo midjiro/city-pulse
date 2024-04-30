@@ -1,12 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormField } from 'components/FormField';
-import { MultilineFormField } from 'components/MultilineFormField';
+import { FormField } from 'components/form/FormField';
+import { MultilineFormField } from 'components/form/MultilineFormField';
 import { useDispatch } from 'react-redux';
 import { createEvent } from 'features/publication/publicationAPI';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { GeolocationFormField } from 'components/GeolocationFormField';
+import { GeolocationFormField } from 'components/form/GeolocationFormField';
 
 export const CreateEvent = () => {
     const { control, handleSubmit, reset } = useForm();

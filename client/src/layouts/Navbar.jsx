@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Dropdown } from './Dropdown';
-import { SearchModal } from 'components/Search';
+import { Dropdown } from '../components/ui/Dropdown';
+import { SearchModal } from 'layouts/Search';
 
 export const Navbar = ({ user }) => {
     const [isExpanded, setIsExpanded] = useState(false);

@@ -1,8 +1,8 @@
 import React from 'react';
-import PublicationList from 'components/PublicationList';
+import PublicationList from 'layouts/PublicationList';
 import { useDispatch, useSelector } from 'react-redux';
-import { Dropdown } from 'components/Dropdown';
-import { Pagination } from 'components/Pagination';
+import { Dropdown } from 'components/ui/Dropdown';
+import { Pagination } from 'components/ui/Pagination';
 import { usePagination } from 'hooks/pagination';
 import { filterActions } from 'features/filter/filterSlice';
 import { selectFilter } from 'features/selectors';

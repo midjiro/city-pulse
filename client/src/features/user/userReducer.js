@@ -6,7 +6,7 @@ import {
     signUp,
     updateAccountInformation,
 } from './userAPI';
-import { checkActionType } from 'features/utils';
+import { checkActionType } from 'utils';
 
 const userReducer = createSlice({
     name: 'user',

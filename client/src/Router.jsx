@@ -12,11 +12,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { autoLogin } from 'features/user/userAPI';
 import { CreatePost } from 'pages/CreatePost';
 import { CreateEvent } from 'pages/CreateEvent';
-import { Protected } from 'components/Protected';
+import { Protected } from 'components/ui/Protected';
 import { Settings } from 'pages/Settings';
 import { PostDetails } from 'pages/PostDetails';
 import { EventDetails } from 'pages/EventDetails';
-import { Navbar } from 'components/Navbar';
+import { Navbar } from 'layouts/Navbar';
 import { MapView } from 'pages/MapView';
 
 export const Router = () => {

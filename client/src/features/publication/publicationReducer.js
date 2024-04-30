@@ -4,7 +4,7 @@ import {
     deletePublication,
     getPublicationList,
 } from './publicationAPI';
-import { checkActionType } from 'features/utils';
+import { checkActionType } from 'utils';
 import { removeAccount } from 'features/user/userAPI';
 
 const publicationReducer = createSlice({

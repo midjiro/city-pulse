@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Publication } from 'requests/publication';
-
+import * as services from 'services';
 export const getPublicationList = createAsyncThunk(
     'publication/get',
     async (_, { rejectWithValue }) => {
         try {
-            return await Publication.getPublicationList();
+            return await services.getPublicationList();
         } catch (error) {
             return rejectWithValue(await error);
         }
@@ -16,7 +15,7 @@ export const createPost = createAsyncThunk(
     'publication/create',
     async (publication, { rejectWithValue }) => {
         try {
-            return await Publication.createPost(publication);
+            return await services.createPost(publication);
         } catch (error) {
             return rejectWithValue(await error);
         }
@@ -27,7 +26,7 @@ export const createEvent = createAsyncThunk(
     'publication/create',
     async (event, { rejectWithValue }) => {
         try {
-            return await Publication.createEvent(event);
+            return await services.createEvent(event);
         } catch (error) {
             return rejectWithValue(await error);
         }
@@ -38,7 +37,7 @@ export const deletePublication = createAsyncThunk(
     'publication/delete',
     async (publicationID, { rejectWithValue }) => {
         try {
-            return await Publication.deletePublication(publicationID);
+            return await services.deletePublication(publicationID);
         } catch (error) {
             return rejectWithValue(await error);
         }
