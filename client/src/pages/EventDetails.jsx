@@ -7,6 +7,7 @@ import { deletePublication } from 'features/publication/publicationAPI';
 import { toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Dropdown } from 'components/ui/Dropdown';
+import { Comments } from 'layouts/Comments';
 
 export const EventDetails = () => {
     const { publicationID } = useParams();
@@ -74,8 +75,12 @@ export const EventDetails = () => {
                     {event.location.name}
                 </Link>
             </p>
-
             <p>{event.content}</p>
+            <Comments
+                publicationID={publicationID}
+                commentList={event.comments}
+                user={user}
+            />
         </article>
     );
 };

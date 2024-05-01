@@ -379,3 +379,22 @@
 .map-view__text {
     font-size: vars.$fs-600;
 }
+
+.publication__comments {
+    margin-block-start: 1.875rem;
+}
+
+.comments__form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    @media screen and (width >= 720px) {
+        grid-template-columns: 1fr 0.3fr;
+    }
+}
+
+.comments__list {
+    display: grid;
+    gap: 1rem;
+}

@@ -1,0 +1,8 @@
+@use '../vars';
+
+.comment {
+    padding: 1rem;
+    border: 1px solid vars.$clr-white-200;
+    border-radius: 5px;
+    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.025);
+}

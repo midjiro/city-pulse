@@ -95,6 +95,7 @@ const createEvent = async (req, res, next) => {
 const addComment = async (req, res, next) => {
     const { publicationID } = req.params;
     const { content } = req.body;
+
     try {
         let publication = await Publication.findById(publicationID);
 
@@ -125,10 +126,11 @@ const deleteComment = async (req, res, next) => {
         publication = await publication.populate(['author', 'comments.by']);
 
         const filteredComments = publication.comments.filter((comment) => {
-            if (comment.by._id !== req.user._id)
+            if (comment._id === commentID && comment.by._id !== req.user._id) {
                 return res.status(401).json({
                     message: 'Only authors can delete their comments.',
                 });
+            }
 
             return comment._id.toString() !== commentID;
         });
@@ -140,6 +142,8 @@ const deleteComment = async (req, res, next) => {
             },
             { returnOriginal: false }
         );
+
+        publication = await publication.populate(['author', 'comments.by']);
 
         return res.json(publication);
     } catch (error) {

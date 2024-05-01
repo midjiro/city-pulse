@@ -33,6 +33,28 @@ export const createEvent = createAsyncThunk(
     }
 );
 
+export const addComment = createAsyncThunk(
+    'publication/addComment',
+    async ({ publicationID, comment }, { rejectWithValue }) => {
+        try {
+            return await services.addComment(publicationID, comment);
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+export const deleteComment = createAsyncThunk(
+    'publication/deleteComment',
+    async ({ publicationID, commentID }, { rejectWithValue }) => {
+        try {
+            return await services.deleteComment(publicationID, commentID);
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
 export const deletePublication = createAsyncThunk(
     'publication/delete',
     async (publicationID, { rejectWithValue }) => {

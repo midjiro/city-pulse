@@ -9,6 +9,7 @@ import { deletePublication } from 'features/publication/publicationAPI';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { selectSinglePublication } from 'features/selectors';
 import { Dropdown } from 'components/ui/Dropdown';
+import { Comments } from 'layouts/Comments';
 
 export const PostDetails = () => {
     const { publicationID } = useParams();
@@ -18,6 +19,7 @@ export const PostDetails = () => {
     const [user, userPending] = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const handleDelete = () => {
         dispatch(deletePublication(post._id))
             .then(unwrapResult)
@@ -69,6 +71,11 @@ export const PostDetails = () => {
                 </a>
             </section>
             <Markdown>{post.content}</Markdown>
+            <Comments
+                publicationID={publicationID}
+                commentList={post.comments}
+                user={user}
+            />
         </article>
     );
 };

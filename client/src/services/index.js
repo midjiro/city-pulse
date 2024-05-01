@@ -3,6 +3,8 @@ export {
     getPublicationList,
     createPost,
     createEvent,
+    addComment,
+    deleteComment,
     deletePublication,
 } from './publication';
 export { getUser, getUserById, updateUser, deleteUser } from './user';

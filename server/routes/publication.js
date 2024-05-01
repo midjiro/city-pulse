@@ -14,8 +14,8 @@ router.post('/post', isLoggedIn, createPost);
 router.post('/event', isLoggedIn, createEvent);
 
 router.get('/', getPublicationList);
-router.post('/comment/:publicationID', addComment);
-router.delete('/comment/:publicationID/:commentID', deleteComment);
+router.post('/comment/:publicationID', isLoggedIn, addComment);
+router.delete('/comment/:publicationID/:commentID', isLoggedIn, deleteComment);
 router.delete('/:publicationID', isLoggedIn, deletePublication);
 
 module.exports = { publicationRouter: router };

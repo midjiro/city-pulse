@@ -3,6 +3,8 @@ import {
     createPost,
     deletePublication,
     getPublicationList,
+    addComment,
+    deleteComment,
 } from './publicationAPI';
 import { checkActionType } from 'utils';
 import { removeAccount } from 'features/user/userAPI';
@@ -23,6 +25,22 @@ const publicationReducer = createSlice({
             .addCase(createPost.fulfilled, (state, action) => {
                 state.publications.push(action.payload);
                 state.error = null;
+                state.pending = false;
+            })
+            .addCase(addComment.fulfilled, (state, action) => {
+                state.publications = state.publications.map((publication) =>
+                    publication._id === action.payload._id
+                        ? action.payload
+                        : publication
+                );
+                state.pending = false;
+            })
+            .addCase(deleteComment.fulfilled, (state, action) => {
+                state.publications = state.publications.map((publication) =>
+                    publication._id === action.payload._id
+                        ? action.payload
+                        : publication
+                );
                 state.pending = false;
             })
             .addCase(deletePublication.fulfilled, (state, action) => {
