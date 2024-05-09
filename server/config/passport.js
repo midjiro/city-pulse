@@ -33,12 +33,16 @@ const authenticateWithGoogle = async (
     accessToken,
     refreshToken,
     profile,
-    done
+    done,
+    nodemailerUser,
+    nodemailerPass
 ) => {
     try {
         const currentUser = await User.findOrCreate(
             { _id: profile.id },
-            profile
+            profile,
+            nodemailerUser,
+            nodemailerPass
         );
 
         return done(null, currentUser);
@@ -47,7 +51,13 @@ const authenticateWithGoogle = async (
     }
 };
 
-const initPassport = (passport, clientID, clientSecret) => {
+const initPassport = (
+    passport,
+    clientID,
+    clientSecret,
+    nodemailerUser,
+    nodemailerPass
+) => {
     passport.use(
         new LocalStrategy(
             {
@@ -63,7 +73,9 @@ const initPassport = (passport, clientID, clientSecret) => {
                 clientSecret,
                 callbackURL: 'auth/callback',
             },
-            authenticateWithGoogle
+            (...args) => {
+                authenticateWithGoogle(...args, nodemailerUser, nodemailerPass);
+            }
         )
     );
 

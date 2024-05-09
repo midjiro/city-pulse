@@ -16,6 +16,7 @@ const {
 const { authRouter } = require('./routes/auth');
 const { userRouter } = require('./routes/user');
 const { publicationRouter } = require('./routes/publication');
+const { nodemailerUser, nodemailerPass } = require('./config');
 
 const app = express();
 
@@ -41,7 +42,9 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-initPassport(passport, clientID, clientSecret);
+console.error(nodemailerUser, nodemailerPass);
+
+initPassport(passport, clientID, clientSecret, nodemailerUser, nodemailerPass);
 
 // * Routing
 app.use('/auth', authRouter);

@@ -1,6 +1,11 @@
 const { compare } = require('bcrypt');
 const { Schema, model } = require('mongoose');
 
+const {
+    getTransporter,
+    generateMailOptions,
+} = require('../services/nodemailer');
+
 const UserSchema = new Schema({
     _id: {
         type: String,
@@ -17,7 +22,12 @@ const UserSchema = new Schema({
     phoneNumber: { type: String, maxLength: 20 },
 });
 
-UserSchema.statics.findOrCreate = async function (query, doc) {
+UserSchema.statics.findOrCreate = async function (
+    query,
+    doc,
+    nodemailerUser,
+    nodemailerPass
+) {
     let user = await User.findOne(query);
 
     if (user) return user;
@@ -30,6 +40,10 @@ UserSchema.statics.findOrCreate = async function (query, doc) {
         picture: doc.picture,
         password: doc?.password,
     });
+
+    const transporter = getTransporter(nodemailerUser, nodemailerPass);
+
+    await transporter.sendMail(generateMailOptions(user));
 
     return user;
 };

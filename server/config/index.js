@@ -11,7 +11,8 @@ module.exports = {
     gcsKeyPath: process.env.GCS_KEY_PATH,
     gcsBucketName: process.env.GCS_BUCKET_NAME,
     mapAPIKey: process.env.MAP_API_KEY,
-
+    nodemailerUser: process.env.NODEMAILER_USER,
+    nodemailerPass: process.env.NODEMAILER_PASS,
     port: process.env.PORT,
     mongoPassword: process.env.MONGO_PASSWORD,
     clientAppEndpoint: process.env.CLIENT_APP_ENDPOINT,
