@@ -395,6 +395,9 @@
 }
 
 .comments__list {
+    block-size: 300px;
+    overflow-y: scroll;
     display: grid;
+    align-items: start;
     gap: 1rem;
 }

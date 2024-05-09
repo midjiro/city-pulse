@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Dropdown } from 'components/ui/Dropdown';
 import { Comments } from 'layouts/Comments';
+import { SocialShare } from 'components/ui/SocialShare';
 
 export const EventDetails = () => {
     const { publicationID } = useParams();
@@ -38,13 +39,13 @@ export const EventDetails = () => {
         );
 
     return (
-        <article className='publication'>
-            <div className='publication__header'>
-                <h2 className='publication__title'>{event.title}</h2>
+        <article className="publication">
+            <div className="publication__header">
+                <h2 className="publication__title">{event.title}</h2>
                 {user?._id === event.author._id && (
                     <Dropdown title={'Actions'}>
                         <button
-                            className='btn btn--danger'
+                            className="btn btn--danger"
                             onClick={handleDelete}
                         >
                             Delete
@@ -53,15 +54,15 @@ export const EventDetails = () => {
                 )}
             </div>
             <p>Written by:</p>
-            <section className='author'>
+            <section className="author">
                 <img
                     src={event.author?.picture}
-                    alt=''
-                    className='author__avatar avatar'
+                    alt=""
+                    className="author__avatar avatar"
                 />
                 <a
                     href={`/user/${event.author._id}`}
-                    className='author__profile-link'
+                    className="author__profile-link"
                 >
                     {event.author.displayName}
                 </a>
@@ -76,6 +77,7 @@ export const EventDetails = () => {
                 </Link>
             </p>
             <p>{event.content}</p>
+            <SocialShare publication={event} />
             <Comments
                 publicationID={publicationID}
                 commentList={event.comments}

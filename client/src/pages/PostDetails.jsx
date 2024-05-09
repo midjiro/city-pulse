@@ -10,6 +10,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { selectSinglePublication } from 'features/selectors';
 import { Dropdown } from 'components/ui/Dropdown';
 import { Comments } from 'layouts/Comments';
+import { SocialShare } from 'components/ui/SocialShare';
 
 export const PostDetails = () => {
     const { publicationID } = useParams();
@@ -41,13 +42,13 @@ export const PostDetails = () => {
         );
 
     return (
-        <article className='publication'>
-            <div className='publication__header'>
+        <article className="publication">
+            <div className="publication__header">
                 <h2>{post.title}</h2>
                 {user?._id === post.author._id && (
                     <Dropdown title={'Actions'}>
                         <button
-                            className='btn btn--danger'
+                            className="btn btn--danger"
                             onClick={handleDelete}
                         >
                             Delete
@@ -57,20 +58,21 @@ export const PostDetails = () => {
             </div>
             <p> {format(post.publishedAt.toString(), 'PPPPp')}</p>
             <p>Written by:</p>
-            <section className='author'>
+            <section className="author">
                 <img
                     src={post.author?.picture}
-                    alt=''
-                    className='author__avatar avatar'
+                    alt=""
+                    className="author__avatar avatar"
                 />
                 <a
                     href={`/user/${post.author._id}`}
-                    className='author__profile-link'
+                    className="author__profile-link"
                 >
                     {post.author.displayName}
                 </a>
             </section>
             <Markdown>{post.content}</Markdown>
+            <SocialShare publication={post} />
             <Comments
                 publicationID={publicationID}
                 commentList={post.comments}
