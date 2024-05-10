@@ -2,10 +2,10 @@ import { createSelector } from '@reduxjs/toolkit';
 
 export const selectFilter = (state) => state.filterReducer.filter;
 
-export const selectCurrentUser = (state) => [
-    state.userReducer.currentUser,
-    state.userReducer.pending,
-];
+export const selectCurrentUser = createSelector(
+    (state) => state.userReducer,
+    (userReducer) => [userReducer.currentUser, userReducer.pending]
+);
 
 export const selectPublicationList = (state) => [
     state.publicationReducer.publications,
