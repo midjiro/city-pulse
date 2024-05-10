@@ -18,35 +18,32 @@ export const SearchModal = forwardRef((props, ref) => {
 
     if (!pending)
         return (
-            <dialog className='search-modal' ref={ref}>
-                <div className='search-modal__header'>
-                    <h2 className='search-modal__header-title'>
+            <dialog className="modal" ref={ref}>
+                <div className="modal__header">
+                    <h2 className="modal__header-title">
                         Search for publications
                     </h2>
-                    <button
-                        className='btn search-modal__btn'
-                        onClick={handleClose}
-                    >
-                        <i className='fa-solid fa-xmark fa-xl'></i>
-                        <span className='sr-only'>Close</span>
+                    <button className="btn modal__btn" onClick={handleClose}>
+                        <i className="fa-solid fa-xmark fa-xl"></i>
+                        <span className="sr-only">Close</span>
                     </button>
                 </div>
-                <div className='search-modal__content'>
-                    <div className='form-control'>
+                <div className="searchodal__content">
+                    <div className="form-control">
                         <input
-                            type='text'
-                            className='form-control__field'
+                            type="text"
+                            className="form-control__field"
                             onChange={handleSearch}
                         />
                     </div>
                     <section>
-                        <h3 className='search-modal__results-title'>
+                        <h3 className="modal__results-title">
                             Publications found
                         </h3>
                         {publications.length === 0 ? (
                             <p>No publications found</p>
                         ) : (
-                            <div className='search-modal__results'>
+                            <div className="modal__results">
                                 {publications.map((publication) => (
                                     <SearchExcerpt
                                         publication={publication}

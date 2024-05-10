@@ -2,6 +2,9 @@ import { createSelector } from '@reduxjs/toolkit';
 
 export const selectFilter = (state) => state.filterReducer.filter;
 
+export const selectNotifications = (state) =>
+    state.notificationReducer.notifications;
+
 export const selectCurrentUser = createSelector(
     (state) => state.userReducer,
     (userReducer) => [userReducer.currentUser, userReducer.pending]

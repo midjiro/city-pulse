@@ -1,0 +1,63 @@
+@use '../vars';
+
+.modal {
+    inline-size: min(90%, 640px);
+    overflow-y: hidden;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-end: 1.5rem;
+}
+
+.modal__header-title {
+    margin-block: 0;
+}
+
+.modal__btn {
+    border: none;
+    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.025);
+}
+
+.modal__content {
+    @media screen and (width >=720px) {
+        margin-inline: 2rem;
+    }
+}
+
+.modal__results-title {
+    margin-block: 1.5rem 1rem;
+}
+
+.modal__results {
+    max-block-size: 150px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+
+    @media screen and (width > 720px) {
+        padding: 1rem;
+    }
+}
+
+.modal__excerpt {
+    padding: 1rem 1rem 0rem;
+    border: 1px solid vars.$clr-white-200;
+    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.025);
+}
+
+.modal__excerpt-text {
+    margin-block: 0.5rem;
+}
+
+.modal__title {
+    display: block;
+    margin-block: 0rem 0.5rem;
+    font-size: vars.$fs-500;
+}

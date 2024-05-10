@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 export const SearchExcerpt = ({ publication, onClick }) => {
     return (
-        <article className='except search-modal__excerpt'>
-            <h3 className='excerpt__title search-modal__title'>
+        <article className="except modal__excerpt">
+            <h3 className="excerpt__title modal__title">
                 <Link
                     to={
                         publication.hasOwnProperty('location')
@@ -13,14 +13,14 @@ export const SearchExcerpt = ({ publication, onClick }) => {
                             : `/post/${publication._id}`
                     }
                     onClick={onClick}
-                    className='excerpt__link'
+                    className="excerpt__link"
                     key={publication._id}
                 >
                     {publication.title}
                 </Link>
             </h3>
 
-            <p className='date'>
+            <p className="date">
                 Published at:{' '}
                 {format(publication.publishedAt.toString(), 'PPPPp')}
             </p>

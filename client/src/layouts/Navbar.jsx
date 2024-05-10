@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from '../components/ui/Dropdown';
 import { SearchModal } from 'layouts/Search';
+import { NotificationsModal } from './Notifications';
 
 export const Navbar = ({ user }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const navbarRef = useRef();
     const searchModalRef = useRef();
+    const notificationsModalRef = useRef();
 
     const handleResize = () => {
         if (window.innerWidth >= 837) setIsExpanded(true);
@@ -34,23 +36,23 @@ export const Navbar = ({ user }) => {
 
     return (
         <>
-            <header className='navbar' ref={navbarRef}>
-                <h1 className='navbar__logo'>City Pulse</h1>
+            <header className="navbar" ref={navbarRef}>
+                <h1 className="navbar__logo">City Pulse</h1>
                 <button
-                    className='navbar__trigger'
+                    className="navbar__trigger"
                     aria-expanded={isExpanded}
                     onClick={() => {
                         setIsExpanded((prevState) => !prevState);
                     }}
-                    aria-controls='navbar-menu'
+                    aria-controls="navbar-menu"
                 >
                     {isExpanded ? (
-                        <i className='fa-solid fa-xmark fa-xl'></i>
+                        <i className="fa-solid fa-xmark fa-xl"></i>
                     ) : (
-                        <i className='fa-solid fa-bars fa-xl'></i>
+                        <i className="fa-solid fa-bars fa-xl"></i>
                     )}
 
-                    <span className='sr-only'>
+                    <span className="sr-only">
                         {isExpanded ? 'Close menu' : 'Open menu'}
                     </span>
                 </button>
@@ -61,17 +63,17 @@ export const Navbar = ({ user }) => {
                             ? 'navbar__container navbar__container--expanded'
                             : 'navbar__container'
                     }
-                    id='navbar-menu'
+                    id="navbar-menu"
                 >
-                    <div className='navbar__menu' role='menu'>
+                    <div className="navbar__menu" role="menu">
                         <NavLink
                             className={({ isActive }) =>
                                 isActive
                                     ? 'navbar__link navbar__link--active'
                                     : 'navbar__link'
                             }
-                            role='menuitem'
-                            to='/'
+                            role="menuitem"
+                            to="/"
                         >
                             Home
                         </NavLink>
@@ -81,8 +83,8 @@ export const Navbar = ({ user }) => {
                                     ? 'navbar__link navbar__link--active'
                                     : 'navbar__link'
                             }
-                            role='menuitem'
-                            to='/about/'
+                            role="menuitem"
+                            to="/about/"
                         >
                             About
                         </NavLink>
@@ -92,16 +94,16 @@ export const Navbar = ({ user }) => {
                                     ? 'navbar__link navbar__link--active'
                                     : 'navbar__link'
                             }
-                            role='menuitem'
-                            to='/contact/'
+                            role="menuitem"
+                            to="/contact/"
                         >
                             Contact
                         </NavLink>
 
                         {user ? (
-                            <Dropdown title='Create'>
+                            <Dropdown title="Create">
                                 <NavLink
-                                    to='/post/create'
+                                    to="/post/create"
                                     className={({ isActive }) =>
                                         isActive
                                             ? 'navbar__link navbar__link--active'
@@ -111,7 +113,7 @@ export const Navbar = ({ user }) => {
                                     New post
                                 </NavLink>
                                 <NavLink
-                                    to='/event/create'
+                                    to="/event/create"
                                     className={({ isActive }) =>
                                         isActive
                                             ? 'navbar__link navbar__link--active'
@@ -128,27 +130,32 @@ export const Navbar = ({ user }) => {
                                         ? 'navbar__link navbar__link--active'
                                         : 'navbar__link'
                                 }
-                                role='menuitem'
-                                to='/sign-up/'
+                                role="menuitem"
+                                to="/sign-up/"
                             >
                                 Sign Up
                             </NavLink>
                         )}
                     </div>
                     {user && (
-                        <div className='navbar__actions'>
+                        <div className="navbar__actions">
                             <button
-                                className='navbar__btn'
+                                className="navbar__btn"
                                 onClick={() =>
                                     searchModalRef.current.showModal()
                                 }
                             >
-                                <i className='fa-solid fa-magnifying-glass fa-xm'></i>
-                                <span className='sr-only'>Search</span>
+                                <i className="fa-solid fa-magnifying-glass fa-xm"></i>
+                                <span className="sr-only">Search</span>
                             </button>
-                            <button className='navbar__btn'>
-                                <i className='fa-regular fa-bell fa-xm'></i>
-                                <span className='sr-only'>Notifications</span>
+                            <button
+                                className="navbar__btn"
+                                onClick={() =>
+                                    notificationsModalRef.current.showModal()
+                                }
+                            >
+                                <i className="fa-regular fa-bell fa-xm"></i>
+                                <span className="sr-only">Notifications</span>
                             </button>
                             <NavLink
                                 className={({ isActive }) =>
@@ -166,7 +173,7 @@ export const Navbar = ({ user }) => {
                                         ? 'navbar__link navbar__link--active'
                                         : 'navbar__link'
                                 }
-                                to='/settings/'
+                                to="/settings/"
                             >
                                 Settings
                             </NavLink>
@@ -175,6 +182,7 @@ export const Navbar = ({ user }) => {
                 </nav>
             </header>
             <SearchModal ref={searchModalRef} />
+            <NotificationsModal ref={notificationsModalRef} />
         </>
     );
 };

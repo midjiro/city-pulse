@@ -18,6 +18,7 @@ import { PostDetails } from 'pages/PostDetails';
 import { EventDetails } from 'pages/EventDetails';
 import { Navbar } from 'layouts/Navbar';
 import { MapView } from 'pages/MapView';
+import { SocketContextProvider } from 'components/context/socket';
 
 export const Router = () => {
     const [user] = useSelector(selectCurrentUser);
@@ -28,55 +29,63 @@ export const Router = () => {
     }, [user, dispatch]);
 
     return (
-        <BrowserRouter>
-            <ToastContainer position='top-center' limit={1} />
-            <Navbar user={user} />
+        <SocketContextProvider>
+            <BrowserRouter>
+                <ToastContainer position="top-center" limit={1} />
+                <Navbar user={user} />
 
-            <Routes>
-                <Route path='/' element={<App />}>
-                    <Route index element={<Home />} />
-                    <Route path='sign-in' element={<SignIn user={user} />} />
-                    <Route path='sign-up' element={<SignUp user={user} />} />
-                    <Route
-                        path='post/:publicationID'
-                        element={<PostDetails />}
-                    />
-                    <Route
-                        path='event/:publicationID'
-                        element={<EventDetails />}
-                    />
-                    <Route
-                        path='event/map-view/:publicationID'
-                        element={<MapView />}
-                    />
-                    <Route
-                        path='post/create'
-                        element={
-                            <Protected>
-                                <CreatePost />
-                            </Protected>
-                        }
-                    />
-                    <Route
-                        path='event/create'
-                        element={
-                            <Protected>
-                                <CreateEvent />
-                            </Protected>
-                        }
-                    />
+                <Routes>
+                    <Route path="/" element={<App />}>
+                        <Route index element={<Home />} />
+                        <Route
+                            path="sign-in"
+                            element={<SignIn user={user} />}
+                        />
+                        <Route
+                            path="sign-up"
+                            element={<SignUp user={user} />}
+                        />
+                        <Route
+                            path="post/:publicationID"
+                            element={<PostDetails />}
+                        />
+                        <Route
+                            path="event/:publicationID"
+                            element={<EventDetails />}
+                        />
+                        <Route
+                            path="event/map-view/:publicationID"
+                            element={<MapView />}
+                        />
+                        <Route
+                            path="post/create"
+                            element={
+                                <Protected>
+                                    <CreatePost />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="event/create"
+                            element={
+                                <Protected>
+                                    <CreateEvent />
+                                </Protected>
+                            }
+                        />
 
-                    <Route path='user/:userID' element={<Profile />} />
-                    <Route
-                        path='settings'
-                        element={
-                            <Protected>
-                                <Settings />
-                            </Protected>
-                        }
-                    />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+                        <Route path="user/:userID" element={<Profile />} />
+                        <Route
+                            path="settings"
+                            element={
+                                <Protected>
+                                    <Settings />
+                                </Protected>
+                            }
+                        />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </SocketContextProvider>
     );
 };
