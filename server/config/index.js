@@ -13,7 +13,8 @@ module.exports = {
     mapAPIKey: process.env.MAP_API_KEY,
     nodemailerUser: process.env.NODEMAILER_USER,
     nodemailerPass: process.env.NODEMAILER_PASS,
-    port: process.env.PORT,
+    serverPort: process.env.SERVER_PORT,
+    socketPort: process.env.SOCKET_PORT,
     mongoPassword: process.env.MONGO_PASSWORD,
     clientAppEndpoint: process.env.CLIENT_APP_ENDPOINT,
 };

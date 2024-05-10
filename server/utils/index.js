@@ -77,6 +77,12 @@ const getLocationCoordinates = async (location) => {
         throw new Error('Error fetching location coordinates.');
     }
 };
+
+const findSocketByUser = (connections, user) => {
+    const sock = connections.find((conn) => conn.user?._id === user._id);
+
+    return sock?.id;
+};
 module.exports = {
     isLoggedIn,
     isCredentialsProvided,
@@ -85,4 +91,5 @@ module.exports = {
     addFieldIfTruthy,
     handleProfilePictureUpdate,
     getLocationCoordinates,
+    findSocketByUser,
 };
