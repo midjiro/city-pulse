@@ -27,10 +27,10 @@ const sessionMiddleware = session({
     saveUninitialized: false,
     resave: false,
     cookie: {
-        sameSite: 'none',
-        secure: true,
+        sameSite: clientAppEndpoint.startsWith('http') ? 'strict' : 'none',
+        secure: clientAppEndpoint.startsWith('http') ? false : true,
     },
-    store: MongoStore.create({
+    store: new MongoStore({
         mongoUrl: `mongodb+srv://midjiro:${mongoPassword}@local-newsletter.hjdkibl.mongodb.net/?retryWrites=true&w=majority&appName=local-newsletter`,
     }),
 });
