@@ -21,6 +21,10 @@ const { userRouter } = require('./routes/user');
 const { publicationRouter } = require('./routes/publication');
 const { nodemailerUser, nodemailerPass } = require('./config');
 const { recvNotification } = require('./services/notifications');
+mongoose.connect(
+    `mongodb+srv://midjiro:${mongoPassword}@local-newsletter.hjdkibl.mongodb.net/?retryWrites=true&w=majority&appName=local-newsletter`
+);
+const db = mongoose.connection;
 
 const sessionMiddleware = session({
     secret: sessionSecret,
@@ -31,11 +35,11 @@ const sessionMiddleware = session({
         secure: clientAppEndpoint.startsWith('http') ? false : true,
     },
     store: new MongoStore({
-        mongoUrl: `mongodb+srv://midjiro:${mongoPassword}@local-newsletter.hjdkibl.mongodb.net/?retryWrites=true&w=majority&appName=local-newsletter`,
+        mongoUrl: db.client.s.url,
     }),
 });
 const corsOptions = {
-    origin: clientAppEndpoint,
+    origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 };
@@ -82,9 +86,6 @@ io.on('connection', (sock) => {
 
 const start = () => {
     try {
-        mongoose.connect(
-            `mongodb+srv://midjiro:${mongoPassword}@local-newsletter.hjdkibl.mongodb.net/?retryWrites=true&w=majority&appName=local-newsletter`
-        );
         app.listen(serverPort);
         console.log('Listening on port ', serverPort);
     } catch (e) {
