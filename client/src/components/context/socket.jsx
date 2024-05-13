@@ -12,7 +12,7 @@ export const SocketContextProvider = ({ children }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const newSocket = io('http://localhost:5001', {
+        const newSocket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {
             withCredentials: true,
         });
 
