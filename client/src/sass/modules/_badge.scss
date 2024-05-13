@@ -1,0 +1,11 @@
+@use '../vars';
+
+.badge {
+    border-radius: 50%;
+}
+
+.badge__text {
+    font-size: 11px;
+    margin: 0;
+    padding: 0;
+}

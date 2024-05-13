@@ -5,6 +5,9 @@ import publicationReducer from 'features/publication/publicationReducer';
 import filterReducer from 'features/filter/filterSlice';
 import notificationReducer from 'features/notification/notificationReducer';
 
+const isInDevelopmentMode =
+    !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+
 export const store = configureStore({
     reducer: {
         userReducer,
@@ -12,5 +15,8 @@ export const store = configureStore({
         filterReducer,
         notificationReducer,
     },
-    middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), logger],
+    middleware: (getDefaultMiddleware) =>
+        isInDevelopmentMode
+            ? [...getDefaultMiddleware(), logger]
+            : getDefaultMiddleware(),
 });

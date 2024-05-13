@@ -5,6 +5,12 @@ export const selectFilter = (state) => state.filterReducer.filter;
 export const selectNotifications = (state) =>
     state.notificationReducer.notifications;
 
+export const selectUnreadedNotifications = createSelector(
+    selectNotifications,
+    (notifications) =>
+        notifications.filter((notification) => !!notification.unreaded)
+);
+
 export const selectCurrentUser = createSelector(
     (state) => state.userReducer,
     (userReducer) => [userReducer.currentUser, userReducer.pending]

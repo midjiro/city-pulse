@@ -3,12 +3,15 @@ import { NavLink } from 'react-router-dom';
 import { Dropdown } from '../components/ui/Dropdown';
 import { SearchModal } from 'layouts/Search';
 import { NotificationsModal } from './Notifications';
+import { useSelector } from 'react-redux';
+import { selectUnreadedNotifications } from 'features/selectors';
 
 export const Navbar = ({ user }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const navbarRef = useRef();
     const searchModalRef = useRef();
     const notificationsModalRef = useRef();
+    const notifications = useSelector(selectUnreadedNotifications);
 
     const handleResize = () => {
         if (window.innerWidth >= 837) setIsExpanded(true);
@@ -149,12 +152,20 @@ export const Navbar = ({ user }) => {
                                 <span className="sr-only">Search</span>
                             </button>
                             <button
-                                className="navbar__btn"
+                                className="navbar__btn navbar__btn--notifications"
                                 onClick={() =>
                                     notificationsModalRef.current.showModal()
                                 }
                             >
                                 <i className="fa-regular fa-bell fa-xm"></i>
+                                {notifications.length > 0 && (
+                                    <div className="badge navbar__badge">
+                                        <p className="badge__text">
+                                            {notifications.length}
+                                        </p>
+                                    </div>
+                                )}
+
                                 <span className="sr-only">Notifications</span>
                             </button>
                             <NavLink

@@ -20,10 +20,10 @@ export const SearchExcerpt = ({ publication, onClick }) => {
                 </Link>
             </h3>
 
-            <p className="date">
+            <span className="date">
                 Published at:{' '}
                 {format(publication.publishedAt.toString(), 'PPPPp')}
-            </p>
+            </span>
         </article>
     );
 };

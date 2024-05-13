@@ -9,6 +9,12 @@ const notificationReducer = createSlice({
         addNotification: (state, action) => {
             state.notifications.push(action.payload);
         },
+        markAllAsReaded: (state) => {
+            state.notifications = state.notifications.map((notification) => ({
+                ...notification,
+                unreaded: false,
+            }));
+        },
     },
 });
 

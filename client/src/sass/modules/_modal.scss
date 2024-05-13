@@ -10,13 +10,21 @@
 
 .modal__header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
     margin-block-end: 1.5rem;
 }
 
 .modal__header-title {
     margin-block: 0;
+}
+
+.modal__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .modal__btn {
@@ -46,18 +54,18 @@
     }
 }
 
-.modal__excerpt {
-    padding: 1rem 1rem 0rem;
-    border: 1px solid vars.$clr-white-200;
-    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.025);
-}
-
-.modal__excerpt-text {
-    margin-block: 0.5rem;
-}
-
 .modal__title {
     display: block;
     margin-block: 0rem 0.5rem;
     font-size: vars.$fs-500;
+}
+
+.modal__excerpt {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: start;
+    padding: 1rem 1rem;
+    border: 1px solid vars.$clr-white-200;
+    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.025);
 }

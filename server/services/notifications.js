@@ -12,7 +12,10 @@ const recvNotification = (io, notification) => {
 
     if (!recipientSocketID) return;
 
-    io.to(recipientSocketID).emit('recv-notification', notification);
+    io.to(recipientSocketID).emit('recv-notification', {
+        ...notification,
+        unreaded: true,
+    });
 };
 
 module.exports = { recvNotification };

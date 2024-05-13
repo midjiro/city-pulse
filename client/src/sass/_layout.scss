@@ -99,6 +99,23 @@
     gap: 0.5rem;
 }
 
+.navbar__btn--notifications {
+    position: relative;
+}
+
+.navbar__badge {
+    inline-size: 16px;
+    aspect-ratio: 1 / 1;
+    background: vars.$clr-red-100;
+
+    position: absolute;
+    inset: 2px 8px auto auto;
+
+    & > .badge__text {
+        color: vars.$clr-white-100;
+    }
+}
+
 .navbar__link {
     display: block;
     inline-size: max-content;
