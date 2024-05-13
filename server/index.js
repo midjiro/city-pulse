@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const MongoStore = require('connect-mongo');
 const { Server } = require('socket.io');
 const {
     sessionSecret,
@@ -26,8 +27,12 @@ const sessionMiddleware = session({
     saveUninitialized: false,
     resave: false,
     cookie: {
-        sameSite: 'strict',
+        sameSite: 'none',
+        secure: true,
     },
+    store: MongoStore.create({
+        mongoUrl: `mongodb+srv://midjiro:${mongoPassword}@local-newsletter.hjdkibl.mongodb.net/?retryWrites=true&w=majority&appName=local-newsletter`,
+    }),
 });
 const corsOptions = {
     origin: clientAppEndpoint,
@@ -81,7 +86,7 @@ const start = () => {
             `mongodb+srv://midjiro:${mongoPassword}@local-newsletter.hjdkibl.mongodb.net/?retryWrites=true&w=majority&appName=local-newsletter`
         );
         app.listen(serverPort);
-        console.log('Listening on port ', port);
+        console.log('Listening on port ', serverPort);
     } catch (e) {
         console.log(e.message);
     }
