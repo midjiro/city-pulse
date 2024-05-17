@@ -97,3 +97,51 @@ Week 6:
 -   Design UI for displaying search results. ✅
 -   Write unit tests for search functionality.
 -   Document search endpoints for Postman collection.
+
+Week 7:
+
+-   Implement interactive map feature. ✅
+-   Integrate map API for displaying locations. ✅
+-   Design UI for interacting with the map. ✅
+-   Write unit tests for map functionality.
+-   Document map endpoints for Postman collection.
+
+Week 8:
+
+-   Implement commenting system. ✅
+-   Design UI for commenting on articles and events. ✅
+-   Develop backend logic for managing comments. ✅
+-   Write unit tests for commenting functionality.
+-   Document commenting endpoints for Postman collection.
+
+Week 9:
+
+-   Implement notification system. ✅
+-   Design UI for displaying notifications. ✅
+-   Develop backend logic for sending notifications. ✅
+-   Integrate notification triggers with relevant actions.
+-   Write unit tests for notification functionality.
+
+Week 10:
+
+-   Implement social sharing feature. ✅
+-   Integrate social media APIs for sharing content. ✅
+-   Design UI for sharing articles and events. ✅
+-   Write unit tests for social sharing functionality.
+-   Document sharing endpoints for Postman collection.
+
+Week 11:
+
+-   Develop admin dashboard.
+-   Design UI for managing user accounts and content moderation.
+-   Implement backend functionality for admin tasks.
+-   Write unit tests for admin dashboard features.
+-   Document admin endpoints for Postman collection.
+
+Week 12:
+
+-   Set up email welcome message functionality. ✅
+-   Configure email service for sending welcome messages. ✅
+-   Design email template with platform overview and guidelines. ✅
+-   Write unit tests for email sending functionality.
+-   Document email endpoints for Postman collection.
