@@ -6,6 +6,8 @@ $clr-green-100: #52cf3e;
 $clr-white-100: #ffffff;
 $clr-white-200: #f6f6f6;
 
+/*Make clr white 200 darker for vert bright displays*/
+
 /*  29.8598px → 42.7246px */
 $fs-100: clamp(1.8662rem, 1.5982rem + 1.3401vi, 2.6703rem);
 /*  24.8832px → 34.1797px */
