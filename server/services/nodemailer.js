@@ -11,7 +11,8 @@ function getTransporter(user, pass) {
 }
 
 function generateMailOptions(recipient) {
-    return {
+  return {
+        // Antilab 2: NO IMPORTANT DATA NOT IN .env FILE
         from: 'miha.gulak@gmail.com',
         to: recipient.email,
         subject: 'City Pulse welcome message',

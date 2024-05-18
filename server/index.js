@@ -21,6 +21,7 @@ const { userRouter } = require('./routes/user');
 const { publicationRouter } = require('./routes/publication');
 const { nodemailerUser, nodemailerPass } = require('./config');
 const { recvNotification } = require('./services/notifications');
+// Antilab 2: NO IMPORTANT DATA NOT IN .env FILE
 mongoose.connect(
     `mongodb+srv://midjiro:${mongoPassword}@local-newsletter.hjdkibl.mongodb.net/?retryWrites=true&w=majority&appName=local-newsletter`
 );

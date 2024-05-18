@@ -29,6 +29,7 @@ const authenticateWithEmailAndPassword = async (email, password, done) => {
     }
 };
 
+// Antilab 2: No unused parameters
 const authenticateWithGoogle = async (
     accessToken,
     refreshToken,
