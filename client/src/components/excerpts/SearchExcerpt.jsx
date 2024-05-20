@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const SearchExcerpt = ({ publication, onClick }) => {
     return (
-        <article className="except modal__excerpt">
+        <article className="excerpt modal__excerpt">
             <h3 className="excerpt__title modal__title">
                 <Link
                     to={
