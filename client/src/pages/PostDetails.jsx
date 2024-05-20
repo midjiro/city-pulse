@@ -74,7 +74,7 @@ export const PostDetails = () => {
             <Markdown>{post.content}</Markdown>
             <SocialShare publication={post} />
             <Comments
-                publicationID={publicationID}
+                publication={post}
                 commentList={post.comments}
                 user={user}
             />

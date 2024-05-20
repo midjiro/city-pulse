@@ -15,15 +15,15 @@ export const SignIn = ({ user }) => {
 
     useEffect(() => {
         if (user) navigate('/');
-    }, [user]);
+    }, [user, navigate]);
 
     return (
-        <section className='auth'>
+        <section className="auth">
             <h2>Access Hub</h2>
             <p>Seamless Sign In for Your Convenience</p>
             <form
-                action=''
-                className='auth__form'
+                action=""
+                className="auth__form"
                 onSubmit={handleSubmit((data) => {
                     dispatch(signIn(data))
                         .then(unwrapResult)
@@ -35,43 +35,43 @@ export const SignIn = ({ user }) => {
             >
                 <FormField
                     control={control}
-                    type='email'
-                    name='email'
-                    autocomplete='email'
+                    type="email"
+                    name="email"
+                    autocomplete="email"
                     rules={{
                         required: {
                             value: true,
                             message: 'This is required field.',
                         },
                     }}
-                    label='Your email'
+                    label="Your email"
                 />
                 <FormField
                     control={control}
-                    type='password'
-                    name='password'
-                    autocomplete='current-password'
+                    type="password"
+                    name="password"
+                    autocomplete="current-password"
                     rules={{
                         required: {
                             value: true,
                             message: 'This is required field.',
                         },
                     }}
-                    label='Your password'
+                    label="Your password"
                 />
-                <div className='auth__additional-links'>
-                    <Link to='/sign-up/' className='link'>
+                <div className="auth__additional-links">
+                    <Link to="/sign-up/" className="link">
                         have no account? Sign Up!
                     </Link>
-                    <Link to='/recovery/' className='link'>
+                    <Link to="/recovery/" className="link">
                         Forgot password?
                     </Link>
                 </div>
-                <button className='btn btn--success'>Sign In</button>
+                <button className="btn btn--success">Sign In</button>
             </form>
             <div>
                 <p>Alternative ways to sign in:</p>
-                <button className='btn' onClick={initializeGoogleAuth}>
+                <button className="btn" onClick={initializeGoogleAuth}>
                     With google
                 </button>
             </div>

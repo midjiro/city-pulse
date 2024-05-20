@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const { nodemailerUser } = require('../config');
 
 function getTransporter(user, pass) {
     return nodemailer.createTransport({
@@ -12,7 +13,7 @@ function getTransporter(user, pass) {
 
 function generateMailOptions(recipient) {
     return {
-        from: 'miha.gulak@gmail.com',
+        from: nodemailerUser,
         to: recipient.email,
         subject: 'City Pulse welcome message',
         html: `<!DOCTYPE html>

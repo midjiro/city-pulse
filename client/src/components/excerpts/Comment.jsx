@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 
 export const Comment = ({
     publicationID,
+    publicationAuthor,
     _id: commentID,
     by,
     content,
@@ -19,27 +20,32 @@ export const Comment = ({
             .then(() => toast('Comment removed successfully'))
             .catch((error) => toast(error));
     };
+    const isAuthorized = [
+        by._id.toString(),
+        publicationAuthor._id.toString(),
+    ].includes(user._id.toString());
+
     return (
-        <article className='comment'>
-            <div className='author comment__author'>
+        <article className="comment">
+            <div className="author comment__author">
                 <img
                     src={by?.picture}
-                    alt=''
-                    className='avatar author__avatar'
+                    alt=""
+                    className="avatar author__avatar"
                 />
-                <p className='author__name'>
+                <p className="author__name">
                     <Link
                         to={`/user/${by._id}`}
-                        className='author__profile-link'
+                        className="author__profile-link"
                     >
                         {by.displayName}
                     </Link>
                 </p>
             </div>
             <p>{content}</p>
-            {by._id === user?._id && (
+            {isAuthorized && (
                 <button
-                    className='btn btn--danger'
+                    className="btn btn--danger"
                     onClick={() => handleDelete(commentID)}
                 >
                     Remove

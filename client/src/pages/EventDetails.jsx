@@ -79,7 +79,7 @@ export const EventDetails = () => {
             <p>{event.content}</p>
             <SocialShare publication={event} />
             <Comments
-                publicationID={publicationID}
+                publication={event}
                 commentList={event.comments}
                 user={user}
             />

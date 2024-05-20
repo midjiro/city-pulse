@@ -122,28 +122,36 @@ const deleteComment = async (req, res, next) => {
     const { publicationID, commentID } = req.params;
 
     try {
-        let publication = await Publication.findById(publicationID);
-        publication = await publication.populate(['author', 'comments.by']);
+        let publication = await Publication.findById(publicationID).populate([
+            'author',
+            'comments.by',
+        ]);
 
-        const filteredComments = publication.comments.filter((comment) => {
-            if (comment._id === commentID && comment.by._id !== req.user._id) {
-                return res.status(401).json({
-                    message: 'Only authors can delete their comments.',
-                });
-            }
+        if (!publication) {
+            return res.status(404).json({ message: 'Publication not found.' });
+        }
 
-            return comment._id.toString() !== commentID;
-        });
-
-        publication = await Publication.findByIdAndUpdate(
-            publicationID,
-            {
-                comments: filteredComments,
-            },
-            { returnOriginal: false }
+        const comment = publication.comments.find(
+            (comment) => comment._id.toString() === commentID
         );
+        if (!comment) {
+            return res.status(404).json({ message: 'Comment not found.' });
+        }
 
-        publication = await publication.populate(['author', 'comments.by']);
+        const isAuthorized = [
+            comment.by._id.toString(),
+            publication.author._id.toString(),
+        ].includes(req.user._id.toString());
+        if (!isAuthorized) {
+            return res
+                .status(401)
+                .json({ message: 'Only authors can delete their comments.' });
+        }
+
+        publication.comments = publication.comments.filter(
+            (comment) => comment._id.toString() !== commentID
+        );
+        await publication.save();
 
         return res.json(publication);
     } catch (error) {
