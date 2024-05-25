@@ -78,3 +78,9 @@ export const selectPublicationsByTitle = createSelector(
         ];
     }
 );
+
+export const selectDraftList = (state) => state.draftsReducer.draftList;
+export const selectSingleDraft = createSelector(
+    [selectDraftList, (state, draftID) => draftID],
+    (draftList, draftID) => draftList.find((draft) => draft._id === draftID)
+);

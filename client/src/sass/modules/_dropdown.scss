@@ -8,6 +8,9 @@
 .dropdown__menu {
     padding: 1rem 0.5rem;
     transform-origin: top center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 
     @media screen and (width >=720px) {
         position: absolute;
@@ -43,6 +46,6 @@
     }
     to {
         scale: 1 1;
-        display: block;
+        display: flex;
     }
 }

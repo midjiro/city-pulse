@@ -7,6 +7,7 @@ import Markdown from 'react-markdown';
 import { createPost } from 'features/publication/publicationAPI';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { addDraft } from 'features/drafts/draftsSlice';
 
 export const CreatePost = () => {
     const { control, handleSubmit, watch, reset } = useForm();
@@ -76,9 +77,24 @@ export const CreatePost = () => {
                     maxLength={1500}
                     control={control}
                 />
-                <button type="submit" className="btn btn--success form__btn">
-                    Create Post
-                </button>
+                <div className="form__actions">
+                    <button
+                        type="submit"
+                        className="btn btn--success form__btn"
+                    >
+                        Create Post
+                    </button>
+                    <button
+                        className="btn form__btn"
+                        onClick={handleSubmit((data) => {
+                            dispatch(addDraft(data));
+                            toast('Publication was saved as draft.');
+                            reset({ title: '', content: '' });
+                        })}
+                    >
+                        Save as Draft
+                    </button>
+                </div>
             </form>
             <div className="preview">
                 <h2 className="preview__title">Preview</h2>

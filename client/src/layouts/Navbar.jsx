@@ -151,6 +151,16 @@ export const Navbar = ({ user }) => {
                                         ? 'navbar__link navbar__link--active'
                                         : 'navbar__link'
                                 }
+                                to="/drafts/"
+                            >
+                                Drafts
+                            </NavLink>
+                            <NavLink
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? 'navbar__link navbar__link--active'
+                                        : 'navbar__link'
+                                }
                                 to={`/user/${user._id}/`}
                             >
                                 Profile

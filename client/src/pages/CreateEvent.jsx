@@ -8,6 +8,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { GeolocationFormField } from 'components/form/GeolocationFormField';
 import Markdown from 'react-markdown';
+import { addDraft } from 'features/drafts/draftsSlice';
 
 export const CreateEvent = () => {
     const { control, handleSubmit, reset, watch } = useForm();
@@ -97,9 +98,24 @@ export const CreateEvent = () => {
                     maxLength={1500}
                     control={control}
                 />
-                <button type="submit" className="btn btn--success form__btn">
-                    Create Event
-                </button>
+                <div className="form__actions">
+                    <button
+                        type="submit"
+                        className="btn btn--success form__btn"
+                    >
+                        Create Event
+                    </button>
+                    <button
+                        className="btn form__btn"
+                        onClick={handleSubmit((data) => {
+                            dispatch(addDraft(data));
+                            toast('Publication was saved as draft.');
+                            reset({ title: '', content: '' });
+                        })}
+                    >
+                        Save as Draft
+                    </button>
+                </div>
             </form>
             <div className="preview">
                 <h2 className="preview__title">Preview</h2>

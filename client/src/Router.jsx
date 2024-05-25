@@ -19,6 +19,8 @@ import { EventDetails } from 'pages/EventDetails';
 import { Navbar } from 'layouts/Navbar';
 import { MapView } from 'pages/MapView';
 import { SocketContextProvider } from 'components/context/socket';
+import { Drafts } from 'pages/Drafts';
+import { DraftDetails } from 'pages/DraftDetails';
 
 export const Router = () => {
     const [user] = useSelector(selectCurrentUser);
@@ -45,6 +47,7 @@ export const Router = () => {
                             path="sign-up"
                             element={<SignUp user={user} />}
                         />
+
                         <Route
                             path="post/:publicationID"
                             element={<PostDetails />}
@@ -62,6 +65,22 @@ export const Router = () => {
                             element={
                                 <Protected>
                                     <CreatePost />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="drafts"
+                            element={
+                                <Protected>
+                                    <Drafts />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="drafts/:draftID"
+                            element={
+                                <Protected>
+                                    <DraftDetails />
                                 </Protected>
                             }
                         />
