@@ -61,10 +61,7 @@ export const SignIn = ({ user }) => {
                 />
                 <div className="auth__additional-links">
                     <Link to="/sign-up/" className="link">
-                        have no account? Sign Up!
-                    </Link>
-                    <Link to="/recovery/" className="link">
-                        Forgot password?
+                        Have no account? Sign Up!
                     </Link>
                 </div>
                 <button className="btn btn--success">Sign In</button>

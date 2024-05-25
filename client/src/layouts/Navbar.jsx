@@ -80,29 +80,6 @@ export const Navbar = ({ user }) => {
                         >
                             Home
                         </NavLink>
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive
-                                    ? 'navbar__link navbar__link--active'
-                                    : 'navbar__link'
-                            }
-                            role="menuitem"
-                            to="/about/"
-                        >
-                            About
-                        </NavLink>
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive
-                                    ? 'navbar__link navbar__link--active'
-                                    : 'navbar__link'
-                            }
-                            role="menuitem"
-                            to="/contact/"
-                        >
-                            Contact
-                        </NavLink>
-
                         {user ? (
                             <Dropdown title="Create">
                                 <NavLink

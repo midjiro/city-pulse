@@ -1,0 +1,16 @@
+@use '../vars';
+
+.preview {
+    padding: 1.5rem;
+    box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+.preview__title {
+    margin-block-start: 0;
+}
+
+.preview__content {
+    max-block-size: 300px;
+    overflow-y: scroll;
+}

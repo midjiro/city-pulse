@@ -8,39 +8,33 @@ export const PublicationExcerpt = ({
     publishedAt,
     location,
     title,
-    content,
 }) => {
     return (
-        <article className='excerpt'>
-            <header className='author'>
+        <article className="excerpt">
+            <header className="author">
                 <img
                     src={author?.picture}
-                    alt=''
-                    className='author__avatar avatar'
+                    alt=""
+                    className="author__avatar avatar"
                 />
                 <a
                     href={`/user/${author._id}`}
-                    className='author__profile-link'
+                    className="author__profile-link"
                 >
                     {author.displayName}
                 </a>
             </header>
-            <div className='excerpt__content'>
-                <h2 className='excerpt__title'>
+            <div className="excerpt__content">
+                <h2 className="excerpt__title">
                     <Link
                         to={location ? `/event/${_id}` : `/post/${_id}`}
-                        className='excerpt__link'
+                        className="excerpt__link"
                     >
                         {title}
                     </Link>
                 </h2>
-                <p className='date'>
+                <p className="date">
                     Published at: {format(publishedAt.toString(), 'PPPPp')}
-                </p>
-                <p className='excerpt__text'>
-                    {content.length > 100
-                        ? content.substr(0, 100) + '...'
-                        : content}
                 </p>
             </div>
         </article>
