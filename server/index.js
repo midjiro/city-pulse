@@ -39,7 +39,12 @@ const sessionMiddleware = session({
     }),
 });
 const corsOptions = {
-    origin: true,
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:3000/',
+        'https://local-news-client-eight.vercel.app',
+        'https://local-news-client-eight.vercel.app/',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 };
