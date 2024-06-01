@@ -15,12 +15,12 @@ const {
     serverPort,
     socketPort,
     clientAppEndpoint,
-} = require('./config/index');
-const { authRouter } = require('./routes/auth');
-const { userRouter } = require('./routes/user');
-const { publicationRouter } = require('./routes/publication');
-const { nodemailerUser, nodemailerPass } = require('./config');
-const { recvNotification } = require('./services/notifications');
+} = require('../config/index');
+const { authRouter } = require('../routes/auth');
+const { userRouter } = require('../routes/user');
+const { publicationRouter } = require('../routes/publication');
+const { nodemailerUser, nodemailerPass } = require('../config');
+const { recvNotification } = require('../services/notifications');
 mongoose.connect(
     `mongodb+srv://midjiro:${mongoPassword}@local-newsletter.hjdkibl.mongodb.net/?retryWrites=true&w=majority&appName=local-newsletter`
 );
@@ -94,3 +94,5 @@ const start = () => {
 };
 
 start();
+
+module.exports = app;
