@@ -32,8 +32,8 @@ const sessionMiddleware = session({
     resave: false,
     cookie: {
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        sameSite: clientAppEndpoint.startsWith('http') ? 'strict' : 'none',
-        secure: clientAppEndpoint.startsWith('http') ? false : true,
+        sameSite: clientAppEndpoint.startsWith('https') ? 'none' : 'strict',
+        secure: clientAppEndpoint.startsWith('https') ? true : false,
     },
     store: new MongoStore({
         mongoUrl: db.client.s.url,
