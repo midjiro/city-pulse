@@ -46,6 +46,7 @@ const corsOptions = {
 };
 
 const app = express();
+app.set('trust proxy', 1);
 const io = new Server(socketPort, {
     cors: corsOptions,
 });
