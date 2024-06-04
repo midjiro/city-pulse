@@ -10,8 +10,6 @@ import { removeDraft } from 'features/drafts/draftsSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Dropdown } from 'components/ui/Dropdown';
 
-import { SocialShare } from 'components/ui/SocialShare';
-
 export const DraftDetails = () => {
     const { draftID } = useParams();
     const draft = useSelector((state) => selectSingleDraft(state, draftID));
@@ -78,7 +76,6 @@ export const DraftDetails = () => {
                 </>
             )}
             <Markdown>{draft.content}</Markdown>
-            <SocialShare publication={draft} />
         </article>
     );
 };

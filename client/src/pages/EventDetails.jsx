@@ -79,11 +79,7 @@ export const EventDetails = () => {
             </p>
             <Markdown>{event.content}</Markdown>
             <SocialShare publication={event} />
-            <Comments
-                publication={event}
-                commentList={event.comments}
-                user={user}
-            />
+            <Comments publication={event} user={user} />
         </article>
     );
 };
