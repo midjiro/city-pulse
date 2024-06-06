@@ -2,12 +2,13 @@ const { Storage } = require('@google-cloud/storage');
 const { User } = require('../models/user');
 const { gcsKeyPath, gcsProjectId, gcsBucketName } = require('../config/index');
 const { addFieldIfTruthy, handleProfilePictureUpdate } = require('../utils');
+const path = require('path');
 
 const { Publication } = require('../models/publication');
 
 const storage = new Storage({
     projectId: gcsProjectId,
-    keyFilename: gcsKeyPath,
+    keyFilename: path.join(__dirname, `../${gcsKeyPath}`),
 });
 const bucket = storage.bucket(gcsBucketName);
 
