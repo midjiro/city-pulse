@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "express-auth-test-415813",
+    "private_key_id": "e4ef46fe28e93407b4fc5246b88468d9fa807167",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDTa01glbIzI2kw\nLlhdJrFULqYD2ubNnCLBHDjYGGPfBD5I4jD52rsduXblcNQgXu54BQA3NQaLNsGn\nxOqRsv7YJe/wwHXKfuOyI13UIf6qcVvxVMPdUZPZXCJsbf9evI4KY25OZDJoytkN\n9G2UJuIjmkzW0BoqndM0peow/2Eb4R48XuE0bw6dNVwYDboQ4JV0c9RpS87B6Sem\nu40ZQjuKnJIK0vLXTAQfzyOmiYEjb4qtymhumR/OkXJmLf2tMjsOdZ9tELbeO4AI\nW9s1UxVvvx8CBSlrLs9ndvATRwUHXXmbrT9hWKrCOhIOmnCjPy3Dn8dy656qOszU\nAmbHHfV9AgMBAAECggEADTY96iTAs5hpaOTkicGywDeAEWqbFMtGkrnQRZTUnOm3\neLeF5v9HxTZDW1g/MVytW1u4pTqPk6CS3oicPgmpClnokit80PA4C3hRU0Hil8Uo\nwT6SVODVs/YhgpQnKsTuvXB0QrrZOZo/kTMuq9z4MdBhL+VmVTZyre4WYgR7jZHZ\nQFIO0U9qxC69bgrrrjDuIxlIzmYfUJLf1v8eDfrey1zd8IIICpY9Q7WO9FftCcho\n8zU+BXvjk1U0NmDk0UjE27jIZS/+pNNDkrHTQN+mZGZdr+os/ypz3wHAtGoTI73u\nAc1QQUKzhxHg1pAdvDd0Wb9JbbmpXvFhrjo08VCEwQKBgQD2/u00wjQ94W8Kif39\nftgBsIkqDX5PrKurAb7QlpP/t4kOZvUWYpjTbEXZC7zIY3dcz7zjr7BZAN3Iz7Po\nn3eQ8VqcWt7mFPt0ma/wfjxB1QGQ7wYd9UxPMQ5OaIrYAipxcIF4oldm9uzRdBSZ\nmmABoXNrWhuniCe0DuWsnarxYQKBgQDbIFvRjX/pqvWxPIeUvwA2QIfQyhIVztBC\nnT0ttKj/RXSB1c/jOwTlogOTzqhBgOcJmwhY6euN8GBGQg2+iC0baMses4ieMozP\ndXXB2qF7rzIQUpM5gduvaIg3RLyEKtsZcADMff/vJFGKNcNsMDVdwH8b3pyz/k3w\noh1vdsYNnQKBgHrlk1959gaIQfkLej6Eu7Pzg/xRpHS+ZNh80NX25oMJbn+lCPPv\ncT1ZlVOOvIs0urKKhuD/jQ5sGO6PMmRf3F1ZSg2cRWZUMF3vDpTqKs9SzimwVOnZ\nIPQSY5zt9Y/PXBD/utwsYrLP0DvTt2BKaNTG4agbuMDeRWsZMnx2IxVhAoGBANDo\nk8FABxAuZljYHWaphjky4oki7YUPDCxGHnqBv5DHleDmiHDZ5rxK7uAu6OiyTRIy\nVQ33zhQfdJnnBZV93ItCKEyX24r/JJHxKRhtKQFzMOaw4x2zeU9M+HjAtn3HIeWp\ni4lqIuPKm1aKFUsC1w4PpN9cJ8fOjl35INkQwpddAoGAHZBO31Ic+M54ci8vMjeV\nG9S/nh5/EoZZqfVZxPD87jKmf8XZvKf6cDa0c0lPjtjMRFoMCEu8VgCszdUGiklL\nFUGye+kSOkdO3zLIaV2p+2x4ymE75r5ZnsoKj0DBvhZ5KmhHr9+BM2aWFl6NCB8/\nTJFvvoHy1Gj3pmE+eNeOe3Y=\n-----END PRIVATE KEY-----\n",
+    "client_email": "express-auth-service@express-auth-test-415813.iam.gserviceaccount.com",
+    "client_id": "112109821521797381990",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/express-auth-service%40express-auth-test-415813.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+}
