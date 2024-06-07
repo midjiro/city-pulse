@@ -10,6 +10,8 @@ module.exports = {
     gcsProjectId: process.env.GCS_PROJECT_ID,
     gcsKeyPath: process.env.GCS_KEY_PATH,
     gcsBucketName: process.env.GCS_BUCKET_NAME,
+    gcpServiceAccountEmail: process.env.GCP_SERVICE_ACCOUNT_EMAIL,
+    gcpPrivateKey: process.env.GCP_PRIVATE_KEY,
     mapAPIKey: process.env.MAP_API_KEY,
     nodemailerUser: process.env.NODEMAILER_USER,
     nodemailerPass: process.env.NODEMAILER_PASS,
