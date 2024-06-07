@@ -31,6 +31,8 @@ const sessionMiddleware = session({
     saveUninitialized: false,
     resave: false,
     cookie: {
+        domain: clientAppEndpoint,
+        path: '/',
         maxAge: 7 * 24 * 60 * 60 * 1000,
         sameSite: clientAppEndpoint.startsWith('https') ? 'none' : 'strict',
         secure: clientAppEndpoint.startsWith('https') ? true : false,
