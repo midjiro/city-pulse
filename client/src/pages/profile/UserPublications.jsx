@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import PublicationList from 'layouts/PublicationList';
 import { Pagination } from 'components/ui/Pagination';
 import { usePagination } from 'hooks/pagination';
 import { selectPublicationsByUser } from 'features/selectors';
+import { ProfileContext } from './Profile';
 
-export const ProfilePublications = ({ user }) => {
+export const UserPublications = () => {
+    const { user } = useContext(ProfileContext);
     const [publications, pending] = useSelector((state) =>
         selectPublicationsByUser(state, user)
     );

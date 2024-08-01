@@ -72,10 +72,7 @@ Hulak Mykhailo
 
 ## Feature Development & Support
 
-The following feature list will be added in the nearest future:
-
--   Real time commenting functionality
--   Fix for profile contact section of logged in users
+No updates planned.
 
 ## Usefull information
 
